@@ -82,8 +82,14 @@
 ;;  find-file.  If ffap is installed, ff-paths installs itself as a toolbox
 ;;  hook in ffap-alist (so load ff-paths after ffap).
 ;;
-;;  All you need to do is load it:
+;;  All you need to do is add this in ~/.emacs:
 ;;   (require 'ff-paths)
+;;   (ff-paths-install)
+;;  or customize the variable `ff-paths-install' to enable it.
+;;
+;;  NOTE: ff-paths used to install itself when it was loaded.  It no longer
+;;        does so because that is against the Emacs coding conventions.
+;;
 ;;
 ;;  You may alter the value of the variables:
 ;;
@@ -96,8 +102,11 @@
 ;;   ff-paths-require-match
 ;;   ff-paths-gzipped
 ;;
-;;  To see their documentation and current settings, do, for example:
-;;    C-h v ff-paths-use-locate
+;;  To see their documentation and current settings, do:
+;;    C-h v ff-paths-list
+;;  because that variable is _not_ customized, and also for all other
+;;  variables:
+;;    M-x customize-group ff-paths.
 
 ;; ----------------------------------------------------------------------------
 ;;; Change log:
@@ -199,6 +208,11 @@
 ;;   - checkdoc cleaning.
 ;;   - customization (still lacking the main variable `ff-paths-list'!)
 ;;   - byte-compiles clean!
+;; V3.20  June 16 2003 PSG
+;;   - Add /usr/X11R6/include// to ff-paths-list
+;;   - Add ff-paths-install to install this package (instead of doing so
+;;     automatically at load time).
+;;   - Add ff-paths-install defcustom to enable package.
 ;; ----------------------------------------------------------------------------
 ;;; Code:
 
@@ -215,7 +229,7 @@
   '(("\\.awk$" "$AWKPATH")              ; awk files in AWKPATH env variable.
     ("\\.bib$" "$BSTINPUTS" "$BIBINPUTS") ; bibtex files.
     ("\\.\\(sty\\|cls\\)$" "$TEXINPUTS" "/usr/share/texmf/tex//") ;LaTeX files
-    ("\\.[h]+$" "/usr/local/include//" "/usr/include//")
+    ("\\.[h]+$" "/usr/local/include//" "/usr/include//" "/usr/X11R6/include//")
     ("^\\." "~/")                       ; .* (dot) files in user's home
     ("\\.el$" load-path))               ; el extension in load-path elisp var
   "*List of paths to search for given file extension regexp's.
@@ -231,6 +245,31 @@ You may not mix strings with elisp lists (like `load-path').
 You may terminate a directory name with double slashes // indicating that
  all subdirectories beneath it should also be searched.")
 
+(defcustom ff-paths-install nil
+  "Whether to setup ff-paths for use.
+find-file-using-paths searches certain paths to find files."
+  :type 'boolean
+  :set (lambda (symbol value)
+         (set-default symbol value)
+         (when value
+           (ff-paths-install)))
+  :group 'ff-paths)
+
+(defcustom ff-paths-use-ffap nil
+  "Whether to setup ffap for use.
+
+Usually packages don't advertise or try to setup other packages, but
+ff-paths works well in combination with ffap (Find FILENAME, guessing a
+default from text around point) and so I recommend it here.
+
+find-file-using-paths searches certain paths to find files."
+  :type 'boolean
+  :set (lambda (symbol value)
+         (set-default symbol value)
+         (when value
+           (ff-paths-in-ffap-install)))
+  :group 'ff-paths)
+
 (defcustom ff-paths-display-non-existent-filename t
   "*find-file-using-paths-hook displays the prompted-for non-existent filename.
 If you use \"C-x C-f article.sty\" in a path where it does not exists,
@@ -241,7 +280,6 @@ in case you really wanted to create the new file (instead of pressing C-g
 to create the new file)."
   :group 'ff-paths
   :type 'boolean)
-
 
 (defcustom ff-paths-prompt-for-only-one-match t
   "*If non-nil, prompt the user for filename even if there is only one match.
@@ -862,9 +900,11 @@ Return a string if a single match, or a list if many matches."
       (kill-buffer ff-buffer)
       matches)))
 
-;;; Installs itself
-(add-hook 'find-file-not-found-hooks 'find-file-using-paths-hook t)
-(ff-paths-in-ffap-install)
+;;;###autoload
+(defun ff-paths-install ()
+  "Install ff-paths as a `find-file-not-found-hooks' and to ffap package."
+  (add-hook 'find-file-not-found-hooks 'find-file-using-paths-hook t)
+  (ff-paths-in-ffap-install))
 
 (provide 'ff-paths)
 ;;; ff-paths.el ends here
