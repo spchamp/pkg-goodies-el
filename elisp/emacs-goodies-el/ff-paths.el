@@ -1,11 +1,10 @@
-;;; ff-paths.el - find-file-using-paths searches certain paths to find files.
+;;; ff-paths.el --- find-file-using-paths searches certain paths to find files.
 
-;; Copyright (C) 1994-2002 Peter S. Galbraith
+;; Copyright (C) 1994-2003 Peter S. Galbraith
  
-;; Author:    Peter S. Galbraith <GalbraithP@dfo-mpo.gc.ca>
-;;                               <psg@debian.org>
+;; Author:    Peter S. Galbraith <psg@debian.org>
 ;; Created:   16 Sep 1994
-;; Version:   3.18 (07 January 2002)
+;; Version:   3.19 (21 April 2003)
 ;; Keywords:  find-file, ffap, paths, search
 
 ;;; This file is not part of GNU Emacs.
@@ -30,22 +29,23 @@
 
 ;; New versions of this package (if they exist) may be found at:
 ;;   http://people.debian.org/~psg/elisp/ff-paths.el
+;; or in the Debian package `emacs-goodies-el'.
 
-;; This code allows you to use C-x C-f normally most of the time, except that 
-;; if the requested file doesn't exist, it is checked against a list of 
+;; This code allows you to use C-x C-f normally most of the time, except that
+;; if the requested file doesn't exist, it is checked against a list of
 ;; patterns for special paths to search for a file of the same name.
 ;;
 ;; Examples:
-;;  - a file extension of .bib will cause to search the path defined in 
+;;  - a file extension of .bib will cause to search the path defined in
 ;;    $BSTINPUTS or $BIBINPUTS for the file you requested.
 ;;  - a file extension of .h will cause the /usr/include/ and
 ;;    /usr/local/include/ directory trees to be searched.
-;;  - a file extension of .sty causes a search of TEXINPUTS and of all 
+;;  - a file extension of .sty causes a search of TEXINPUTS and of all
 ;;    directories below /usr/lib/texmf/tex/
 ;;  - a file extension of .el causes a search of the path set in the
 ;;    emacs variable load-path.
 ;;  - If the aboves searches don't return a match, the filename is searched
-;;    for using the `locate' command (if available on your system).  
+;;    for using the `locate' command (if available on your system).
 ;;  - gzip-compressed files (.gz) will also be found by ff-paths if
 ;;    the package jka-compr is present.  If you use some other package,
 ;;    simply set the ff-paths-gzipped variable to t:
@@ -60,7 +60,7 @@
 ;; PC-look-for-include-file PC-try-load-many-files vc-file-not-found-hook)
 
 ;; The patterns to test against filenames and the associated paths to search
-;; for these files can be modified by the user by editing the variable 
+;; for these files can be modified by the user by editing the variable
 ;; ff-paths-list defined below.
 
 ;; I suggest that you use ffap.el by Michelangelo Grigni <mic@cs.ucsd.edu>,
@@ -96,22 +96,22 @@
 ;;   ff-paths-require-match
 ;;   ff-paths-gzipped
 ;;
-;;  To see their documentation and current settings, do, for example:  
+;;  To see their documentation and current settings, do, for example:
 ;;    C-h v ff-paths-use-locate
 
 ;; ----------------------------------------------------------------------------
 ;;; Change log:
 ;;
-;; V1.01  16sep94 - created by Peter S. Galbraith, 
+;; V1.01  16sep94 - created by Peter S. Galbraith,
 ;;                             rhogee@bathybius.meteo.mcgill.ca
-;; V1.02  20sep94 - by Peter S. Galbraith 
+;; V1.02  20sep94 - by Peter S. Galbraith
 ;;      Change TeX-split-string to dired-split (thanks to Michelangelo Grigni)
 ;;      Change variable name psg-ff-list to ff-paths-list
 ;;      Added find-file-noselect-using-paths for ffap.el
 ;;      Added ff-paths-prompt variable
 ;; V1.03  12oct94 - by Peter S. Galbraith
 ;;      Fixed:
-;;      - error when nil appeared in ff-paths-list translation 
+;;      - error when nil appeared in ff-paths-list translation
 ;;        (meaning current default)
 ;;      - find-file-at-point would switch buffer if new file were not created.
 ;; V1.04  24oct94 - by Peter S. Galbraith
@@ -120,7 +120,7 @@
 ;;            ("^foo_.*\\.[ch]$" "$FOO1:$FOO/bar:$FOO/barnone")
 ;; V2.00  05Jul95 - by Peter S. Galbraith
 ;;       Reworked interface
-;;   Tremendous thanks to Bill Brodie <wbrodie@panix.com> for telling me how 
+;;   Tremendous thanks to Bill Brodie <wbrodie@panix.com> for telling me how
 ;;   to make completing-read start off with the completions buffer displayed.
 ;;   It made this version possible without a kludge.  Thanks Bill!
 ;; V2.01  05Jul95 - by Peter S. Galbraith
@@ -131,37 +131,37 @@
 ;;      - Also his suggestion to not quote symbols.
 ;;      - Also his suggestion to include leftmost matches as initial string
 ;;        to completing-read.
-;;      - Also, I substitute ~/ for the home directory if possible in the 
-;;        matches displayed in the completions buffer. 
-;; V2.02  Jul 19 95 - Peter Galbraith 
+;;      - Also, I substitute ~/ for the home directory if possible in the
+;;        matches displayed in the completions buffer.
+;; V2.02  Jul 19 95 - Peter Galbraith
 ;;   - Had introduced bug in search-directory-tree. synced with bib-cite.el.
 ;; V3.00  Jul 26 95 - Peter Galbraith
-;;   - Now a hook to find-file and ffap.  Removed `create buffer?' prompt. 
-;; V3.01  Sep 13 95 
+;;   - Now a hook to find-file and ffap.  Removed `create buffer?' prompt.
+;; V3.01  Sep 13 95
 ;;   - dired-aux may not be loaded - Yoichi Konno <itokon@ssel.toshiba.co.jp>
-;;   - added ff-paths-display-non-existent-filename 
+;;   - added ff-paths-display-non-existent-filename
 ;;      Jason Hatch <jhatch@matra.demon.co.uk>
-;;   - psg-translate-ff-list was reversing directory order 
+;;   - psg-translate-ff-list was reversing directory order
 ;;      Juergen Vollmer <vollmer@ipd.info.uni-karlsruhe.de>
 ;; V3.02  March 20 96
 ;;     dired-aux not in XEmacs - Vladimir Alexiev <vladimir@cs.ualberta.ca>
-;; V3.03  August 19 96 
+;; V3.03  August 19 96
 ;;     ff-paths-prompt-for-only-one-match added.
 ;;     Havard Fosseng <havardf@usit.uio.no>
 ;; V3.04  August 26 96 Sudish Joseph <sudish@MindSpring.COM>  (RCS 1.4)
 ;;   - Use unread-command-events instead of unread-command-char.
-;; V3.05  December 31 96 - Christoph Wedler <wedler@fmi.uni-passau.de> 
+;; V3.05  December 31 96 - Christoph Wedler <wedler@fmi.uni-passau.de>
 ;    (RCS 1.5)
 ;;   - Use minibuffer-setup-hook instead of unread-command-events.
 ;;   - Better minibuffer-quit.
 ;;   - New variable `ff-paths-prompt'
 ;;   - New variable `ff-paths-require-match'
-;;   - Changed from `dired-split' to copying AUCTeX's code.  
+;;   - Changed from `dired-split' to copying AUCTeX's code.
 ;; V3.06  Janury 18 97  (RCS 1.6)
 ;;   - Added the `locate' command functionality.
 ;; V3.07  July 16 97  (RCS 1.8)
 ;;   - Added gzipped files
-;;   - Fixed infinite loop in recursive search with directory soft links 
+;;   - Fixed infinite loop in recursive search with directory soft links
 ;;     such as:  /usr/include/ncurses -> .
 ;; V3.08  December 15 97
 ;;   - Hacked simpler create-alist-from-list  (RCS 1.9)
@@ -195,29 +195,31 @@
 ;;   locate command may take a very long time to complete, if some portion
 ;;   of the the filename matches many files.  (I was given a file named
 ;;   "procedure - version 1", and locate went to town on the "-".)
+;; V3.19  April 21st 2003 PSG
+;;   checkdoc cleaning.
 ;; ----------------------------------------------------------------------------
 ;;; Code:
 
-;; The following variable may be edited to suit your site: 
+;; The following variable may be edited to suit your site:
 ;; Send me your interesting add-ons too!
 
 (defvar ff-paths-list
   '(("\\.awk$" "$AWKPATH")              ; awk files in AWKPATH env variable.
     ("\\.bib$" "$BSTINPUTS" "$BIBINPUTS") ; bibtex files.
-    ("\\.\\(sty\\|cls\\)$" "$TEXINPUTS" "/usr/lib/texmf/tex//") ;LaTeX files
+    ("\\.\\(sty\\|cls\\)$" "$TEXINPUTS" "/usr/share/texmf/tex//") ;LaTeX files
     ("\\.[h]+$" "/usr/local/include//" "/usr/include//")
     ("^\\." "~/")                       ; .* (dot) files in user's home
     ("\\.el$" load-path))               ; el extension in load-path elisp var
   "*List of paths to search for given file extension regexp's.
 The directories can be:
-  - colon-separated directories and ENVIRONMENT variables 
+  - colon-separated directories and ENVIRONMENT variables
     (which may also translate to colon-separated directories)
   - list of strings representing directories or environment variables.
-  - a symbol object evaluating to a list of strings (e.g. load-path)
+  - a symbol object evaluating to a list of strings (e.g. `load-path')
 
 You may mix environment variables and directory paths together.
 You may add trailing directoty paths to environment variables, e.g. $HOME/bin
-You may not mix strings with elisp lists (like load-path).
+You may not mix strings with elisp lists (like `load-path').
 You may terminate a directory name with double slashes // indicating that
  all subdirectories beneath it should also be searched.")
 
@@ -229,17 +231,17 @@ You may terminate a directory name with double slashes // indicating that
 The effect is to set path splitting on the \";\" character instead of \":\"")
 
 (defvar ff-paths-display-non-existent-filename t
-  "*find-file-using-paths-hook displays the prompted-for non-existent filename
-If you use \"C-x C-f article.sty\" in a path where it does not exists, 
+  "*find-file-using-paths-hook displays the prompted-for non-existent filename.
+If you use \"C-x C-f article.sty\" in a path where it does not exists,
 find-file-using-paths-hook will presumably find it for you. If this variable
-is set, then this non-existent filename will be displayed in the completions 
+is set, then this non-existent filename will be displayed in the completions
 buffer along with the existing found file.  This makes it more intuitive
 in case you really wanted to create the new file (instead of pressing C-g
 to create the new file).")
 
 (defvar ff-paths-prompt-for-only-one-match t
   "*If non-nil, prompt the user for filename even if there is only one match.
-If nil and ff-paths-display-non-existent-filename is also nil, then dispense 
+If nil and `ff-paths-display-non-existent-filename' is also nil, then dispense
 with confirmation prompt when a single match is found for a non-existent file
 and edit that single matched file immediately.")
 
@@ -248,14 +250,14 @@ and edit that single matched file immediately.")
 This is the argument REQUIRE-MATCH of `completing-read'.")
 
 (defvar ff-paths-gzipped (featurep 'jka-compr)
-  "*Search for gzipped-compressed file as well")
+  "*Search for gzipped-compressed file as well.")
 
 (defvar ff-paths-locate-max-matches 20
-  "*Maximum number of matches to extract from locate command
+  "*Maximum number of matches to extract from locate command.
 
 Only this number of mtaches will be displayed and all next matches will be
 ignored.  If set to nil, any number of matches will be processed but be
-warned that this can take some time (for example, I have 939 files called 
+warned that this can take some time (for example, I have 939 files called
 changelog.Debian.gz on my system)")
 
 ;; Other variables
@@ -267,13 +269,13 @@ changelog.Debian.gz on my system)")
   "Internal to ff-paths to remember if max count is reached on this search.")
 
 ;; ----------------------------------------------------------------------------
-;;; Installs itself as hooks at the end of the file 
+;;; Installs itself as hooks at the end of the file
 ;;  (so it won't if error in byte-compiling)
 
 ;; ----------------------------------------------------------------------------
 ;;  Notes about ffap
 ;;
-;;  This defines two hooks: 
+;;  This defines two hooks:
 ;;  - ff-paths-in-ffap used by ffap if it found a filename around point
 ;;    which doesn't exist in the specified path or default directory.
 ;;  - find-file-using-paths-hook used by find-file when the specific file
@@ -312,8 +314,8 @@ changelog.Debian.gz on my system)")
   (not (null (save-match-data (string-match "XEmacs\\|Lucid" emacs-version)))))
 
 ;;FIXME: Should use defface if using Emacs-20
-(defvar ff-paths-non-existent-file-face 'ff-paths-non-existent-file-face 
-  "Face to use for message marked for deletion in mh-e folder-mode")
+(defvar ff-paths-non-existent-file-face 'ff-paths-non-existent-file-face
+  "Face to use for message marked for deletion in mh-e folder-mode.")
 (make-face 'ff-paths-non-existent-file-face)
 (if ff-paths-is-XEmacs
     (make-face-bold 'ff-paths-non-existent-file-face nil)
@@ -321,7 +323,7 @@ changelog.Debian.gz on my system)")
 (set-face-foreground 'ff-paths-non-existent-file-face "NavyBlue" nil)
 
 (defun find-file-using-paths-hook ()
-  "Search for file not found in path specified by the variable ff-paths-list."
+  "Search for file not found in path specified by the variable `ff-paths-list'."
   ;; This is called by find-file after it fails.
   ;; find-file can itself be called by ffap if no string was under point.
   (if (or (ff-paths-file-exists-but-cannot-be-read buffer-file-name)
@@ -329,12 +331,12 @@ changelog.Debian.gz on my system)")
       nil
     (let* ((the-buffer (current-buffer))
            (the-name (file-name-nondirectory buffer-file-name))
-           (matches 
-            (or (if (equal ff-paths-use-locate '1) 
+           (matches
+            (or (if (equal ff-paths-use-locate '1)
                     (ff-paths-locate the-name))
-                (psg-filename-in-directory-list 
+                (psg-filename-in-directory-list
                  the-name (ff-paths-from-list the-name))
-                (if (equal ff-paths-use-locate 't) 
+                (if (equal ff-paths-use-locate 't)
                     (ff-paths-locate the-name))))
            (bufname (buffer-name buf)) ; compute before uniquify hits!
            newbuf)
@@ -342,7 +344,7 @@ changelog.Debian.gz on my system)")
           nil                             ;Return nil
         (if (not ff-paths-display-non-existent-filename)
             (setq matches (psg-convert-homedir-to-tilde matches))
-          (setq matches (psg-convert-homedir-to-tilde 
+          (setq matches (psg-convert-homedir-to-tilde
                          (cons (expand-file-name buffer-file-name) matches)))
           (setq ff-paths-non-existent-filename
                 (car (psg-convert-homedir-to-tilde (list buffer-file-name)))))
@@ -360,12 +362,12 @@ changelog.Debian.gz on my system)")
 ;;                         (null (cdr matches)))
 ;;                    (car matches)
 ;;                  (or (and (string-equal "18" (substring emacs-version 0 2))
-;;                           (completing-read "Find file: " 
-;;                                            (create-alist-from-list matches) 
+;;                           (completing-read "Find file: "
+;;                                            (create-alist-from-list matches)
 ;;                                            nil nil
 ;;                                            (psg-common-in-list matches)))
-;;                      (completing-read "Find file: " 
-;;                                       (create-alist-from-list matches) 
+;;                      (completing-read "Find file: "
+;;                                       (create-alist-from-list matches)
 ;;                                       nil nil
 ;;                                       (psg-common-in-list matches)
 ;;                                       'file-name-history)))))
@@ -375,7 +377,7 @@ changelog.Debian.gz on my system)")
         (condition-case nil
             (let ((minibuffer-setup-hook (cons 'minibuffer-completion-help
                                                minibuffer-setup-hook))
-                  (completion-setup-hook 
+                  (completion-setup-hook
                    (append (symbol-value 'completion-setup-hook)
                            (list 'ff-paths-fontify-non-existent-filename
                                  'ff-paths-display-locate-max-reached))))
@@ -410,8 +412,8 @@ changelog.Debian.gz on my system)")
           t)))))
 
 (defun ff-paths-fontify-non-existent-filename ()
-  "Fontify the non-existing filename in *Completions* if using window-system"
-  (cond 
+  "Fontify the non-existing filename in *Completions* if using `window-system'."
+  (cond
    ((and window-system
          ff-paths-display-non-existent-filename
          (boundp 'ff-paths-non-existent-filename)
@@ -421,7 +423,7 @@ changelog.Debian.gz on my system)")
       (goto-char (point-min))
       (if (search-forward ff-paths-non-existent-filename nil t)
           (progn
-            (put-text-property (match-beginning 0) (match-end 0) 
+            (put-text-property (match-beginning 0) (match-end 0)
                                'face 'ff-paths-non-existent-file-face)
             (goto-char (point-min))
             (if (search-forward "Possible completions are:" nil t)
@@ -429,11 +431,11 @@ changelog.Debian.gz on my system)")
             (let ((the-start (point))
                   (buffer-read-only nil))
               (insert "The filename in this face is the path you requested and does not exist.\n")
-              (put-text-property the-start (point) 
+              (put-text-property the-start (point)
                                  'face 'ff-paths-non-existent-file-face))))))))
 
 (defun ff-paths-display-locate-max-reached ()
-  "Add a line in completions buffer to say that locate maximum is reached"
+  "Add a line in completions buffer to say that locate maximum is reached."
   (if ff-paths-have-reached-locate-max
       (save-excursion
         (set-buffer standard-output)
@@ -441,24 +443,24 @@ changelog.Debian.gz on my system)")
         (if (search-forward "Possible completions are:" nil t)
             (forward-line -1))
         (let ((buffer-read-only nil))
-          (insert "Only the first " 
+          (insert "Only the first "
                   (int-to-string ff-paths-locate-max-matches)
                   " matches are listed.\n"))))
   (setq ff-paths-have-reached-locate-max nil))
 
 (defun ff-paths-file-exists-but-cannot-be-read (file-name)
-  "Return `t' if file-exists-but-cannot-be-read.
-find-file calls find-file-not-found-hooks when this is the case, but I don't
-think it should.  ff-paths should deal with it anyway..."
+  "Return t if FILE-NAME exists but cannot be Read.
+`find-file' calls `find-file-not-found-hooks' when this is the case, but I
+don't think it should.  ff-paths should deal with it anyway..."
   (and (file-exists-p file-name)
        (not (file-readable-p file-name))))
 
 (defun ff-paths-in-ffap (name)
-  "Search for ffap-string-at-point in path specified in ff-paths-list."
+  "Search for NAME in path specified in `ff-paths-list'."
   ;; This is called by ffap before it prompts.
   (setq ff-paths-in-ffap-name (expand-file-name name))
   (let* ((the-name (file-name-nondirectory name))
-         (matches (psg-filename-in-directory-list 
+         (matches (psg-filename-in-directory-list
                    the-name (ff-paths-from-list the-name))))
     (cond
      ((null matches)                    ; No match, Return nil
@@ -470,14 +472,14 @@ think it should.  ff-paths should deal with it anyway..."
       (condition-case nil
 	  (let ((minibuffer-setup-hook (cons 'minibuffer-completion-help
 					     minibuffer-setup-hook)))
-	    (setq the-name 
+	    (setq the-name
 		  (or (and (string-equal "18" (substring emacs-version 0 2))
-			   (completing-read ff-paths-prompt 
-					    (create-alist-from-list matches) 
+			   (completing-read ff-paths-prompt
+					    (create-alist-from-list matches)
 					    nil t
 					    (psg-common-in-list matches)))
-		      (completing-read ff-paths-prompt 
-				       (create-alist-from-list matches) 
+		      (completing-read ff-paths-prompt
+				       (create-alist-from-list matches)
 				       nil t
 				       (psg-common-in-list matches)
 				       'file-name-history))))
@@ -487,8 +489,8 @@ think it should.  ff-paths should deal with it anyway..."
           the-name
         nil)))))
 
-(defvar ff-paths-in-ffap-name "" 
-  "Filename used when ff-paths-in-ffap called. 
+(defvar ff-paths-in-ffap-name ""
+  "Filename used when `ff-paths-in-ffap' called.
 Find-file-using-paths-hook does nothing if called with this same name to avoid
 searching twice for a non-existing file the user actually wants to create")
 
@@ -496,7 +498,7 @@ searching twice for a non-existing file the user actually wants to create")
 ;;  "Install ff-paths in ffap toolbox to find files from name under point"
 ;;  (cond
 ;;   ((and (boundp 'ffap-alist)
-;;         (not (member 
+;;         (not (member
 ;;               (cons "\\(^\\.\\)\\|\\.\\(awk\\|bib\\|sty\\|cls\\|[h]+\\|el\\)$"
 ;;                     'ff-paths-in-ffap)
 ;;               ffap-alist)))
@@ -510,7 +512,7 @@ searching twice for a non-existing file the user actually wants to create")
 ;; FIXME: Either make ffap call ff-paths on any file like here, or build a
 ;;        regexp from ff-paths-list
 (defun ff-paths-in-ffap-install ()
-  "Install ff-paths in ffap toolbox to find files from name under point"
+  "Install ff-paths in ffap toolbox to find files from name under point."
   (cond
    ((and (boundp 'ffap-alist)
          (not (member '("." . ff-paths-in-ffap) ffap-alist)))
@@ -518,15 +520,15 @@ searching twice for a non-existing file the user actually wants to create")
 
 ;; There must be a command to do this!
 (defun psg-common-in-list (list)
-  "returns STRING with same beginnings in all strings in LIST"
-  (let* ((first-string (car list)) 
+  "Return STRING with same beginnings in all strings in LIST."
+  (let* ((first-string (car list))
          (work-list (cdr list))
          (match-len (length first-string)))
     (while work-list
       (let ((i 1))
         (while (and (<= i match-len)
                     (<= i (length (car work-list)))
-                    (string-equal (substring first-string 0 i) 
+                    (string-equal (substring first-string 0 i)
                                   (substring (car work-list) 0 i))
                     (setq i (1+ i))))
         (setq match-len (1- i)))
@@ -534,8 +536,9 @@ searching twice for a non-existing file the user actually wants to create")
     (substring first-string 0 match-len)))
 
 (defun psg-convert-homedir-to-tilde (list)
+  "Shorten LIST elements by substituting teh home directory by tilde."
   (let* ((work-list list)(result-list)
-         (homedir (concat "^" (file-name-as-directory 
+         (homedir (concat "^" (file-name-as-directory
                                (expand-file-name "~"))))
          (the-length (1- (length homedir))))
     (while work-list
@@ -543,8 +546,8 @@ searching twice for a non-existing file the user actually wants to create")
           (setq result-list
                 (cons (abbreviate-file-name (car work-list)) result-list))
         (if (string-match homedir (car work-list))
-            (setq result-list 
-                  (cons (concat "~/" (substring (car work-list) the-length)) 
+            (setq result-list
+                  (cons (concat "~/" (substring (car work-list) the-length))
                         result-list))
           (setq result-list (cons (car work-list) result-list))))
       (setq work-list (cdr work-list)))
@@ -555,7 +558,7 @@ searching twice for a non-existing file the user actually wants to create")
   (mapcar 'list the-list))
 
 (defun psg-filename-in-directory-list (filename list)
-  "Check for presence of FILENAME in directory LIST. Return all found.
+  "Check for presence of FILENAME in directory LIST.  Return all found.
 If none found, recurse through directory tree of directories ending in //
 and return all matches."
   ;;USAGE: (psg-filename-in-directory-list "emacs" (psg-list-env "PATH"))
@@ -565,8 +568,8 @@ and return all matches."
     (while the-list
       (let* ((directory (or (and (not (car the-list)) ; list item is nil -> ~/
                                  "~/")
-                            (substring (car the-list) 
-                                       0 
+                            (substring (car the-list)
+                                       0
                                        (string-match "//$" (car the-list)))))
              ;; This removed trailing // if any
              (filespec (expand-file-name filename directory)))
@@ -584,13 +587,13 @@ and return all matches."
         (while the-list
           (if (or (not (car the-list))  ; `nil' case
                   (not (string-match "//$" (car the-list)))) nil
-            (setq filespec-list 
+            (setq filespec-list
                   (append
                    filespec-list
-                   (search-directory-tree 
-                    (substring (car the-list) 0 (match-beginning 0)) 
-                    (if ff-paths-gzipped 
-                        (concat "^" filename "\\(.gz\\)?$") 
+                   (search-directory-tree
+                    (substring (car the-list) 0 (match-beginning 0))
+                    (if ff-paths-gzipped
+                        (concat "^" filename "\\(.gz\\)?$")
                       (concat "^" filename "$"))
                     t
                     nil))))
@@ -601,7 +604,7 @@ and return all matches."
 ;;  which recursively searches a list of directories for files
 ;;  matching a list of extensions.  This simplified version should
 ;;  be a wee bit faster and will suit my purposes (for bib-cite's
-;;  need to search directories listed in BIBINPUTS recursively 
+;;  need to search directories listed in BIBINPUTS recursively
 ;;  if they end in //).
 ;;  TeX-search-files is part of auc-tex:
 ;;    Maintainer: Per Abrahamsen <auc-tex@iesd.auc.dk>
@@ -609,14 +612,14 @@ and return all matches."
 ;;    Copyright (C) 1985, 1986 Free Software Foundation, Inc.
 ;;    Copyright (C) 1987 Lars Peter Fischer
 ;;    Copyright (C) 1991 Kresten Krab Thorup
-;;    Copyright (C) 1993, 1994 Per Abrahamsen 
+;;    Copyright (C) 1993, 1994 Per Abrahamsen
 
 ;; Also defined in bib-cite.el !
 (defun search-directory-tree (directories extension-regexp recurse first-file)
-  "Return a list of all reachable files in DIRECTORIES ending with EXTENSION.
+  "Return recursive list of files in DIRECTORIES ending with EXTENSION-REGEXP.
 DIRECTORIES is a list or a single-directory string
-EXTENSION is actually (any) regexp, usually \\\\.bib$
-If RECURSE is t, then we will recurse into the directory tree, 
+EXTENSION-REGEXP is actually (any) regexp, usually \\\\.bib$
+If RECURSE is t, then we will recurse into the directory tree,
               nil, we will only search the list given.
 If FIRST-FILE is t, stop after first file is found."
   (or (listp directories)
@@ -638,14 +641,14 @@ If FIRST-FILE is t, stop after first file is found."
                   ((not (file-readable-p file)))
                   ((and recurse
                         (ff-paths-file-directory-p file))
-                   (if (not (member 
+                   (if (not (member
                              (file-name-as-directory (file-chase-links file))
                              directories-done))
                        (setq directories
                              (cons
                               (file-name-as-directory (file-chase-links file))
                               directories))))
-                  ((string-match extension-regexp 
+                  ((string-match extension-regexp
                                  (file-name-nondirectory file))
                    (and first-file
                         (setq content nil
@@ -656,15 +659,15 @@ If FIRST-FILE is t, stop after first file is found."
 
 
 (defun ff-paths-split-path (string)
-  "Split PATH string like \"/some/directory:/some/other\"
-into a list (\"/some/directory\" \"/some/other\"."
+  "Split a path STRING such as \"/some/directory:/some/other\".
+The returned list is like (\"/some/directory\" \"/some/other\"."
   (let ((splitter (or (and ff-paths-using-ms-windows ";") ":")))
     (ff-paths-split-string splitter string)))
 
 ;; copied from auctex's TeX-split-string
 (defun ff-paths-split-string (regexp string)
-  "Returns a list of strings. given REGEXP the STRING is split into 
-sections which in string was seperated by REGEXP.
+  "Return a list of strings given a REGEXP and a STRING.
+The string is split into sections which were seperated by REGEXP.
 
 Examples:
 
@@ -686,32 +689,33 @@ If REGEXP is nil, or \"\", an error will occur."
     (setq result (cons (substring string start nil) result))
     (nreverse result)))
    
-;; `ff-paths-from-list' and `ff-paths-expand-path' together replace 
+;; `ff-paths-from-list' and `ff-paths-expand-path' together replace
 ;; the old `psg-translate-ff-list'
 (defun ff-paths-from-list (filename)
-  "Given a file name, return corresponding directory list from ff-paths-list
-or nil if file name extension is not listed in ff-paths-list.
-So translate the cdr of the ff-paths-list entry to a directory list.
+  "Given a FILENAME, return corresponding directory list from `ff-paths-list'.
+Return nil if file name extension is not listed in `ff-paths-list'.
+So translate the cdr of the `ff-paths-list' entry to a directory list.
 NOTE: returned nil means no match, but nil as an element of the returned list
       is valid, meaning current-directory!"
   (let ((local-ff-list ff-paths-list)(the-path))
     (while local-ff-list
       (let ((the-pair (car local-ff-list)))
-        (cond 
+        (cond
          ((string-match (car the-pair) filename)
-          (setq the-path 
+          (setq the-path
                 (append the-path (ff-paths-expand-path (cdr the-pair))))))
         (setq local-ff-list (cdr local-ff-list))))
     the-path))
 
 (defun ff-paths-expand-path (unexpanded-path)
-  ;; `unexpanded-path' holds a list of:
-  ;;    no match          ->  nil
-  ;;    symbol            ->  (load-path) 
-  ;;    stringed PATH     ->  ("/usr/local/include//:/usr/include//")
-  ;;    many such strings ->  ("/usr/local/include//" "/usr/include//")
-  ;;    appended env var  ->  ("$FOO/bar")
-  (cond 
+  "UNEXPANDED-PATH is expanded.
+It should hold a list of:
+      no match          ->  nil
+      symbol            ->  (load-path)
+      stringed PATH     ->  (\"/usr/local/include//:/usr/include//\")
+      many such strings ->  (\"/usr/local/include//\" \"/usr/include//\")
+      appended env var  ->  (\"$FOO/bar\")"
+  (cond
    ((not unexpanded-path)             ; nil case, and we're done.
     nil)
    ((symbolp (car unexpanded-path))   ; load-path type symbol
@@ -725,7 +729,7 @@ NOTE: returned nil means no match, but nil as an element of the returned list
             (setq element (car the-elements))
             (setq the-elements (cdr the-elements))
             (if (string-match "^\\$" element) ; an ENVIRONMENT var?
-                (setq path-list 
+                (setq path-list
                       (nconc path-list (psg-list-env (substring element 1))))
               (if (ff-paths-file-directory-p element) ;  Add only if it exists
                   (setq path-list (cons element path-list)))))
@@ -735,7 +739,7 @@ NOTE: returned nil means no match, but nil as an element of the returned list
       the-list))))
 
 (defun psg-list-env (env)
-  "Return a list of directory elements in ENVIRONMENT variable (w/o leading $)
+  "Return a list of directory elements in ENV variable (w/o leading $)
 argument may consist of environment variable plus a trailing directory, e.g.
 HOME or HOME/bin"
   (let* ((slash-pos (string-match "/" env))
@@ -746,7 +750,7 @@ HOME or HOME/bin"
          ;;(value (getenv env))
 	 (entries (and value (ff-paths-split-path value)))
 	 entry
-	 answers) 
+	 answers)
     (while entries
       (setq entry (car entries))
       (setq entries (cdr entries))
@@ -755,7 +759,7 @@ HOME or HOME/bin"
     (nreverse answers)))
 
 (defun ff-paths-file-directory-p (file)
-  "Like default file-directory-p but allow file to end in // for ms-windows"
+  "Like default `file-directory-p' but allow FILE to end in // for ms-windows."
   (save-match-data
     (if (string-match "\\(.*\\)//$" file)
 	(file-directory-p (match-string 1 file))
@@ -783,16 +787,16 @@ Return a string if a single match, or a list if many matches."
         (count 0))
     (save-excursion
       (set-buffer ff-buffer)
-      (setq status 
-            (call-process "sh" nil t nil "-c" 
+      (setq status
+            (call-process "sh" nil t nil "-c"
                           (concat "locate " (shell-quote-argument filename))))
     (goto-char 1)
       (if (eq status 1)
           nil                           ;Not found...
         (while (and (or (not ff-paths-locate-max-matches)
                         (> ff-paths-locate-max-matches count))
-                    (re-search-forward (if ff-paths-gzipped 
-                                           (concat "/" filename "\\(.gz\\)?$") 
+                    (re-search-forward (if ff-paths-gzipped
+                                           (concat "/" filename "\\(.gz\\)?$")
                                          (concat "/" filename "$"))
                                        nil t))
           (let ((the-file (buffer-substring (progn (beginning-of-line)(point))
@@ -802,7 +806,7 @@ Return a string if a single match, or a list if many matches."
                      (not (file-directory-p the-file)))
                 (setq matches (cond ((not matches)
                                      (list the-file))
-                                    (t            
+                                    (t
                                      (cons the-file matches))))))))
       (if (and ff-paths-locate-max-matches
                (<= ff-paths-locate-max-matches count))
@@ -812,7 +816,7 @@ Return a string if a single match, or a list if many matches."
 
 (defvar ff-paths-use-locate (ff-paths-have-locate)
   "*Determines whether the `locate' command is used by ff-paths.
-If nil don't use it.  
+If nil don't use it.
 If t use it but only if other ff-paths methods have failed.
 If 1 use it before any other mechanism (because it's faster).
 
@@ -820,7 +824,7 @@ To set it to 1, add this to your ~/.emacs file:
 
   (setq ff-paths-use-locate '1)
 
-By default, this is set to `t' if it can be determined that your system has
+By default, this is set to t if it can be determined that your system has
 the locate command.
 Using locate is fairly aggressive, and so is *not* added to the ffap toolkit.")
 
