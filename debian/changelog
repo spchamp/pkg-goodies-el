@@ -12,8 +12,11 @@ emacs-goodies-el (21.9-1) UNRELEASED; urgency=low
   * Update coffee.el to V0.3.
   * dpkg-dev-el, debian-changelog-mode.el: Added browse-url link to `Best
     Practices for debian/changelog' in menu.
+  * dpkg-dev-el, readme-debian.el bug fix: write-contents-hooks needed to
+    be made buffer-local explicitely in XEmacs ("Writes incorrect dates in
+    changelog", thanks to Ross Burton. Closes: #211382).
 
- -- Peter S Galbraith <psg@debian.org>  Wed, 17 Sep 2003 09:47:21 -0400
+ -- Peter S Galbraith <psg@debian.org>  Wed, 17 Sep 2003 12:38:17 -0400
 
 emacs-goodies-el (21.8-1) unstable; urgency=low
 
