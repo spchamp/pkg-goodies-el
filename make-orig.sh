@@ -12,6 +12,15 @@ DEBIAN_VERSION=${FULLVERSION##*-}
 THIS=$(basename $0)
 THISDIR=$(basename $PWD)
 
-tar cvzfC ../${SOURCE}_$UPSTREAM_VERSION.orig.tar.gz ../ \
-    --exclude=$THISDIR/debian --exclude=$SOURCE/$THIS --exclude=CVS \
-    $THISDIR
+#tar cvzfC ../${SOURCE}_$UPSTREAM_VERSION.orig.tar.gz ../ \
+#    --exclude=$THISDIR/debian --exclude=$SOURCE/$THIS --exclude=CVS \
+#    $THISDIR
+rm -fR ../${SOURCE}-${UPSTREAM_VERSION}
+mkdir ../${SOURCE}-${UPSTREAM_VERSION}
+tar cf - --exclude=CVS elisp | ( cd ../${SOURCE}-${UPSTREAM_VERSION} ; tar xf -)
+(cd .. ; tar zcf ${SOURCE}_$UPSTREAM_VERSION.orig.tar.gz ${SOURCE}-${UPSTREAM_VERSION})
+rm -fR ../${SOURCE}-${UPSTREAM_VERSION}
+mkdir ../${SOURCE}-${UPSTREAM_VERSION}
+tar cf - --exclude=CVS debian make-orig.sh | ( cd ../${SOURCE}-${UPSTREAM_VERSION} ; tar xf -)
+(cd .. ; tar zcf debian-${UPSTREAM_VERSION}-${DEBIAN_VERSION}.tar.gz ${SOURCE}-${UPSTREAM_VERSION})
+rm -fR ../${SOURCE}-${UPSTREAM_VERSION}
