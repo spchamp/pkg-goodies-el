@@ -41,13 +41,11 @@
 ;;; initialization:
 ; (add-hook 'text-mode-hook 'turn-on-auto-fill)
 
-
-(defvar auto-fill-inhibit-list (list)
-  "The (buffer-name) of a buffer is matched against the list of
-regexps put here.  If it matches, `auto-fill-mode' is turned OFF (or
-not turned on at all).  An empty list of regexps (the default) retains
-the original auto-fill-mode behaviour.")
-
+(defcustom auto-fill-inhibit-list nil
+  "regexep LIST to match against buffer-name to inhibit auto-fill-mode.
+An empty list of regexps (the default) retains the original
+`auto-fill-mode' behaviour."
+  :type '(repeat (regexp :tag "Buffer name regexp")))
 
 (defadvice auto-fill-mode (before auto-fill-mode-inhibit)
   "Turns off auto-fill-mode on buffers which have their names
