@@ -90,6 +90,9 @@ clipper.el provides the M-x clipper-* commands to save strings of data
 and insert them afterwards.  Each string is labeled with a name, and
 can involve some basic template replacement.
 
+coffee.el provides an Emacs interface to RFC2324-compliant coffee
+devices
+
 cyclebuffer.el provides M-x cyclebuffer-forward, to switch to other
 buffers in the most-recently-visited-first order.  If you accidentally
 overshoot, calling cyclebuffer-backward goes back.  You might want to
@@ -357,4 +360,4 @@ files.  This mode adds a bit of colouring, a working filling function
 (bound to "M-q" by default), tab-completion for adding fields (bound
 to "C-c C-a" by default), and viewing bugs (bound to "C-c C-b").
 
- -- Peter S Galbraith <psg@debian.org>, Mon Sep  8 22:35:15 2003
+ -- Peter S Galbraith <psg@debian.org>, Tue May 13 15:39:40 2003
