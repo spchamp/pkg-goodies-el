@@ -1,9 +1,9 @@
-;;	$Id: dict.el,v 1.1 2003/04/04 20:15:59 lolando Exp $
+;;	$Id: dict.el,v 1.2 2003/06/14 01:28:12 psg Exp $
 ;;
 ;; dict.el - Emacs interface to dict client
 ;;
 
-;; Copyright (c) 2002 Max Vasin
+;; Copyright (c) 2002, 2003 Max Vasin
 ;;
 ;; This program is free software; you can redistribute it and/or
 ;; modify it under the terms of the GNU General Public License
@@ -19,7 +19,7 @@
 ;; with this program; if not, write to the Free Software Foundation, Inc.,
 ;; 59 Temple Place, Suite 330, Boston, MA 02111-1307, USA.
 
-;;; Commentary:
+;;; Commentary
 ;;
 ;; Emacs DICT Client is an Emacs wrapper around `dict' command to provide
 ;; an easy and comfortable (from my point of view) access to the dictd server
@@ -44,11 +44,21 @@
 ;; Mail them to <max-appolo@mail.ru>
 
 ;;    $Log: dict.el,v $
-;;    Revision 1.1  2003/04/04 20:15:59  lolando
-;;    Initial revision
+;;    Revision 1.2  2003/06/14 01:28:12  psg
+;;    dict.el: Updated to V1.27
 ;;
-;;    Revision 1.25  2002/10/11 09:41:42  max
-;;    Name changed to dict.el
+;;    Revision 1.27  2003/04/15 18:19:53  max
+;;    Names made coherent.
+;;
+;;    Revision 1.26  2003/01/01 13:11:24  max
+;;    dict-get-answer: Made to replace newlines and multiple
+;;    space with one space.
+;;
+;;    Revision 1.25  2002/11/21 16:36:11  max
+;;    - dict-set-key-binding: New function.
+;;    - dict-update-key-bindings: New function.
+;;    - Key binding customisation variable set
+;;      function chaged to dict-set-key-binding.
 ;;
 ;;    Revision 1.24  2002/10/10 10:33:04  max
 ;;    Added functions to display revision number.
@@ -135,7 +145,7 @@
 ;;    Log added
 ;;
 
-(defgroup Emacs-DICT-client nil
+(defgroup Dict nil
   "Browse DICT dictionaries."
   :prefix "dict-"
   :group 'external)
@@ -152,69 +162,69 @@ and alt2.dict.org, in that order. If IP lookup for a server expands to a
 list of IP addresses (as dict.org does currently), then each IP will be tried
 in the order listed. "
   :type '(string)
-  :group 'Emacs-DICT-client)
+  :group 'Dict)
 
 ;; Forward declarations
 (defcustom dict-database nil
   "foo"
   :type 'string
-  :group 'Emacs-DICT-client)
+  :group 'Dict)
 
 (defcustom dict-strategy nil
   "bar"
   :type 'string
-  :group 'Emacs-DICT-client)
+  :group 'Dict)
 
 (defcustom dict-service nil
   "Specifies the port (e.g., 2628) or service (e.g., dict) for connections. The 
 default is 2628, as specified in the DICT Protocol RFC. Server/port combinations 
 can be specified in the configuration file."
   :type 'sexp
-  :group 'Emacs-DICT-client)
+  :group 'Dict)
 
 (defcustom dict-match nil
   "Instead of printing a definition, perform a match using the specified strategy."
   :type 'boolean
-  :group 'Emacs-DICT-client)
+  :group 'Dict)
 
 (defcustom dict-nocorrect nil
   "Usually, if a definition is requested and the word cannot be found, spelling correction
 is requested from the server, and a list of possible words are provided. This option
 disables the generation of this list."
   :type 'sexp
-  :group 'Emacs-DICT-client)
+  :group 'Dict)
 
 (defcustom dict-config-file nil
   "Specify the configuration file. The default is to try ~/.dictrc and /etc/dict.conf, 
 using the first file that exists. If a specific configuration file is specified, 
 then the defaults will not be tried."
   :type 'sexp
-  :group 'Emacs-DICT-client)
+  :group 'Dict)
 
 (defcustom dict-noauth nil
   "Disable authentication (i.e., don't send an AUTH command)."
   :type '(boolean)
-  :group 'Emacs-DICT-client)
+  :group 'Dict)
 
 (defcustom dict-user nil 
   "Specifies the username for authentication."
   :type 'sexp
-  :group 'Emacs-DICT-client)
+  :group 'Dict)
 
 (defcustom dict-key nil
   "Specifies the shared secret for authentication."
   :type 'sexp
-  :group 'Emacs-DICT-client)
+  :group 'Dict)
 
 (defcustom dict-verbose nil
   "Be verbose."
   :type '(boolean)
-  :group 'Emacs-DICT-client)
+  :group 'Dict)
 
 (defcustom dict-raw nil
   "Be very verbose: show the raw client/server interaction."
   :type 'boolean
-  :group 'Emacs-DICT-client)
+  :group 'Dict)
 
 (defcustom dict-pipesize 256
   "Specify the buffer size for pipelineing commands. The default is 256, which should 
@@ -223,44 +233,56 @@ Larger values may provide faster or slower throughput, depending on MTU. If the
 buffer is too small, requests will be serialized. Values less than 0 and greater 
 than one million are silently changed to something more reasonable."
   :type 'integer
-  :group 'Emacs-DICT-client)
+  :group 'Dict)
 
 (defcustom dict-original-server ""
   "Specifies original server name for the dict-on-server function"
   :type 'sexp
-  :group 'Emacs-DICT-client)
+  :group 'Dict)
 
 (defcustom dict-client nil
   "Specifies additional text to be sent using the CLIENT command."
   :type 'sexp
-  :group 'Emacs-DICT-client)
+  :group 'Dict)
+
+;;;;
+;;;; Key binding customisation variables and helper functions
+;;;;
+
+(defun dict-set-key-binding (key value)
+  (set-default key value))
 
 (defcustom dict-key-binding "\\C-cdd"
   "Specifies a key binding to run dict and display the results in the Emacs buffer."
   :type 'sexp
-  :group 'Emacs-DICT-client)
+  :group 'Dict
+  :set 'dict-set-key-binding)
 
 (defcustom dict-region-key-binding "\\C-cdr"
   "Specifies a key binding to run dict on the region and display the results in the Emacs buffer."
   :type 'sexp
-  :group 'Emacs-DICT-client)
+  :group 'Dict
+  :set 'dict-set-key-binding)
 
 (defcustom dict-multiple-key-binding "\\C-cdm"
   "Specifies a key binding to run dict on every word from the region and display the results in 
 the Emacs buffer."
   :type 'sexp
-  :group 'Emacs-DICT-client)
+  :group 'Dict
+  :set 'dict-set-key-binding)
 
 (defcustom dict-on-server-key-binding "\\C-cds"
   "Specifies a key binding to run dict to search word on the given server and display the results 
 in the Emacs buffer."
   :type 'sexp
-  :group 'Emacs-DICT-client)
+  :group 'Dict
+  :set 'dict-set-key-binding)
 
 (defcustom dict-wordinspect-key-binding "\\C-cdw"
   "Specifies a key binding to run wordinspect."
   :type 'sexp
-  :group 'Emacs-DICT-client)
+  :group 'Dict
+  :set 'dict-set-key-binding)
 
 ;;;;
 ;;;; Service functions
@@ -288,14 +310,14 @@ This is usually \"exact\" for definitions, and some form of spelling-correction 
 for matches (\".\" fromthe DICT protocol). The available strategies are dependent on
 the server implemenation."
   :type `(choice ,@(dict-generate-consts (dict-get-stategies)) (const :tag "default" nil))
-  :group 'Emacs-DICT-client)
+  :group 'Dict)
 
 (defcustom dict-database nil
   "Specifies a specific database to search. The default is to search all databases 
 (a * from the DICT protocol). Note that a ! in the DICT protocol means to 
 search all of the databases until a match is found, and then stop searching."
   :type  `(set ,@(dict-generate-consts (dict-get-databases)))
-  :group 'Emacs-DICT-client) ;"
+  :group 'Dict) ;"
 
 (defun dict-generate-options-list (seq prefix)
   "Generate a list of options of the form `prefix seq[0] prefix seq[1] ...'"
@@ -326,10 +348,27 @@ search all of the databases until a match is found, and then stop searching."
    (if dict-client (concat " --client " dict-client) "")
    " "))
 
-(defun dict-get-answer (word)
+(defun dict-newline-to-space (string)
+  "Replace newline with space"
+  (let ((result (make-string (length string) ?x)))
+    (dotimes (i (length string) 1)
+      (aset result i (if (char-equal (aref string i) ?\n) ?\  (aref string i))))
+    result))
+
+(defun dict-reduce-spaces (string)
+  (if (not (string-match "[ \t][ \t]+" string))
+      string
+    (dict-reduce-spaces (replace-match " " t "\\&" string nil))))
+
+(defun dict-normalise-request (request)
+  "Replace newlines and multiple spaces with one space in the request"
+  (dict-reduce-spaces (dict-newline-to-space request)))
+
+(defun dict-get-answer (what)
   "Recieve the answer from the dict and inserts in ther buffer"
-  (let* ((buffer-name (concat "*DICT " word "*"))
-	(buffer (get-buffer buffer-name)))
+  (let* ((word (dict-normalise-request what))
+	 (buffer-name (concat "*DICT " word "*"))
+	 (buffer (get-buffer buffer-name)))
     (if buffer
 	(save-excursion
 	  (set-buffer buffer)
@@ -361,11 +400,6 @@ This guess is based on the text surrounding the cursor."
       (if (string-match "[._]+$" word)
 	  (setq word (substring word 0 (match-beginning 0))))
       word)))
-
-(defun dict-process-key-binding (string)
-  "Process a string representation of key binding to allow easy key binding
-customisation."
-  (read (concat "\"" string "\"")))
 
 ;;;;
 ;;;; Lookup functions
@@ -428,6 +462,29 @@ customisation."
   (shell-command (concat "wordinspect " word "&"))
   (delete-other-windows))
 
+(defun dict-set-key-binding (key value)
+  "Set key binding customisation variable"
+  (let ((result (set-default key value)))
+    (dict-update-key-bindings)
+    result))
+
+(defun dict-process-key-binding (string)
+  "Process a string representation of key binding to allow easy key binding
+customisation."
+  (read (concat "\"" string "\"")))
+
+(defun dict-update-key-bindings ()
+  ;; Setup global key binding `C-c d d' for running dict...
+  (global-set-key (dict-process-key-binding dict-key-binding) 'dict)
+  ;; ... `C-c d r' for running dict on the region...
+  (global-set-key (dict-process-key-binding dict-region-key-binding) 'dict-region)
+  ;; ... `C-c d m' for running dict on every word in the region...
+  (global-set-key (dict-process-key-binding dict-multiple-key-binding) 'dict-multiple)
+  ;; ... `C-c d s' for running dict to perform search on the given server...
+  (global-set-key (dict-process-key-binding dict-on-server-key-binding) 'dict-on-server)
+  ;; ... and `C-c d w' for running wordinspect.
+  (global-set-key (dict-process-key-binding dict-wordinspect-key-binding) 'dict-word-inspect))
+
 ;;;;
 ;;;; Informational functions
 ;;;;
@@ -437,30 +494,21 @@ customisation."
   (interactive)
   (shell-command "dict --version"))
 
-(defconst dict-self-version
-  "$Revision: 1.1 $"
-  "Version number for 'emacs-dict-client' package.")
+(defconst dict-version
+  "$Revision: 1.2 $"
+  "Version number for 'dict' package.")
 
 (defun dict-version-number ()
-  "Return 'emacs-dict-client' version number."
-  (string-match "[0123456789.]+" dict-self-version)
-  (match-string 0 dict-self-version))
+  "Return 'dict' version number."
+  (string-match "[0123456789.]+" dict-version)
+  (match-string 0 dict-version))
 
 (defun dict-display-version ()
-  "Display 'emacs-dict-client' version."
+  "Display 'dict' version."
   (interactive)
   (message "Emacs DICT client version <%s>." (dict-version-number)))
 
-;; Setup global key binding `C-c d d' for running dict...
-(global-set-key (dict-process-key-binding dict-key-binding) 'dict)
-;; ... `C-c d r' for running dict on the region...
-(global-set-key (dict-process-key-binding dict-region-key-binding) 'dict-region)
-;; ... `C-c d m' for running dict on every word in the region...
-(global-set-key (dict-process-key-binding dict-multiple-key-binding) 'dict-multiple)
-;; ... `C-c d s' for running dict to perform search on the given server...
-(global-set-key (dict-process-key-binding dict-on-server-key-binding) 'dict-on-server)
-;; ... and `C-c d w' for running wordinspect.
-(global-set-key (dict-process-key-binding dict-wordinspect-key-binding) 'dict-word-inspect)
+(dict-update-key-bindings)
 
 (provide 'dict)
 
