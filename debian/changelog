@@ -1,3 +1,10 @@
+emacs-goodies-el (21.8-1) UNRELEASED; urgency=low
+
+  * Bug fix: "debian-bug should provide help when prompting for package
+    name and severity", thanks to Mathieu Roy (Closes: #200058).
+
+ -- Peter S Galbraith <psg@debian.org>  Wed,  3 Sep 2003 12:43:44 -0400
+
 emacs-goodies-el (21.7-1) unstable; urgency=low
 
   * Standards-Version: 3.6.1 without chnages.
@@ -8,10 +15,8 @@ emacs-goodies-el (21.7-1) unstable; urgency=low
     changlog entry, such as this entry right here. Thanks to Junichi
     Uekawa (Closes: #207852).  Updated dpkg-dev-el's
     debian-changelog-mode.el and debbugs-el's debian-bug.el.
-  * Bug fix: "debian-bug should provide help when prompting for package
-    name and severity", thanks to Mathieu Roy (Closes: #200058).
 
- -- Peter S Galbraith <psg@debian.org>  Wed,  3 Sep 2003 12:40:51 -0400
+ -- Peter S Galbraith <psg@debian.org>  Tue,  2 Sep 2003 22:29:29 -0400
 
 emacs-goodies-el (21.6-1) unstable; urgency=low
 
