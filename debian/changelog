@@ -10,7 +10,7 @@ emacs-goodies-el (21.1-1) UNRELEASED; urgency=low
   * Updated protocols.el to upstream version CVS 1.4
   * debian/control: Rephrase debian-bug.el description (closes: #193322)
   * Move most of 50emacs-goodies-el.el into a required emacs-goodies-el.el
-    file, and warp 50emacs-goodies-el.el around code testing if the
+    file, and wrap 50emacs-goodies-el.el around code testing if the
     package is really installed or possibly removed (and not purged).
     Still needs to be done for all other binary packages.
     (closes: #193367)
