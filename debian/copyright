@@ -19,7 +19,7 @@ Author/copyright info for boxquote.el:
 ,----
 | ;;; boxquote.el --- Quote text with a semi-box.
 | ;; Copyright 1999,2000,2001 by Dave Pearson <davep@davep.org>
-| ;; $Revision: 1.4 $
+| ;; $Revision: 1.5 $
 | 
 | ;; boxquote is free software distributed under the terms of the GNU General
 | ;; Public Licence, version 2. For details see the file COPYING.
@@ -30,7 +30,7 @@ Author/copyright info for thinks.el:
 ,----
 | ;;; thinks.el --- Insert text in a think bubble.
 | ;; Copyright 2000,2001 by Dave Pearson <davep@davep.org>
-| ;; $Revision: 1.4 $
+| ;; $Revision: 1.5 $
 | 
 | ;; thinks is free software distributed under the terms of the GNU General
 | ;; Public Licence, version 2. For details see the file COPYING.
@@ -106,23 +106,6 @@ Author/copyright info for browse-kill-ring.el:
 | ;; modify it under the terms of the GNU General Public License as
 | ;; published by the Free Software Foundation; either version 2, or (at
 | ;; your option) any later version.
-`----
-
-
-Author/copyright info for coffee.el:
-,----
-| ;;; coffee.el --- Submit a BREW request to an RFC2324-compliant coffee device
-| ;;;
-| ;;; Author: Eric Marsden <emarsden@mail.dotcom.fr>
-| ;;; Version: 0.2
-| ;;; Copyright: (C) 1999 Eric Marsden
-| ;;; Keywords: coffee brew kitchen-sink can't
-| ;;
-| ;;
-| ;;     This program is free software; you can redistribute it and/or
-| ;;     modify it under the terms of the GNU General Public License as
-| ;;     published by the Free Software Foundation; either version 2 of
-| ;;     the License, or (at your option) any later version.
 `----
 
 

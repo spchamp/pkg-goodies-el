@@ -9,8 +9,9 @@ emacs-goodies-el (21.9-1) UNRELEASED; urgency=low
     thanks to Francesco Potorti` (Closes: #167214). (I'll do the
     `commands' from the PATH later.)
   * highlight-current-line.el: Updated to version V0.56
+  * Remove coffee.el from emacs-goodies-el.  It doesn't work as installed.
 
- -- Peter S Galbraith <psg@debian.org>  Sun,  7 Sep 2003 19:58:35 -0400
+ -- Peter S Galbraith <psg@debian.org>  Mon,  8 Sep 2003 22:34:52 -0400
 
 emacs-goodies-el (21.8-1) unstable; urgency=low
 

@@ -160,14 +160,6 @@ Display items in the `kill-ring' in another buffer." t nil)
 
 ;;;***
 
-;;;### (autoloads (coffee) "coffee" "coffee.el" (16107 56175))
-;;; Generated autoloads from coffee.el
-
-(autoload (quote coffee) "coffee" "\
-Submit a BREW request to an RFC2324-compliant coffee device" t nil)
-
-;;;***
-
 ;;;### (autoloads (df) "df" "df.el" (16111 43155))
 ;;; Generated autoloads from df.el
 
