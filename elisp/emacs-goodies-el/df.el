@@ -1,4 +1,4 @@
-;;; df.el --- Hack to display in the mode line space left on devices
+;;; df.el --- display space left on partitions in the mode-line 
 
 ;; Copyright (C) 1999 by Association April
 
@@ -25,14 +25,14 @@
 
 ;;; Commentary:
 
-;;  This is a quick hack to display disk usage in the mode line.
+;;  This is a quick hack to display disk usage in the mode-line.
 ;;  Disk space remaining is updated every `df-refresh' seconds.
 
 ;;  If you work with a lot of users sharing the same partition, it
 ;;  sometimes happens that there is no place left to save your work, which
 ;;  may drive you to serious brain damage when you lose important work.
 ;;  This package allows you to have the available disk space and the buffer
-;;  size displayed in the mode line, so you know when you can save your
+;;  size displayed in the mode-line, so you know when you can save your
 ;;  file or when it's time to do some cleanup.
 
 ;;  This package may (must) not be very optimized or efficient, but
@@ -48,9 +48,12 @@
 ;;; History:
 ;; 
 
-;; $Id: df.el,v 1.2 2003/06/17 01:02:20 psg Exp $
+;; $Id: df.el,v 1.3 2003/06/17 01:19:23 psg Exp $
 
 ;; $Log: df.el,v $
+;; Revision 1.3  2003/06/17 01:19:23  psg
+;; Use mode-line with a hyphen, like elsewhere in Emacs.
+;;
 ;; Revision 1.2  2003/06/17 01:02:20  psg
 ;; Make checkdoc clean
 ;;
@@ -106,11 +109,11 @@
 
 ;; Variables that users will want to change
 (defvar df-partition "/home"
-  "*Partition to scan.")
+  "*Partition to scan by df package.")
 
 ;; Variables that users are unlikely to want to change
 (defvar df-refresh 60
-  "*Refresh rate (in seconds) of the modeline by df.")
+  "*Refresh rate (in seconds) of the mode-line by df.")
 (defvar df-mb-threshold 10
   "*When free disk space reaches this amount (in Mb), show in Mb.")
 (defvar df-megabytes-unit "M"
@@ -180,7 +183,7 @@ Argument STRING is the output string."
 
 
 (defun df-enable ()
-  "Function to display disk statistics in the mode line."
+  "Function to display disk statistics in the mode-line."
   (interactive)
   (setq df-mode t)
   (make-variable-buffer-local 'df-buffer-weight)
@@ -205,7 +208,7 @@ Argument STRING is the output string."
 
 
 (defun df-mode (&optional arg)
-  "Toggle display of space left on any filesystem in mode lines.
+  "Toggle display of space left on any filesystem in mode-lines.
 This display updates automatically every df-refresh seconds.
 
 With a numeric argument, enable this display if ARG is positive."
@@ -220,7 +223,7 @@ With a numeric argument, enable this display if ARG is positive."
 
 ;;;###autoload
 (defun df (&optional partition)
-  "Enables display of space left on any PARTITION in mode lines.
+  "Enables display of space left on any PARTITION in mode-lines.
 This display updates automatically every df-refresh seconds."
   (interactive)
   (when partition
