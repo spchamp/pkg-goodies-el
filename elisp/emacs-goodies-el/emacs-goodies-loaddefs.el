@@ -32,30 +32,32 @@ Sets up command `font-lock-mode'.
 
 ;;;***
 
-;;;### (autoloads (apt-utils-show-package) "apt-utils" "apt-utils.el"
-;;;;;;  (16114 19821))
+;;;### (autoloads (apt-utils-search apt-utils-show-package) "apt-utils"
+;;;;;;  "apt-utils.el" (16118 19946))
 ;;; Generated autoloads from apt-utils.el
 
 (autoload (quote apt-utils-show-package) "apt-utils" "\
 Write APT package information to buffer.
 With ARG, choose that package, otherwise prompt for one." t nil)
 
+(autoload (quote apt-utils-search) "apt-utils" "\
+Search Debian packages for regular expression.
+To search for multiple patterns use a string like \"foo&&bar\"." t nil)
+
 ;;;***
 
-;;;### (autoloads (bar-cursor-change bar-cursor-mode) "bar-cursor"
-;;;;;;  "bar-cursor.el" (16114 22185))
+;;;### (autoloads (bar-cursor-mode) "bar-cursor" "bar-cursor.el"
+;;;;;;  (16114 26305))
 ;;; Generated autoloads from bar-cursor.el
 
 (autoload (quote bar-cursor-mode) "bar-cursor" "\
-Toggle use of variable `bar-cursor-mode'.
+Toggle use of 'bar-cursor-mode'.
+
 This quasi-minor mode changes cursor to a bar cursor in insert mode,
 and a block cursor in overwrite mode.  It may only be turned on and
 off globally, not on a per-buffer basis (hence the quasi- designation).
 
-Optional ARG turns mode on if ARG is a positive integer." t nil)
-
-(autoload (quote bar-cursor-change) "bar-cursor" "\
-Enable or disable advice based on value of variable `bar-cursor-mode'." nil nil)
+Optional ARG turns mode on iff ARG is a positive integer." t nil)
 
 ;;;***
 
@@ -176,7 +178,7 @@ This display updates automatically every `df-refresh' seconds." t nil)
 ;;;***
 
 ;;;### (autoloads (diminished-modes diminish-undo diminish) "diminish"
-;;;;;;  "diminish.el" (16114 22185))
+;;;;;;  "diminish.el" (16114 26305))
 ;;; Generated autoloads from diminish.el
 
 (autoload (quote diminish) "diminish" "\
@@ -194,10 +196,7 @@ you're having problems with a cramped mode line, you may choose to use single
 letters for some modes, without leading spaces.  Capitalizing them works
 best; if you then diminish some mode to \"X\" but have abbrev-mode enabled as
 well, you'll get a display like \"AbbrevX\".  This function prepends a space
-to TO-WHAT if it's > 1 char long & doesn't already begin with a space.
-
-If ANNOTATE-FLAG is nil or omitted, the normal case in interactive use, then
-the variable `diminished-minor-modes' will be modified to reflect the change." t nil)
+to TO-WHAT if it's > 1 char long & doesn't already begin with a space." t nil)
 
 (autoload (quote diminish-undo) "diminish" "\
 Restore mode-line display of diminished mode MODE to its minor-mode value.
@@ -207,10 +206,7 @@ Interactively, enter (with completion) the name of any diminished mode (a
 mode that was formerly a minor mode on which you invoked M-x diminish).
 To restore all diminished modes to minor status, answer `diminished-modes'.
 The response to the prompt shouldn't be quoted.  However, in Lisp code,
-the arg must be quoted as a symbol, as in (diminish-undo 'diminished-modes).
-
-If ANNOTATE-FLAG is nil or omitted, the normal case in interactive use, then
-the variable `diminished-minor-modes' will be modified to reflect the change." t nil)
+the arg must be quoted as a symbol, as in (diminish-undo 'diminished-modes)." t nil)
 
 (autoload (quote diminished-modes) "diminish" "\
 Echo all active diminished or minor modes as if they were minor.
@@ -241,8 +237,8 @@ Update ``egocentric-regexp-list'' from $USER and $NAME variables." t nil)
 
 ;;;***
 
-;;;### (autoloads (ff-paths-install) "ff-paths" "ff-paths.el" (16111
-;;;;;;  47924))
+;;;### (autoloads (ff-paths-install) "ff-paths" "ff-paths.el" (16115
+;;;;;;  46218))
 ;;; Generated autoloads from ff-paths.el
 
 (autoload (quote ff-paths-install) "ff-paths" "\
@@ -259,7 +255,7 @@ Toggle floatbg mode" t nil)
 ;;;***
 
 ;;;### (autoloads (home-end-end home-end-home) "home-end" "home-end.el"
-;;;;;;  (16114 22185))
+;;;;;;  (16114 26305))
 ;;; Generated autoloads from home-end.el
 
 (autoload (quote home-end-home) "home-end" "\
@@ -359,7 +355,7 @@ the name of the mode-map that goes with the given mode." nil (quote macro))
 ;;;***
 
 ;;;### (autoloads (muttrc-mode) "muttrc-mode" "muttrc-mode.el" (16114
-;;;;;;  22185))
+;;;;;;  26305))
 ;;; Generated autoloads from muttrc-mode.el
 
 (autoload (quote muttrc-mode) "muttrc-mode" "\
@@ -1080,7 +1076,7 @@ See `wdired-mode'." t nil)
 ;;;***
 
 ;;;### (autoloads (nuke-trailing-whitespace) "whitespace" "whitespace.el"
-;;;;;;  (16114 22185))
+;;;;;;  (16114 26305))
 ;;; Generated autoloads from whitespace.el
 
 (autoload (quote nuke-trailing-whitespace) "whitespace" "\
