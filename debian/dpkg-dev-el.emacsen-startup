@@ -58,7 +58,7 @@ being constructed."
   (add-to-list 'auto-mode-alist
                '("debian/README.Debian$" . readme-debian-mode))
   (add-to-list 'auto-mode-alist
-               '("^/usr/share/doc/.*/README.Debian.*$" . readme-debian-mode)))
+               '("^/usr/share/doc/.*/README.Debian.*$" . readme-debian-mode))
 
   ;; other useful automode
   (add-to-list 'auto-mode-alist
