@@ -1,7 +1,7 @@
 @c -*- mode: texinfo -*-
 \input texinfo
 
-@c $Id: emacs-goodies-el.texi,v 1.8 2003/05/26 00:31:33 psg Exp $
+@c $Id: emacs-goodies-el.texi,v 1.9 2003/05/27 00:13:50 psg Exp $
 @c %**start of header
 @setfilename info/emacs-goodies-el
 @settitle Emacs-Goodies-el
@@ -63,6 +63,7 @@ documented files just yet.
 * boxquote::                    Quote text with a semi-box.
 * browse-kill-ring::            Interactively insert items from kill-ring.
 * clipper::                     Save strings of data for further use.
+* cyclebuffer::                 Select buffer by cycling through.
 * ff-paths::                    Searches certain paths to find files.
 @end menu
 
@@ -268,7 +269,7 @@ consequences if you do @command{@kbd{M-x} browse-kill-ring}, then
 switch your window configuration, and try to use the same @code{*Kill
 Ring*} buffer again.
 
-@node clipper, ff-paths, browse-kill-ring, Top
+@node clipper, cyclebuffer, browse-kill-ring, Top
 @chapter clipper.el - Save strings of data for further use.
 
 Clipper is a way to handle 'clips' of text with some persistance via handles.
@@ -308,7 +309,28 @@ filename without its directory and without an extension.
 (global-set-key "\C-ccc" 'clipper-create)
 @end example
 
-@node ff-paths,  , clipper, Top
+@node cyclebuffer, ff-paths, clipper, Top
+@chapter cyclebuffer - Select buffer by cycling through.
+
+Cyclebuffer is yet another way of selecting buffers.  Instead of
+prompting you for a buffer name, cyclebuffer-forward switches to the
+most recently used buffer, and repeated invocations of
+cyclebuffer-forward switch to less recently visited buffers.  If you
+accidentally overshoot, calling cyclebuffer-backward goes back.
+
+I find this to be the fastest buffer-switching mechanism; it's like
+@kbd{C-x b <RET>} without the @key{RET}, but it's not limited to the
+most recently accessed buffer.  Plus you never have to remember buffer
+names; you just keep cycling until you recognize the buffer you're
+searching for.
+
+@noindent Suggested keybings:
+@example
+(global-set-key "M-N" 'cyclebuffer-forward)
+(global-set-key "M-P" 'cyclebuffer-backward)
+@end example
+
+@node ff-paths,  , cyclebuffer, Top
 @chapter ff-paths - searches certain paths to find files.
 
 This code allows you to use C-x C-f normally most of the time, except that
