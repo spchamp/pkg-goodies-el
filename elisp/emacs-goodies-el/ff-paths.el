@@ -188,7 +188,7 @@
 ;; V3.16  January 08 2001 (RCS 1.20)
 ;;    - Added ff-paths-locate-max-matches, defaults to 20 matches.
 ;; V3.17  January 17 2001 (RCS 1.22)
-;;    - Oups! defvar ff-paths-locate-max-matches.
+;;    - Oops! defvar ff-paths-locate-max-matches.
 ;; V3.18  January 07 2002 (RCS 1.24) Michael Ernst <mernst@alum.mit.edu>
 ;;   Quote filenames before passing them to locate.  Without this change,
 ;;   ff-paths may return many irrelevant matches.  More seriously, the
@@ -198,6 +198,7 @@
 ;; V3.19  April 21st 2003 PSG
 ;;   - checkdoc cleaning.
 ;;   - customization (still lacking the main variable `ff-paths-list'!)
+;;   - byte-compiles clean!
 ;; ----------------------------------------------------------------------------
 ;;; Code:
 
@@ -230,8 +231,6 @@ You may not mix strings with elisp lists (like `load-path').
 You may terminate a directory name with double slashes // indicating that
  all subdirectories beneath it should also be searched.")
 
-;; See variable `ff-paths-use-locate' near end of file
-
 (defcustom ff-paths-display-non-existent-filename t
   "*find-file-using-paths-hook displays the prompted-for non-existent filename.
 If you use \"C-x C-f article.sty\" in a path where it does not exists,
@@ -263,6 +262,39 @@ This is the argument REQUIRE-MATCH of `completing-read'."
   :group 'ff-paths
   :type 'boolean)
 
+(defun ff-paths-have-locate ()
+  "Determine if the `locate' command exists on this system."
+  (if (not (condition-case nil
+               (not (call-process "sh" nil 0 nil))
+             (error)))
+      nil                               ;No `sh' command on system
+    (cond
+     ((and (fboundp 'executable-find)
+           (executable-find "locate"))
+      t)
+     ((ff-paths-locate "bin/locate")
+      t)
+     ((ff-paths-locate "locate.exe")
+      t)
+     (t      
+      nil))))
+
+(defcustom ff-paths-use-locate (ff-paths-have-locate)
+  "*Determines whether the `locate' command is used by ff-paths.
+If nil don't use it.
+If t use it but only if other ff-paths methods have failed.
+If 1 use it before any other mechanism (because it's faster).
+
+To set it to 1, add this to your ~/.emacs file:
+
+  (setq ff-paths-use-locate '1)
+
+By default, this is set to t if it can be determined that your system has
+the locate command.
+Using locate is fairly aggressive, and so is *not* added to the ffap toolkit."
+  :group 'ff-paths
+  :type 'boolean)
+
 (defcustom ff-paths-using-ms-windows (and (boundp 'system-type)
                                           (equal system-type 'windows-nt))
   "*Set to t if using DOS, win95, winNT, etc.
@@ -286,6 +318,14 @@ changelog.Debian.gz on my system)"
 
 (defvar ff-paths-have-reached-locate-max nil
   "Internal to ff-paths to remember if max count is reached on this search.")
+
+(defvar ff-paths-in-ffap-name ""
+  "Filename used when `ff-paths-in-ffap' called.
+Find-file-using-paths-hook does nothing if called with this same name to avoid
+searching twice for a non-existing file the user actually wants to create")
+
+(defvar ff-paths-non-existent-filename nil
+  "Internal holder for a filename that doesn't exist on the filesystem.")
 
 ;; ----------------------------------------------------------------------------
 ;;; Installs itself as hooks at the end of the file
@@ -341,6 +381,11 @@ changelog.Debian.gz on my system)"
   (make-face-bold 'ff-paths-non-existent-file-face nil t))
 (set-face-foreground 'ff-paths-non-existent-file-face "NavyBlue" nil)
 
+(defvar buf)
+(defvar truename)
+(defvar number)
+(defvar filename)
+
 (defun find-file-using-paths-hook ()
   "Search for file not found in path specified by the variable `ff-paths-list'."
   ;; This is called by find-file after it fails.
@@ -348,8 +393,7 @@ changelog.Debian.gz on my system)"
   (if (or (ff-paths-file-exists-but-cannot-be-read buffer-file-name)
           (string-equal buffer-file-name ff-paths-in-ffap-name))
       nil
-    (let* ((the-buffer (current-buffer))
-           (the-name (file-name-nondirectory buffer-file-name))
+    (let* ((the-name (file-name-nondirectory buffer-file-name))
            (matches
             (or (if (equal ff-paths-use-locate '1)
                     (ff-paths-locate the-name))
@@ -508,10 +552,7 @@ don't think it should.  ff-paths should deal with it anyway..."
           the-name
         nil)))))
 
-(defvar ff-paths-in-ffap-name ""
-  "Filename used when `ff-paths-in-ffap' called.
-Find-file-using-paths-hook does nothing if called with this same name to avoid
-searching twice for a non-existing file the user actually wants to create")
+(defvar ffap-alist)
 
 ;;(defun ff-paths-in-ffap-install ()
 ;;  "Install ff-paths in ffap toolbox to find files from name under point"
@@ -786,23 +827,6 @@ HOME or HOME/bin"
 
 ;;; `locate' stuff
 
-(defun ff-paths-have-locate ()
-  "Determine if the `locate' command exists on this system."
-  (if (not (condition-case nil
-               (not (call-process "sh" nil 0 nil))
-             (error)))
-      nil                               ;No `sh' command on system
-    (cond
-     ((and (fboundp 'executable-find)
-           (executable-find "locate"))
-      t)
-     ((ff-paths-locate "bin/locate")
-      t)
-     ((ff-paths-locate "locate.exe")
-      t)
-     (t      
-      nil))))
-
 (defun ff-paths-locate (filename)
   "Try finding FILENAME using the locate command.
 Return a string if a single match, or a list if many matches."
@@ -837,22 +861,6 @@ Return a string if a single match, or a list if many matches."
           (setq ff-paths-have-reached-locate-max t))
       (kill-buffer ff-buffer)
       matches)))
-
-(defcustom ff-paths-use-locate (ff-paths-have-locate)
-  "*Determines whether the `locate' command is used by ff-paths.
-If nil don't use it.
-If t use it but only if other ff-paths methods have failed.
-If 1 use it before any other mechanism (because it's faster).
-
-To set it to 1, add this to your ~/.emacs file:
-
-  (setq ff-paths-use-locate '1)
-
-By default, this is set to t if it can be determined that your system has
-the locate command.
-Using locate is fairly aggressive, and so is *not* added to the ffap toolkit."
-  :group 'ff-paths
-  :type 'boolean)
 
 ;;; Installs itself
 (add-hook 'find-file-not-found-hooks 'find-file-using-paths-hook t)
