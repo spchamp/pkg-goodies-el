@@ -1,3 +1,10 @@
+emacs-goodies-el (19.3-2) UNRELEASED; urgency=low
+
+  * debian-bug.el: Revert `send bug report to maintonly if priority wishlist or
+    minor change'.
+
+ --
+
 emacs-goodies-el (19.3-1) unstable; urgency=low
 
   * New upstream release for ff-paths.el (V3.18).
