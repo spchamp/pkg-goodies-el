@@ -13,19 +13,12 @@
 
 ;;; Code:
 
-(require 'emacs-goodies-loaddefs)
-
-(defgroup emacs-goodies-el '((apt-sources custom-group)
-                             (apt-utils custom-group)
-                             (auto-fill-inhibit custom-group)
-                             (bar-cursor custom-group)
-                             (box-quote custom-group)
-                             (browse-kill-ring custom-group)
-                             (df custom-group)
-                             (diminish custom-group)
-                             (ff-paths custom-group))
+(defgroup emacs-goodies-el nil
   "Debian emacs-goodies-el package customization."
   :group 'convenience)
+
+(require 'emacs-goodies-loaddefs)
+(require 'emacs-goodies-custom)
 
 (defcustom emacs-goodies-el-defaults nil
   "Whether default settings are chosen conservatively or aggressively.
@@ -46,11 +39,6 @@ Setting to aggresisve will enable feature that superceed Emacs defaults."
 
 ;; apt-sources
 (add-to-list 'auto-mode-alist '("sources.list$" . apt-sources-mode))
-(defgroup apt-sources nil "Mode for editing apt source.list file"
-  :group 'tools
-  :load 'apt-sources
-  :link '(custom-manual "(emacs-goodies-el)apt-sources")
-  :prefix "apt-sources-")
 
 ;; apt-utils.el
 (defgroup apt-utils nil
@@ -81,21 +69,6 @@ With ARG, match names only."
   :link '(custom-manual "(emacs-goodies-el)bar-cursor")
   :group 'emacs-goodies-el)
 
-;; boxquote.el
-(defgroup boxquote nil
-  "Mark regions of text with a half-box."
-  :load 'boxquote
-  :link '(custom-manual "(emacs-goodies-el)boxquote")
-  :group  'editing
-  :prefix "boxquote-")
-
-;; browse-kill-ring.el
-(defgroup browse-kill-ring nil
-  "A package for browsing and inserting the items in `kill-ring'."
-  :link '(url-link "http://web.verbum.org/~walters")
-  :link '(custom-manual "(emacs-goodies-el)browse-kill-ring")
-  :group 'convenience)
-
 ;; clipper.el
 (autoload 'clipper-create "clipper" "Create a new 'clip' for use within Emacs."
   t)
@@ -105,28 +78,7 @@ With ARG, match names only."
   t)
 (autoload 'clipper-edit-clip "clipper" "Edit an existing 'clip'." t)
 
-;; df.el
-(defgroup df nil
-  "Display space left on partitions in the mode-line."
-  :load 'df
-  :link '(custom-manual "(emacs-goodies-el)df")
-  :group 'tools)
-
-;; diminish.el
-(defgroup diminish '((diminished-minor-modes custom-variable))
-  "Diminished modes are minor modes with no modeline display."
-  :load 'diminish
-  :link '(custom-manual "(emacs-goodies-el)diminish")
-  :group 'emacs-goodies-el)
-
 ;; ff-paths.el
-(defgroup ff-paths nil
-  "Find file using paths."
-  :link '(custom-manual "(emacs-goodies-el)ff-paths")
-  :group 'ffap
-  :group 'matching
-  :group 'convenience)
-
 (defcustom ff-paths-install emacs-goodies-el-defaults
   "Whether to setup ff-paths for use.
 find-file-using-paths searches certain paths to find files."
