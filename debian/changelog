@@ -1,3 +1,10 @@
+emacs-goodies-el (19.5-2) UNRELEASED; urgency=low
+
+  * Make sure I include patches in debian diff.  The last upload was built
+    without applying them! (closes: #191763)
+
+ -- Peter S Galbraith <psg@debian.org>  Mon,  5 May 2003 09:52:47 -0400
+
 emacs-goodies-el (19.5-1) unstable; urgency=low
 
   * debian-changelog-mode.el: defcustom added for debian-changelog-mode-hook
