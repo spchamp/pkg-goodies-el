@@ -19,6 +19,7 @@ Description: Miscellaneous add-ons for Emacs
   align-string.el: align string components over several lines;
   all.el: edit all lines matching a given regexp;
   apt-sources.el: major mode for editing Debian sources.list files;
+  apt-utils.el: interface to APT (Debian package management);
   auto-fill-inhibit.el: finer grained control over auto-fill-mode;
   bar-cursor.el: change your cursor to a bar instead of a block;
   boxquote.el: quote texts in nice boxes;
