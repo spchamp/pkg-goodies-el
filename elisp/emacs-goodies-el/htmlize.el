@@ -1,6 +1,6 @@
 ;; htmlize.el -- HTML-ize font-lock buffers
 
-;; Copyright (C) 1997,1998,1999,2000 Hrvoje Niksic
+;; Copyright (C) 1997,1998,1999,2000,2001,2002 Hrvoje Niksic
 
 ;; Author: Hrvoje Niksic <hniksic@xemacs.org>
 ;; Keywords: hypermedia, extensions
@@ -31,10 +31,10 @@
 ;; htmlize-buffer'.  After that, you should find yourself in an HTML
 ;; buffer, which you can save.  Alternatively, `M-x htmlize-file' will
 ;; find a file, font-lockify the buffer, and save the HTML version,
-;; all before you blink.  Even more alternatively, `M-x
-;; htmlize-many-files' will prompt you for a slew of files to undergo
-;; the same treatment.  `M-x htmlize-many-files-dired' will do the
-;; same for the files marked by dired.
+;; all before you blink.  Furthermore, `M-x htmlize-many-files' will
+;; prompt you for a slew of files to undergo the same treatment.  `M-x
+;; htmlize-many-files-dired' will do the same for the files marked by
+;; dired.
 
 ;; The code attempts to generate compliant HTML, but I can't make any
 ;; guarantees; I haven't yet bothered to run the generated markup
@@ -77,7 +77,8 @@
 ;;     <barranquero@laley-actualidad.es> for contributing fixes.
 ;;
 ;;   * A bunch of other people for sending reports and useful
-;;     comments.
+;;     comments.  I will not attempt to name them because I will
+;;     surely forget some.
 ;;
 
 ;; TODO: Should attempt to merge faces (utilize CSS for this?).
@@ -97,7 +98,7 @@
   (defvar font-lock-auto-fontify)
   (defvar global-font-lock-mode))
 
-(defconst htmlize-version "0.62")
+(defconst htmlize-version "0.68")
 
 ;; Incantations to make custom stuff work without customize, e.g. on
 ;; XEmacs 19.14 or GNU Emacs 19.34.
@@ -131,8 +132,34 @@ with description of faces, and use it in the HTML document, specifying
 the faces in the actual text with <span class=\"FACE\">.
 
 When set to `font', the properties will be set using layout tags
-<font>, <b>, <i>, <u>, and <strike>."
+<font>, <b>, <i>, <u>, and <strike>.
+
+`css' output is normally preferred, but `font' is still useful for
+supporting old, pre-CSS browsers, or for easy embedding of colorized
+text in foreign HTML documents (no style sheet to carry around) ."
   :type '(choice (const css) (const font))
+  :group 'htmlize)
+
+(defcustom htmlize-generate-hyperlinks t
+  "*Non-nil means generate the hyperlinks for URLs and mail addresses.
+This is on by default; set it to nil if you don't want htmlize to
+insert hyperlinks in the resulting HTML.  (In which case you can still
+do your own hyperlinkification from htmlize-after-hook.)"
+  :type 'boolean
+  :group 'htmlize)
+
+(defcustom htmlize-hyperlink-style "      a {
+        color: inherit;
+        background-color: inherit;
+        font: inherit;
+        text-decoration: inherit;
+      }
+      a:hover {
+        text-decoration: underline;
+      }
+"
+  "*The CSS style used for hyperlinks when in CSS mode."
+  :type 'string
   :group 'htmlize)
 
 (defcustom htmlize-use-rgb-map t
@@ -382,15 +409,50 @@ This is run by the `htmlize-file'.")
 	     (and (buffer-live-p ,temp-buffer)
 		  (kill-buffer ,temp-buffer))))))))
 
-;; Under XEmacs, `next-single-property-change' works for all kinds of
-;; extents.  Under FSF, `next-char-property-change' works for text
-;; properties and overlays, but doesn't accept a PROP argument.  What
-;; we need is something like `next-char-single-property-change', and
-;; that doesn't exist.  :-(
-(if htmlize-running-xemacs
-    (defalias 'htmlize-next-change 'next-single-property-change)
-  ;; As I said above, this ignores overlays.  Let it be for now.
+;; We need a function that efficiently finds the next change of the
+;; `face' property, preferably regardless of whether the change
+;; occurred because of a text property or an extent/overlay.  As it
+;; turns out, it is not easy to do that compatibly.
+
+;; Under XEmacs, `next-single-property-change' does that.  Under GNU
+;; Emacs beginning with version 21, `next-single-char-property-change'
+;; is available and works.  GNU Emacs 20 had
+;; `next-char-property-change', which we can use.  GNU Emacs 19 didn't
+;; provide any means for simultaneously examining overlays and text
+;; properties, so when using Emacs 19.34, we punt and fall back to
+;; `next-single-property-change', thus ignoring overlays altogether.
+
+(cond
+ (htmlize-running-xemacs
+  ;; XEmacs: good.
   (defalias 'htmlize-next-change 'next-single-property-change))
+ ((fboundp 'next-single-char-property-change)
+  ;; GNU Emacs 21: good.
+  (defalias 'htmlize-next-change 'next-single-char-property-change))
+ ((fboundp 'next-char-property-change)
+  ;; GNU Emacs 20: bad, but fixable.
+  (defun htmlize-next-change (pos prop)
+    (let ((done nil)
+	  (current-value (get-char-property pos prop))
+	  newpos next-value)
+      ;; Loop over positions returned by next-char-property-change
+      ;; until the value of PROP changes or we've hit EOB.
+      (while (not done)
+	(setq newpos (next-char-property-change pos)
+	      next-value (get-char-property newpos prop))
+	(cond ((eq newpos pos)
+	       ;; Possibly at EOB?  Whatever, just don't infloop.
+	       (setq done t))
+	      ((eq next-value current-value)
+	       ;; PROP hasn't changed -- keep looping.
+	       )
+	      (t
+	       (setq done t)))
+	(setq pos newpos))
+      pos)))
+ (t
+  ;; GNU Emacs 19.34: hopeless.
+  (defalias 'htmlize-next-change 'next-single-property-change)))
 
 (defvar htmlize-x-library-search-path
   '("/usr/X11R6/lib/X11/"
@@ -428,8 +490,8 @@ in the system directories."
     (with-temp-buffer
       (insert-file-contents rgb-file)
       (while (not (eobp))
-	(cond ((looking-at "^!")
-	       ;; Skip comments
+	(cond ((looking-at "^\\s-*\\([!#]\\|$\\)")
+	       ;; Skip comments and empty lines.
 	       )
 	      ((looking-at "[ \t]*\\([0-9]+\\)[ \t]+\\([0-9]+\\)[ \t]+\\([0-9]+\\)[ \t]+\\(.*\\)")
 	       (setf (gethash (downcase (match-string 4)) hash)
@@ -636,7 +698,7 @@ in the system directories."
 
 (defun htmlize-css-doctype ()
   nil					; no doc-string
-  "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\">")
+  "<!DOCTYPE html PUBLIC \"-//W3C//DTD HTML 4.01//EN\">")
 
 ;; Internal function; not a method.
 (defun htmlize-css-specs (face-object &optional default-face-object)
@@ -678,10 +740,11 @@ in the system directories."
 (defun htmlize-css-insert-head ()
   (insert "    <style type=\"text/css\">\n    <!--\n")
   (let ((default-face-object (gethash 'default htmlize-face-hash)))
-    (insert "      BODY {\n        "
+    (insert "      body {\n        "
 	    (mapconcat #'identity (htmlize-css-specs default-face-object)
 		       "\n        ")
-	    "\n      } /* default */\n")
+	    "
+      } /* default */\n")
     (maphash
      (lambda (face face-object)
        (let ((cleaned-up-face-name (symbol-name face)))
@@ -694,14 +757,15 @@ in the system directories."
 						     cleaned-up-face-name)))
 	 (unless (eq face 'default)
 	   (let ((specs (htmlize-css-specs face-object default-face-object)))
-	     (insert "      span." (htmlize-face-css-name face-object))
+	     (insert "      ." (htmlize-face-css-name face-object))
 	     (if (null specs)
 		 (insert " {")
 	       (insert " {\n        "
 		       (mapconcat #'identity specs "\n        ")))
 	     (insert "\n      } /* " cleaned-up-face-name " */\n")))))
      htmlize-face-hash))
-  (insert "    -->\n    </style>\n"))
+  (insert htmlize-hyperlink-style
+	  "    -->\n    </style>\n"))
 
 (defun htmlize-css-face-prejunk (face-object)
   (concat "<span class=\"" (htmlize-face-css-name face-object) "\">"))
@@ -734,9 +798,9 @@ in the system directories."
   ;; If you have a problem with that, use the `css' generation engine
   ;; which I believe creates fully conformant HTML.
 
-  "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\">"
+  "<!DOCTYPE html PUBLIC \"-//W3C//DTD HTML 4.01//EN\">"
 
-  ;; Now-abandond HTML Pro declaration.
+  ;; Now-abandoned HTML Pro declaration.
   ;"<!DOCTYPE HTML PUBLIC \"+//Silmaril//DTD HTML Pro v0r11 19970101//EN\">"
   )
 
@@ -758,6 +822,48 @@ in the system directories."
 	  (and (htmlize-face-boldp      face-object) "</b>")
 	  "</font>"))
 
+(defun htmlize-despam-address (string)
+  "Replace every occurrence of '@' in STRING with &#64;.
+`htmlize-make-hyperlinks' uses this to spam-protect mailto links
+without modifying their meaning."
+  ;; Suggested by Ville Skytta.
+  (while (string-match "@" string)
+    (setq string (replace-match "&#64;" nil t string)))
+  string)
+
+(defun htmlize-make-hyperlinks ()
+  "Make hyperlinks in HTML."
+  ;; Function originally submitted by Ville Skytta.  Rewritten by
+  ;; Hrvoje Niksic, then modified by Ville Skytta and Hrvoje Niksic.
+  (goto-char (point-min))
+  (while (re-search-forward
+	  "&lt;\\(\\(mailto:\\)?\\([-=+_.a-zA-Z0-9]+@[-_.a-zA-Z0-9]+\\)\\)&gt;"
+	  nil t)
+    (let ((address (match-string 3))
+	  (link-text (match-string 1)))
+      (delete-region (match-beginning 0) (match-end 0))
+      (insert "&lt;<a href=\"mailto:"
+	      (htmlize-despam-address address)
+	      "\">"
+	      (htmlize-despam-address link-text)
+	      "</a>&gt;")))
+  (goto-char (point-min))
+  (while (re-search-forward "&lt;\\(\\(URL:\\)?\\([a-zA-Z]+://[^;]+\\)\\)&gt;"
+			    nil t)
+    (let ((url (match-string 3))
+	  (link-text (match-string 1)))
+      (delete-region (match-beginning 0) (match-end 0))
+      (insert "&lt;<a href=\"" url "\">" link-text "</a>&gt;"))))
+
+;; Tests for htmlize-make-hyperlinks:
+
+;; <mailto:hniksic@xemacs.org>
+;; <http://fly.srk.fer.hr>
+;; <URL:http://www.xemacs.org>
+;; <http://www.mail-archive.com/bbdb-info@xemacs.org/>
+;; <hniksic@xemacs.org>
+;; <xalan-dev-sc.10148567319.hacuhiucknfgmpfnjcpg-john=doe.com@xml.apache.org>
+
 (defmacro htmlize-method (method &rest args)
   (let ((func (gensym "hm-")))
     `(let ((,func (intern (format "htmlize-%s-%s" htmlize-output-type ',method))))
@@ -765,84 +871,96 @@ in the system directories."
 	    (funcall ,func ,@args)))))
 
 ;;;###autoload
-(defun htmlize-buffer (&optional buffer)
-  "Convert buffer to HTML, preserving the font-lock colorization.
-HTML contents will be provided in a new buffer."
-  (interactive)
-  (or buffer
-      (setq buffer (current-buffer)))
+(defun htmlize-buffer-noninteractive (buffer)
+  "Convert BUFFER to HTML, preserving the font-lock and other colorization.
+Returns the buffer with the resulting text.
+If htmlize-major-mode is non-nil, this funcall the mode.  If this is
+not what you want in a non-interactive environment, bind htmlize-major-mode
+to nil before calling this function."
   (save-excursion
     (set-buffer buffer)
     (run-hooks 'htmlize-before-hook)
-    (htmlize-make-face-hash (cons 'default (htmlize-faces-in-buffer))))
-  (let* ((newbuf (with-current-buffer buffer
-		   ;; We use with-current-buffer to make sure that the
-		   ;; new buffer's default-directory gets inherited
-		   ;; from BUFFER.
-		   (generate-new-buffer (if (buffer-file-name)
+    (htmlize-make-face-hash (cons 'default (htmlize-faces-in-buffer)))
+
+    (let* ((newbuf (generate-new-buffer (if (buffer-file-name)
 					    (htmlize-make-file-name
 					     (file-name-nondirectory
 					      (buffer-file-name)))
-					  "*html*"))))
-	 next-change face face-object)
-    (switch-to-buffer newbuf)
-    (buffer-disable-undo)
-    (insert (htmlize-method doctype) ?\n
-	    (format "<!-- Created by htmlize-%s in %s mode. -->\n"
-		    htmlize-version htmlize-output-type))
-    (insert "<html>\n  <head>\n    <title>"
-	    (htmlize-protect-string (if (stringp buffer) buffer
-				      (buffer-name buffer)))
-	    "</title>\n" htmlize-head-tags)
-    (htmlize-method insert-head)
-    (insert "  </head>")
-    (insert "\n  "
-	    (or (htmlize-method body-tag)
-		"<body>")
-	    "\n    <pre>\n")
-    (with-current-buffer buffer
-      (save-excursion
-	(goto-char (point-min))
-	(while (not (eobp))
-	  ;; Using get-char-property instead of get-text-property
-	  ;; insures that all the extents are examined, not only the
-	  ;; ones that belong to text properties.  Likewise for
-	  ;; `htmlize-next-change'.
-	  (setq face (get-char-property (point) 'face)
-		next-change (or (htmlize-next-change (point) 'face)
-				(point-max)))
-	  (and (consp face)
-	       ;; Choose the first face.  Here we might want to merge
-	       ;; the faces.  In XEmacs, we might also want to take
-	       ;; into account all the `face' properties of all the
-	       ;; extents overlapping next-change.  *sigh*
-	       (setq face (car face)))
-	  (and (eq face 'default)
-	       (setq face nil))
-	  ;; FSF Emacs allows `face' property to contain arbitrary
-	  ;; stuff.
-	  (or (htmlize-symbol-face-p face)
-	      (setq face nil))
-	  (when face
-	    (setq face-object (gethash face htmlize-face-hash))
-	    (princ (htmlize-method face-prejunk face-object) newbuf))
-	  (princ (htmlize-protect-string
-		  (buffer-substring-no-properties (point) next-change))
-		 newbuf)
-	  (when face
-	    (princ (htmlize-method face-postjunk face-object) newbuf))
-	  (goto-char next-change))))
-    (insert "</pre>\n  </body>\n</html>\n")
-    (goto-char (point-min))
-    (when htmlize-html-major-mode
-      ;; The sucky thing here is that the minor modes, most notably
-      ;; font-lock-mode, won't be initialized.  Oh well.
-      (funcall htmlize-html-major-mode))
-    (run-hooks 'htmlize-after-hook)
-    (buffer-enable-undo)
-    ;; We won't be needing the stored data anymore, so allow next gc
-    ;; to free up the used conses.
-    (clrhash htmlize-face-hash)))
+					  "*html*")))
+	   next-change face face-object)
+      (set-buffer newbuf)
+      (buffer-disable-undo)
+      (insert (htmlize-method doctype) ?\n
+	      (format "<!-- Created by htmlize-%s in %s mode. -->\n"
+		      htmlize-version htmlize-output-type))
+      (insert "<html>\n  <head>\n    <title>"
+	      (htmlize-protect-string (if (stringp buffer) buffer
+					(buffer-name buffer)))
+	      "</title>\n" htmlize-head-tags)
+      (htmlize-method insert-head)
+      (insert "  </head>")
+      (insert "\n  "
+	      (or (htmlize-method body-tag)
+		  "<body>")
+	      "\n    <pre>\n")
+      (with-current-buffer buffer
+	;; save-excursion prevents us from changing the point in BUFFER.
+	(save-excursion
+	  (goto-char (point-min))
+	  (while (not (eobp))
+	    ;; Using get-char-property instead of get-text-property
+	    ;; insures that all the extents are examined, not only the
+	    ;; ones that belong to text properties.  Likewise for
+	    ;; `htmlize-next-change'.
+	    (setq face (get-char-property (point) 'face)
+		  next-change (or (htmlize-next-change (point) 'face)
+				  (point-max)))
+	    (and (consp face)
+		 ;; Choose the first face.  Here we might want to merge
+		 ;; the faces.  Under XEmacs, we might also want to take
+		 ;; into account all the `face' properties of all the
+		 ;; extents overlapping next-change.  *sigh*
+		 (setq face (car face)))
+	    (and (eq face 'default)
+		 (setq face nil))
+	    ;; FSF Emacs allows `face' property to contain arbitrary
+	    ;; stuff.
+	    (or (htmlize-symbol-face-p face)
+		(setq face nil))
+	    (when face
+	      (setq face-object (gethash face htmlize-face-hash))
+	      (princ (htmlize-method face-prejunk face-object) newbuf))
+	    (princ (htmlize-protect-string
+		    (buffer-substring-no-properties (point) next-change))
+		   newbuf)
+	    (when face
+	      (princ (htmlize-method face-postjunk face-object) newbuf))
+	    (goto-char next-change))))
+      (insert "</pre>\n  </body>\n</html>\n")
+      (when htmlize-generate-hyperlinks
+	(htmlize-make-hyperlinks))
+      (goto-char (point-min))
+      (when htmlize-html-major-mode
+	;; The sucky thing here is that the minor modes, most notably
+	;; font-lock-mode, won't be initialized.  Oh well.
+	(funcall htmlize-html-major-mode))
+      (run-hooks 'htmlize-after-hook)
+      (buffer-enable-undo)
+      ;; We won't be needing the stored data anymore, so allow next gc
+      ;; to free up the used conses.
+      (clrhash htmlize-face-hash)
+
+      ;; Return the new buffer to the caller, and restore the
+      ;; excursion.
+      newbuf)))
+
+;;;###autoload
+(defun htmlize-buffer (&optional buffer)
+  "Convert BUFFER to HTML, preserving the font-lock and other colorization.
+HTML contents are provided in a new buffer."
+  (interactive)
+  (switch-to-buffer (htmlize-buffer-noninteractive
+		     (or buffer (current-buffer)))))
 
 ;;;###autoload
 (defun htmlize-region (beg end)
@@ -946,3 +1064,4 @@ corresponding source file."
 (provide 'htmlize)
 
 ;;; htmlize.el ends here
+

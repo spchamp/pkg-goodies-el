@@ -10,8 +10,9 @@ emacs-goodies-el (21.0-1) unstable; urgency=low
     ftp://ftp.dina.kvl.dk:/pub/Staff/Per.Abrahamsen/auctex/all.el
   * Updated auto-fill-inhibit.el to latest upstream version (defcustom
     patch that I submitted).
+  * Updated htmlize.el to V0.68
 
- -- Peter S Galbraith <psg@debian.org>  Sun, 11 May 2003 19:09:35 -0400
+ -- Peter S Galbraith <psg@debian.org>  Sun, 11 May 2003 20:15:58 -0400
 
 emacs-goodies-el (20.0-1) unstable; urgency=low
 
