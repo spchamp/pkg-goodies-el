@@ -3,12 +3,16 @@ emacs-goodies-el (19.4-1) UNRELEASED; urgency=low
   * debian-bug.el: Revert `send bug report to maintonly if priority wishlist or
     minor change'.
   * debian-bug.el: New buffer-local variable `debian-bug-open-alist' for
-    open bugs.
+    open bugs.  New actions in Bugs list menu: can now read bug reports
+    as Email!
   * debian-changelog-mode.el: Use `debian-bug-open-alist'.
   * debian/control: dpkg-dev-el depends on debbugs-el (>= 19.4-1) for
-    `debian-bug-open-alist'.
-  
- -- Peter S Galbraith <psg@debian.org>  Tue, 15 Apr 2003 10:06:48 -0400
+    `debian-bug-open-alist' and Email reading.
+  * debian-bug.el: Use executable-find.  Patch contributed by Romain FRANCOISE
+    <romain@orebokech.com> (closes: #189605).
+  * debian-bug.el (debian-bug): always build package list (closes: #186338)
+
+ -- Peter S Galbraith <psg@debian.org>  Sun, 20 Apr 2003 20:44:03 -0400
 
 emacs-goodies-el (19.3-1) unstable; urgency=low
 
