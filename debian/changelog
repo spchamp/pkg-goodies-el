@@ -1,3 +1,10 @@
+emacs-goodies-el (21.9-1) UNRELEASED; urgency=low
+
+  * debbugs: debian-bug-filename adds File: info to informational block in
+    draft bug report.
+
+ -- Peter S Galbraith <psg@debian.org>  Fri,  5 Sep 2003 09:53:32 -0400
+
 emacs-goodies-el (21.8-1) unstable; urgency=low
 
   * Bug fix: "debian-bug should provide help when prompting for package
