@@ -4,8 +4,9 @@ emacs-goodies-el (21.9-1) UNRELEASED; urgency=low
     draft bug report.
   * debbugs, debbugs-el.emacsen-startup: Add autoload for useful
     debian-bug-get-bug-as-email.
+  * dpkg-dev-el, debian-bts-control.el: debian-bts-help-control was missing!
 
- -- Peter S Galbraith <psg@debian.org>  Fri,  5 Sep 2003 15:03:10 -0400
+ -- Peter S Galbraith <psg@debian.org>  Fri,  5 Sep 2003 23:32:15 -0400
 
 emacs-goodies-el (21.8-1) unstable; urgency=low
 
