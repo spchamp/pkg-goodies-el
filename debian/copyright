@@ -19,7 +19,7 @@ Author/copyright info for boxquote.el:
 ,----
 | ;;; boxquote.el --- Quote text with a semi-box.
 | ;; Copyright 1999,2000,2001 by Dave Pearson <davep@davep.org>
-| ;; $Revision: 1.2 $
+| ;; $Revision: 1.3 $
 | 
 | ;; boxquote is free software distributed under the terms of the GNU General
 | ;; Public Licence, version 2. For details see the file COPYING.
@@ -30,7 +30,7 @@ Author/copyright info for thinks.el:
 ,----
 | ;;; thinks.el --- Insert text in a think bubble.
 | ;; Copyright 2000,2001 by Dave Pearson <davep@davep.org>
-| ;; $Revision: 1.2 $
+| ;; $Revision: 1.3 $
 | 
 | ;; thinks is free software distributed under the terms of the GNU General
 | ;; Public Licence, version 2. For details see the file COPYING.
@@ -143,6 +143,8 @@ Author/copyright info for twiddle.el:
 
 
 Author/copyright info for whitespace.el:
+ This file is renamed nuke-trailing-whitespace.el to avoid name-space collision
+ with whitespace.el packaged with Emacs21.
 ,----
 | ;;; whitespace.el --- strip trailing whitespace from buffers
 | 

@@ -261,10 +261,9 @@ wdired.el provides M-x wdired-change-to-wdired-mode (when in a dired
 buffer) and allows you to edit the filenames and permission bits
 easily.
 
-whitespace.el provides M-x nuke-trailing-whitespace, a command that
-deletes trailing whitespaces in buffers.  Note: whitespace.el is
-disabled for Emacs 21, since it conflicts with the built-in
-whitespace.el.
+nuke-trailing-whitespace.el (renamed from whitespace.el) provides M-x
+nuke-trailing-whitespace, a command that deletes trailing whitespaces in
+buffers.
 
 xrdb-mode.el provides the xrdb-mode major mode, to help you editing X
 resource database files.  To use it, simple open a file named
@@ -361,4 +360,4 @@ files.  This mode adds a bit of colouring, a working filling function
 (bound to "M-q" by default), tab-completion for adding fields (bound
 to "C-c C-a" by default), and viewing bugs (bound to "C-c C-b").
 
- -- Peter S Galbraith <psg@debian.org>, Tue May 13 11:30:33 2003
+ -- Peter S Galbraith <psg@debian.org>, Tue May 13 15:39:40 2003

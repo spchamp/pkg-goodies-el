@@ -46,6 +46,7 @@ Description: Miscellaneous add-ons for Emacs
   map-lines.el: map a command over lines matching a regexp;
   mutt-alias.el: lookup and insert the expansion of mutt mail aliases;
   muttrc-mode.el: major mode for editing Mutt config files;
+  nuke-trailing-whitespace.el: kill the trailing blanks at end of lines;
   obfusurl.el: obfuscate an URL;
   perldoc.el: show help for Perl functions, builtins, and modules;
   projects.el: create project-based meaningful buffer names;
@@ -67,7 +68,6 @@ Description: Miscellaneous add-ons for Emacs
   twiddle.el: mode line hacks to keep you awake;
   under.el: underline a region with ^ characters;
   wdired.el: rename files editing their names in dired buffers;
-  whitespace.el: kill the trailing blanks at end of lines;
   xrdb-mode.el: mode for editing X resource database files.
  .
  Other files are available in the emacs-goodies-extra-el package.
