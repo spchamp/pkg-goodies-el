@@ -15,8 +15,10 @@ emacs-goodies-el (21.9-1) UNRELEASED; urgency=low
   * dpkg-dev-el, readme-debian.el bug fix: write-contents-hooks needed to
     be made buffer-local explicitely in XEmacs ("Writes incorrect dates in
     changelog", thanks to Ross Burton. Closes: #211382).
+  * patches/5_highlight-beyond-fill-column.dpatch: New patch to fix
+    indentation and remove extra fontified space.
 
- -- Peter S Galbraith <psg@debian.org>  Wed, 17 Sep 2003 12:38:17 -0400
+ -- Peter S Galbraith <psg@debian.org>  Wed, 17 Sep 2003 15:15:35 -0400
 
 emacs-goodies-el (21.8-1) unstable; urgency=low
 
