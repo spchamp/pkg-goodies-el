@@ -1,4 +1,4 @@
-emacs-goodies-el (19.4-1) UNRELEASED; urgency=low
+emacs-goodies-el (19.4-1) unstable; urgency=low
 
   * debian-bug.el: Revert `send bug report to maintonly if priority wishlist or
     minor change'.
@@ -15,7 +15,7 @@ emacs-goodies-el (19.4-1) UNRELEASED; urgency=low
   * debian/emacsen-install.template: Use --no-site-file during
     installation byte-compilation.
 
- -- Peter S Galbraith <psg@debian.org>  Tue, 22 Apr 2003 12:47:24 -0400
+ -- Peter S Galbraith <psg@debian.org>  Tue, 22 Apr 2003 12:53:01 -0400
 
 emacs-goodies-el (19.3-1) unstable; urgency=low
 
