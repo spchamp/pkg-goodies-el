@@ -183,6 +183,13 @@ If not, query for text to insert in bubble."
 (autoload 'wdired-change-to-wdired-mode "wdired"
   "Put a dired buffer in a mode in which filenames are editable."
   t)
+(add-hook
+ 'dired-load-hook
+ '(lambda ()
+    (define-key dired-mode-map "r" 'wdired-change-to-wdired-mode)
+    (define-key dired-mode-map
+      [menu-bar immediate wdired-change-to-wdired-mode]
+      '("Edit File Names" . wdired-change-to-wdired-mode))))
 
 ; autoloads for floatbg.el
 (autoload 'floatbg-mode "floatbg"
