@@ -49,7 +49,7 @@ binary-arch: build install
 	dh_testroot
 	dh_installdocs
 	dh_installemacsen
-        dh_installinfo info/*
+	dh_installinfo info/*
 	dh_installchangelogs
 	dh_compress
 	dh_fixperms
