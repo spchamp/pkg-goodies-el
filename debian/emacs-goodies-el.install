@@ -1,6 +1,7 @@
 elisp/align-string.el /usr/share/emacs/site-lisp/emacs-goodies-el/
 elisp/all.el /usr/share/emacs/site-lisp/emacs-goodies-el/
 elisp/apt-sources.el /usr/share/emacs/site-lisp/emacs-goodies-el/
+elisp/apt-utils.el /usr/share/emacs/site-lisp/emacs-goodies-el/
 elisp/auto-fill-inhibit.el /usr/share/emacs/site-lisp/emacs-goodies-el/
 elisp/bar-cursor.el /usr/share/emacs/site-lisp/emacs-goodies-el/
 elisp/boxquote.el /usr/share/emacs/site-lisp/emacs-goodies-el/

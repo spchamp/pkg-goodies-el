@@ -17,6 +17,16 @@
 	 (symbol-name flavor)
 	 "/site-lisp/emacs-goodies-el") )
 
+;; autoloads for apt-utils.el
+(autoload 'apt-utils-show-package "apt-utils"
+  "Write APT package information to buffer.
+With ARG, choose that package, otherwise prompt for one."
+  t)
+(autoload 'apt-utils-search "apt-utils"
+  "Search Debian packages for regular expression.
+With ARG, match names only."
+  t)
+
 ; autoloads for boxquote.el
 (autoload 'boxquote-title "boxquote"
   "Set the title of the current boxquote to TITLE."
