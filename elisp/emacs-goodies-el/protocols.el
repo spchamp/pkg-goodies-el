@@ -1,6 +1,6 @@
 ;;; protocols.el --- Protocol database access functions.
-;; Copyright 2000,2001 by Dave Pearson <davep@davep.org>
-;; $Revision: 1.1 $
+;; Copyright 2000,2001,2003 by Dave Pearson <davep@davep.org>
+;; $Revision: 1.2 $
 
 ;; protocols.el is free software distributed under the terms of the GNU
 ;; General Public Licence, version 2. For details see the file COPYING.
@@ -57,6 +57,14 @@
         (end-of-line n)
         (point)))))
 
+;; Non-customize variables.
+
+(defvar protocols-cache nil
+  "\"Cache\" of protocols.")
+
+(defvar protocols-name-cache nil
+  "\"Cache\" of protocol names.")
+
 ;; Main code.
 
 (defsubst proto-name (proto)
@@ -85,15 +93,16 @@
   "Read the protocol list from FILE.
 
 If FILE isn't supplied /etc/protocols is used."
-  (when (file-readable-p file)
-    (with-temp-buffer
-      (insert-file-contents-literally file)
-      (setf (point) (point-min))
-      (loop until (eobp)
-            do (setf (point) (line-beginning-position))
-            unless (or (looking-at "^[ \t]*#") (looking-at "^[ \t]*$"))
-            collect (protocols-line-to-list (buffer-substring (line-beginning-position) (line-end-position)))
-            do (forward-line)))))
+  (or protocols-cache
+      (setq protocols-cache (when (file-readable-p file)
+                              (with-temp-buffer
+                                (insert-file-contents-literally file)
+                                (setf (point) (point-min))
+                                (loop until (eobp)
+                                      do (setf (point) (line-beginning-position))
+                                      unless (or (looking-at "^[ \t]*#") (looking-at "^[ \t]*$"))
+                                      collect (protocols-line-to-list (buffer-substring (line-beginning-position) (line-end-position)))
+                                      do (forward-line)))))))
 
 (defun* protocols-find-by-name (name &optional (protocols (protocols-read)))
   "Find the protocol whose name is NAME."
@@ -112,7 +121,14 @@ If FILE isn't supplied /etc/protocols is used."
 ;;;###autoload
 (defun protocols-lookup (search)
   "Find a protocol and display its details."
-  (interactive "sProtocol search: ")
+  (interactive (list
+                (completing-read "Protocol search: "
+                                 (or protocols-name-cache
+                                     (setq protocols-name-cache
+                                           (loop for protocol in (protocols-read)
+                                                 collect (list (proto-name protocol))
+                                                 append (loop for alias in (proto-aliases protocol)
+                                                              collect (list alias))))))))
   (let* ((protocols (protocols-read))
          (protocol (or (when (string-match "^[0-9]+$" search)
                          (protocols-find-by-number (string-to-int search) protocols))
@@ -130,6 +146,13 @@ If FILE isn't supplied /etc/protocols is used."
                      (loop for alias in (proto-aliases protocol)
                            do (princ alias) (princ " "))))
       (error "Can't find a protocol matching \"%s\"" search))))
+
+;;;###autoload
+(defun protocols-clear-cache ()
+  "Clear the protocols \"cache\"."
+  (interactive)
+  (setq protocols-cache      nil
+        protocols-name-cache nil))
 
 (provide 'protocols)
 
