@@ -13,6 +13,7 @@ elisp/df.el /usr/share/emacs/site-lisp/emacs-goodies-el/
 elisp/diminish.el /usr/share/emacs/site-lisp/emacs-goodies-el/
 elisp/dirvars.el /usr/share/emacs/site-lisp/emacs-goodies-el/
 elisp/egocentric.el /usr/share/emacs/site-lisp/emacs-goodies-el/
+elisp/emacs-goodies-el.el /usr/share/emacs/site-lisp/emacs-goodies-el/
 elisp/ff-paths.el /usr/share/emacs/site-lisp/emacs-goodies-el/
 elisp/filladapt.el /usr/share/emacs/site-lisp/emacs-goodies-el/
 elisp/floatbg.el /usr/share/emacs/site-lisp/emacs-goodies-el/
