@@ -1,7 +1,7 @@
 @c -*- mode: texinfo -*-
 \input texinfo
 
-@c $Id: emacs-goodies-el.texi,v 1.1 2003/05/12 01:08:00 psg Exp $
+@c $Id: emacs-goodies-el.texi,v 1.2 2003/05/12 19:07:42 psg Exp $
 @c %**start of header
 @setfilename info/emacs-goodies-el
 @settitle Emacs-Goodies-el
@@ -43,7 +43,7 @@ To customize further setup on a finer-grain basis, do:
 M-x customize-group @key{RET} emacs-goodies-el @key{RET}
 @end example
 
-Here are the file documented so far.  This is a recently started
+The following files are documented so far.  This is a recently started
 work-in-progress, so don't despair about the low percentage of
 documented files just yet.
 
@@ -51,7 +51,8 @@ documented files just yet.
 * align-string::                Align string components over several lines.
 * all::                         Edit all lines matching a given regexp.
 * apt-sources::                 Mode for editing apt source.list file.  
-* ff-paths::                    Searches certain paths to find files::  
+* apt-utils::                   Emacs interface to APT.
+* ff-paths::                    Searches certain paths to find files.
 @end menu
 
 This work compiles GPL'ed documentation from the various elisp files
@@ -88,7 +89,7 @@ It works mostly like @code{occur} except that changes to the
 
 Type @kbd{M-x all} to try it out.
 
-@node apt-sources, ff-paths, all, Top
+@node apt-sources, apt-utils, all, Top
 @chapter apt-sources - Mode for editing apt source.list file.
 
 This mode is for editing @file{/etc/apt/sources.list}, the APT
@@ -128,7 +129,39 @@ to replicate an existing line (@kbd{C-c C-r}) that will be changed to
 the 'deb' or 'deb-src' corresponding line. If it replicates a 'deb'
 line, an identical 'deb-src' source line will be created.
 
-@node ff-paths,  , apt-sources, Top
+@node apt-utils, ff-paths, apt-sources, Top
+@chapter apt-utils - Emacs interface to APT
+
+Start things off using e.g.:
+@example
+M-x apt-utils-show-package @key{RET} emacs21 @key{RET}
+@end example
+
+Other packages (dependencies, conflicts etc) can be navigated using
+@command{apt-utils-next-package} (@key{TAB}),
+@command{apt-utils-prev-package} (@key{M-TAB}),
+@command{apt-utils-choose-package-link} (@key{>}) or
+@command{apt-utils-follow-link} (@key{RET}). Return to the previous
+package with @command{apt-utils-view-previous-package} (@key{<}).
+
+ChangeLog and README files for the current package can easily be
+accessed with, for example, @command{apt-utils-view-changelog} (@key{C}).
+
+For normal (i.e., not virtual) packages, the information can be toggled
+between `package' and `showpkg' displays using
+@command{apt-utils-toggle-package-info} (@key{t}); the latter is useful
+for the "Reverse Depends".
+
+View the key bindings with describe-mode (bound to ? by default)
+or use the menu.
+
+You may alter various settings of @code{apt-utils} using 
+
+@example
+M-x customize-group @key{RET} apt-utils @key{RET}
+@end example
+
+@node ff-paths,  , apt-utils, Top
 @chapter ff-paths - searches certain paths to find files.
 
 This code allows you to use C-x C-f normally most of the time, except that
