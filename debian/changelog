@@ -1,3 +1,9 @@
+emacs-goodies-el (21.7-1) UNRELEASED; urgency=low
+
+  * Standards-Version: 3.6.0 without chnages.
+
+ -- Peter S Galbraith <psg@debian.org>  Thu, 14 Aug 2003 23:03:28 -0400
+
 emacs-goodies-el (21.6-1) unstable; urgency=low
 
   * apt-utils.el: Updated to v1.54 (2003/06/24)
