@@ -39,7 +39,7 @@
   :type 'hook
   :options '(turn-on-auto-fill flyspell-mode))
 
-(defconst debian-copyright-mode-version "$Id: debian-copyright.el,v 1.1 2003/05/12 15:38:34 psg Exp $" "Version of debian copyright mode.")
+(defconst debian-copyright-mode-version "$Id: debian-copyright.el,v 1.2 2003/05/14 15:15:11 psg Exp $" "Version of debian copyright mode.")
 
 (defvar debian-copyright-mode-map nil
   "Keymap for debian/copyright mode.")
@@ -63,7 +63,8 @@
   (mapcar 'make-local-variable '(font-lock-defaults write-file-hooks))
   (use-local-map debian-copyright-mode-map)
   (set-syntax-table debian-copyright-mode-syntax-table)
-  (if (not (featurep 'browse-url))
+  (if (or (not (featurep 'goto-addr))
+          (not goto-address-highlight-p))
       (setq font-lock-defaults
             '((("http:.*$" . font-lock-function-name-face)
                ("ftp:.*$" . font-lock-function-name-face)
@@ -82,8 +83,6 @@
   (run-hooks 'debian-copyright-mode-hook))
 
 (run-hooks 'debian-copyright-mode-load-hook)
-
-(provide 'debian-copyright-mode)
 
 (provide 'debian-copyright)
 
