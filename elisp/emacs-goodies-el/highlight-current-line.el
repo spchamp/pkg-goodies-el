@@ -1,10 +1,10 @@
 ;;; highlight-current-line.el --- highlight line where the cursor is.
 
-;; Copyright (c) 1997-2000 Christoph Conrad Time-stamp: <07.09.2003 09:39:36>
+;; Copyright (c) 1997-2003 Christoph Conrad Time-stamp: <07.09.2003 20:43:48>
 
 ;; Author: Christoph Conrad <Christoph.Conrad@gmx>
 ;; Created: 10 Oct 1997
-;; Version: 0.55
+;; Version: 0.56
 ;; Keywords: faces
 
 ;; This file is not yet part of any Emacs.
@@ -30,9 +30,11 @@
 ;; switched on in ALL buffers including minibuffers. Default behaviour
 ;; is to set only background color, so that font-lock fontification
 ;; colors remain visible (syntax coloring). See functions
-;; `highlight-current-line-on', `highlight-current-line-set-fg-color',
-;; `highlight-current-line-set-bg-color'. There's a special color "none"
-;; defined to set no color.
+;; `highlight-current-line-on' and customization via M-x customize-group
+;; highlight-current-line <RET>. (`highlight-current-line-set-fg-color'
+;; and `highlight-current-line-set-bg-color' are retained for backward
+;; compatibility. There's a special color "none" defined to set no
+;; color.)
 
 ;; You can select whether the whole line (from left to right window
 ;; border) is marked or only the really filled parts of the line (from
@@ -52,10 +54,11 @@
 ;;; People which made contributions or suggestions:
 
 ;; This list is ordered by time. Latest in time first.
-;; - Masatake Yamato <jet@gyve.org>
+;; - Peter S Galbraith   <p.galbraith@globetrotter.net>
+;; - Masatake Yamato     <jet@gyve.org>
 ;; - Hrvoje Niksic	 <hniksic@srce.hr>
 ;; - Jari Aalto		 <jari.aalto@ntc.nokia.com>
-;; - Shawn Ostermann <sdo@picard.cs.OhioU.Edu>
+;; - Shawn Ostermann     <sdo@picard.cs.OhioU.Edu>
 ;; - Peter Ikier	 <p_ikier@infoac.rmi.de>
 ;;   Many thanks to him for the idea. He liked this behaviour in another
 ;;   editor ("Q").
@@ -69,11 +72,8 @@
 ;; ;; switch highlighting on
 ;; (highlight-current-line-on t)
 ;;
-;; ;; If you want to change default-foreground/background color add something
-;; ;; like:
-;; (highlight-current-line-set-fg-color "red")
-;; (highlight-current-line-set-bg-color "white")
-;; ;; There's a special color "none" defined to set no color.
+;; ;; If you want to change default-foreground/background color add use
+;; customization via M-x customize-group highlight-current-line <RET>.
 ;;
 ;; ;; Ignore no buffer
 ;; (setq highlight-current-line-ignore-regexp nil) ; or set to ""
@@ -109,14 +109,20 @@
 
 ;;; Change log:
 
+;; 7 Sept 2003 - v0.56
+;; - defface for highlight-current-line-face with customization.
+;;   Thanks to Peter S. Galbraith for the suggestion. Retained
+;;   highlight-current-line-set-fg/bg-color for backward
+;;   compatibility.
+
 ;; 7 Sept 2003 - v0.55
 ;; - v0.54 change works now correctly
 
 ;; 22 Mar 2003 - v0.54
 ;; - don't highlight lines which contain faces specified in
-;; highlight-current-line-high-faces. Elisp manual: "Currently, all
-;; overlays take priority over text properties." So, if a text property
-;; is a face, highlight-current-line always hides that face.
+;;   highlight-current-line-high-faces. Elisp manual: "Currently, all
+;;   overlays take priority over text properties." So, if a text
+;;   property is a face, highlight-current-line always hides that face.
 
 ;; 12 Mar 2002 - v0.53
 ;; - updated email address
@@ -213,27 +219,16 @@ Use `highlight-current-line-whole-line-on' to set this value."
   :type  'list
   :group 'highlight-current-line)
 
+(defface highlight-current-line-face
+  '((t (:background "wheat")))
+    "Face used to highlight current line."
+  :group 'highlight-current-line)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; should not be set by user
 
-(defconst highlight-current-line-version "0.55"
+(defconst highlight-current-line-version "0.56"
   "Version number." )
-
-(defconst highlight-current-line-no-color (if (boundp 'xemacs-logo)
-					  '[]
-					  nil)
-  "'color' value that represents \"no color\".")
-
-
-
-;; Create default-face for highlighting.
-(make-face 'highlight-current-line-face)
-
-(set-face-foreground 'highlight-current-line-face
-		     highlight-current-line-no-color)
-(set-face-background 'highlight-current-line-face
-		     "wheat")
 
 (defvar highlight-current-line-overlay
   ;; Dummy initialization
@@ -267,27 +262,6 @@ If the return value is nil, buffer can be highlighted."
       nil
        (string-match highlight-current-line-ignore-regexp (buffer-name))))
 
-
-;; Set foregroundcolor of cursor-line.
-(defun highlight-current-line-set-fg-color (color)
-  "Set foregroundcolor for highlighting cursor-line to COLOR.
-Key: \\[highlight-current-line-set-fg-color]"
-  (interactive "sForeground color (\"none\" means no color): ")
-  (if (equal "none" color)
-      (setq color highlight-current-line-no-color))
-  (set-face-foreground 'highlight-current-line-face color))
-
-
-;; Set backgroundcolor of cursor-line.
-(defun highlight-current-line-set-bg-color (color)
-  "Set backgroundcolor for highlighting cursor-line to COLOR.
-Key: \\[highlight-current-line-set-bg-color]"
-  (interactive "sBackground color (\"none\" means no color): ")
-  (if (equal "none" color)
-      (setq color highlight-current-line-no-color))
-  (set-face-background 'highlight-current-line-face color))
-
-
 ;; Post-Command-Hook for highlighting
 (defun highlight-current-line-hook ()
   "Post-Command-Hook for highlighting."
@@ -315,6 +289,31 @@ Key: \\[highlight-current-line-set-bg-color]"
 
               (goto-char current-point))))
     (error nil)))
+
+
+(defconst highlight-current-line-no-color (if (boundp 'xemacs-logo)
+                                              '[]
+                                            nil)
+  "'color' value that represents \"no color\".")
+
+;; Set foregroundcolor of cursor-line.
+(defun highlight-current-line-set-fg-color (color)
+  "Set foregroundcolor for highlighting cursor-line to COLOR.
+Key: \\[highlight-current-line-set-fg-color]"
+  (interactive "sForeground color (\"none\" means no color): ")
+  (if (equal "none" color)
+      (setq color highlight-current-line-no-color))
+  (set-face-foreground 'highlight-current-line-face color))
+
+
+;; Set backgroundcolor of cursor-line.
+(defun highlight-current-line-set-bg-color (color)
+  "Set backgroundcolor for highlighting cursor-line to COLOR.
+Key: \\[highlight-current-line-set-bg-color]"
+  (interactive "sBackground color (\"none\" means no color): ")
+  (if (equal "none" color)
+      (setq color highlight-current-line-no-color))
+  (set-face-background 'highlight-current-line-face color))
 
 ;; Enable/Disable Highlighting
 (defun highlight-current-line-on (&optional on-off)
