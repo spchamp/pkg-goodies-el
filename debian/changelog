@@ -1,6 +1,6 @@
 emacs-goodies-el (21.3-1) UNRELEASED; urgency=low
 
-  * apt-utils.el: Updated to v1.44
+  * apt-utils.el: Updated to v1.45
 
  -- Peter S Galbraith <psg@debian.org>  Fri, 30 May 2003 07:51:04 -0400
 
