@@ -1,4 +1,4 @@
-emacs-goodies-el (21.1-1) UNRELEASED; urgency=low
+emacs-goodies-el (21.1-1) unstable; urgency=low
 
   * 50emacs-goodies-el.el: Add :link to Info manual in
     `emacs-goodies-el-defaults' defcustom.
@@ -6,8 +6,12 @@ emacs-goodies-el (21.1-1) UNRELEASED; urgency=low
   * debian/control: Added texinfo to Build-Depends-Indep for makeinfo
     (closes: #193272)
   * Updated debian-copyright.el from devscripts-el-0.0.20030521.tar.gz
-  * Updated readme-debian.el    from devscripts-el-0.0.20030521.tar.gz
-  * Deleted patches/3_readme-debian-automode.dpatch
+  * Updated readme-debian.el from devscripts-el-0.0.20030521.tar.gz,
+    patched it for font-lock on unstable's xemacs21, and to avoid the
+    error on the case of no timestamp. Also try to get newlines
+    surrounding the timestamp correctly.  Sent the file upstream to become
+    the new upstream version.
+  * Deleted 3_readme-debian-automode.dpatch and 6_readme-debian.dpatch
   * Updated services.el to upstream version CVS 1.4
   * Updated protocols.el to upstream version CVS 1.5
   * debian/control: Rephrase debian-bug.el description (closes: #193322)
@@ -17,7 +21,7 @@ emacs-goodies-el (21.1-1) UNRELEASED; urgency=low
     Same done for all other binary packages.
     (closes: #193367)
 
- -- Peter S Galbraith <psg@debian.org>  Wed, 21 May 2003 23:55:34 -0400
+ -- Peter S Galbraith <psg@debian.org>  Thu, 22 May 2003 21:28:25 -0400
 
 emacs-goodies-el (21.0-1) unstable; urgency=low
 
