@@ -2,12 +2,12 @@
 
 ;; Copyright (C) 1998,1999,2000 Free Software Foundation, Inc.
 
-;; Author:        1994-2002 Barry A. Warsaw
+;; Author:        1994-2003 Barry A. Warsaw
 ;; Maintainer:    barry@python.org
 ;; Created:       May 1994
 ;; Keywords:      data languages
 
-(defconst xrdb-version "2.28"
+(defconst xrdb-version "2.31"
   "`xrdb-mode' version number.")
 
 ;; This program is free software; you can redistribute it and/or
@@ -425,6 +425,7 @@ With optional \\[universal-argument], prompt for subdivision."
         mode-name "xrdb"
         local-abbrev-table xrdb-mode-abbrev-table)
   (use-local-map xrdb-mode-map)
+  (setq font-lock-defaults '(xrdb-font-lock-keywords))
   ;; local variables
   (make-local-variable 'parse-sexp-ignore-comments)
   (make-local-variable 'comment-start-skip)
@@ -433,6 +434,7 @@ With optional \\[universal-argument], prompt for subdivision."
   (make-local-variable 'paragraph-start)
   (make-local-variable 'paragraph-separate)
   (make-local-variable 'paragraph-ignore-fill-prefix)
+  (make-local-variable 'indent-region-function)
   ;; now set their values
   (setq parse-sexp-ignore-comments t
         comment-start-skip "![ \t]*"
