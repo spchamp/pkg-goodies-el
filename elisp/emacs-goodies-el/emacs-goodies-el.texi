@@ -1,7 +1,7 @@
 @c -*- mode: texinfo -*-
 \input texinfo
 
-@c $Id: emacs-goodies-el.texi,v 1.5 2003/05/15 14:54:18 psg Exp $
+@c $Id: emacs-goodies-el.texi,v 1.6 2003/05/25 03:19:18 psg Exp $
 @c %**start of header
 @setfilename info/emacs-goodies-el
 @settitle Emacs-Goodies-el
@@ -40,12 +40,13 @@ override standard Emacs commands, modes, or settings.
 Some extra package installation and setup is done if you customize the
 variable @code{emacs-goodies-el-defaults} to t (its aggressive state).
 These will override standard Emacs defaults.  The affected package is
-currently only: @ref{ff-paths}.
+currently only: @ref{ff-paths}.  Packages which require activation in
+order to function include: @ref{bar-cursor}.
 
 To customize setup of these aggressive packages on a finer-grain basis,
 do:
 @example
-M-x customize-group @key{RET} emacs-goodies-el @key{RET}
+@kbd{\M-x} customize-group @key{RET} emacs-goodies-el @key{RET}
 @end example
 
 The following files are documented so far.  This is a recently started
@@ -58,6 +59,7 @@ documented files just yet.
 * apt-sources::                 Mode for editing apt source.list file.  
 * apt-utils::                   Emacs interface to APT.
 * auto-fill-mode-inhibit::      auto-fill-mode (de)activation
+* bar-cursor::                  switch block cursor to a bar
 * ff-paths::                    Searches certain paths to find files.
 @end menu
 
@@ -140,7 +142,7 @@ line, an identical 'deb-src' source line will be created.
 
 Start things off using e.g.:
 @example
-M-x apt-utils-show-package @key{RET} emacs21 @key{RET}
+@kbd{\M-x} apt-utils-show-package @key{RET} emacs21 @key{RET}
 @end example
 
 Other packages (dependencies, conflicts etc) can be navigated using
@@ -164,10 +166,10 @@ or use the menu.
 You may alter various settings of @code{apt-utils} using 
 
 @example
-M-x customize-group @key{RET} apt-utils @key{RET}
+@kbd{\M-x} customize-group @key{RET} apt-utils @key{RET}
 @end example
 
-@node auto-fill-mode-inhibit, ff-paths, apt-utils, Top
+@node auto-fill-mode-inhibit, bar-cursor, apt-utils, Top
 @chapter auto-fill-mode-inhibit - auto-fill-mode (de)activation
 
 The purpose of this library is to allow the use of @command{auto-fill-mode}
@@ -178,7 +180,7 @@ using, e.g.
 @end example
 or, using the custom interface
 @example
-M-x customize-variable @key{RET} text-mode-hook @key{RET}
+@kbd{\M-x} customize-variable @key{RET} text-mode-hook @key{RET}
 @end example
 and select @command{turn-on-auto-fill} and then save the setting.
 
@@ -187,10 +189,25 @@ match one of a list of regular expressions.  Customize this list
 using:
 
 @example
-M-x customize-variable @key{RET} auto-fill-inhibit-list @key{RET}
+@kbd{\M-x} customize-variable @key{RET} auto-fill-inhibit-list @key{RET}
 @end example
 
-@node ff-paths,  , auto-fill-mode-inhibit, Top
+@node bar-cursor, ff-paths, auto-fill-mode-inhibit, Top
+@chapter bar-cursor - switch block cursor to a bar
+
+A simple package to convert the block cursor into a bar cursor.  In
+overwrite mode, the bar cursor changes back into a block cursor.
+This is a quasi-minor mode, meaning that it can be turned on & off
+easily though only globally (hence the quasi-).
+
+To enable it, customize the variable @code{bar-cursor-mode}:
+@example
+@kbd{\M-x} customize-variable @key{RET} bar-cursor-mode @key{RET}
+@end example
+
+It is also listed when you @command{customize-group} @code{emacs-goodies-el}.
+
+@node ff-paths,  , bar-cursor, Top
 @chapter ff-paths - searches certain paths to find files.
 
 This code allows you to use C-x C-f normally most of the time, except that
@@ -250,14 +267,14 @@ toolbox hook in ffap-alist.
 To use it, customize the variable @code{emacs-goodies-el-use-ff-paths}
 
 @example
-M-x customize-variable @key{RET} emacs-goodies-el-use-ff-paths @key{RET}
+@kbd{\M-x} customize-variable @key{RET} emacs-goodies-el-use-ff-paths @key{RET}
 @end example
 
 To also enable ffap, customize the variable
 @code{emacs-goodies-el-use-ffap}
 
 @example
-M-x customize-variable @key{RET} emacs-goodies-el-use-ffap @key{RET}
+@kbd{\M-x} customize-variable @key{RET} emacs-goodies-el-use-ffap @key{RET}
 @end example
 
 Both of the above are enabled if you set
@@ -266,6 +283,6 @@ Both of the above are enabled if you set
 You may alter various settings of @code{ff-paths} using 
 
 @example
-M-x customize-group @key{RET} ff-paths @key{RET}
+@kbd{\M-x} customize-group @key{RET} ff-paths @key{RET}
 @end example
 

@@ -4,6 +4,9 @@ emacs-goodies-el (21.2-1) UNRELEASED; urgency=low
   * debian-bug.el: update to V1.42
   * Added 3_bar-cursor-customize.dpatch, making bar-cursor.el enables via
     the customize interface.  Patch submitted upstream.
+  * Added 5_bar-cursor-move-defcustom.dpatch, commented out the defcustom
+    which I have moved and edited into emacs-goodies-el.el.  Documented in
+    Info.
 
  -- Peter S Galbraith <psg@debian.org>  Fri, 23 May 2003 20:39:36 -0400
 

@@ -126,8 +126,21 @@ If not, query for text to insert in bubble."
 
 ; autoloads for bar-cursor.el
 (autoload 'bar-cursor-mode "bar-cursor"
-  "Toggle use of 'bar-cursor-mode'."
+ "Toggle use of 'bar-cursor-mode'."
   t)
+(autoload 'bar-cursor-change "bar-cursor"
+  "Enable or disable advice based on value of variable `bar-cursor-mode'."
+  t)
+(defcustom bar-cursor-mode nil
+  "*Non-nil means to convert the block cursor into a bar cursor.
+In overwrite mode, the bar cursor changes back into a block cursor.
+This is a quasi-minor mode, meaning that it can be turned on & off easily
+though only globally (hence the quasi-)"
+  :type 'boolean
+  :group 'emacs-goodies-el
+  :set (lambda (symbol value)
+         (set-default symbol value)
+         (bar-cursor-change)))
 
 ; autoloads for tld.el
 (autoload 'tld "tld"

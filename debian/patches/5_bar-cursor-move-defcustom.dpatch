@@ -1,0 +1,57 @@
+#!/bin/sh -e
+## 5_bar-cursor-move-defcustom.dpatch by Peter S Galbraith <psg@debian.org>
+##
+## All lines beginning with `## DP:' are a description of the patch.
+## DP: No description.
+
+if [ $# -ne 1 ]; then
+    echo >&2 "`basename $0`: script expects -patch|-unpatch as argument"
+    exit 1
+fi
+
+[ -f debian/patches/00patch-opts ] && . debian/patches/00patch-opts
+patch_opts="${patch_opts:--f --no-backup-if-mismatch}"
+
+case "$1" in
+       -patch) patch $patch_opts -p1 < $0;;
+       -unpatch) patch $patch_opts -p1 -R < $0;;
+        *)
+                echo >&2 "`basename $0`: script expects -patch|-unpatch as argument"
+                exit 1;;
+esac
+
+exit 0
+
+@DPATCH@
+diff -urNad /home/psg/emacs/emacs-goodies-el/emacs-goodies-el/elisp/bar-cursor.el emacs-goodies-el/elisp/bar-cursor.el
+--- /home/psg/emacs/emacs-goodies-el/emacs-goodies-el/elisp/bar-cursor.el	2003-05-24 11:36:42.000000000 -0400
++++ emacs-goodies-el/elisp/bar-cursor.el	2003-05-24 11:39:00.000000000 -0400
+@@ -185,15 +185,19 @@
+ 	(bar-cursor-set-cursor-type 'block frame)))
+ 
+ ;;; --------------------------------------------------------------------------
+-(defcustom bar-cursor-mode t
+-  "*Non-nil means to convert the block cursor into a bar cursor.
+-In overwrite mode, the bar cursor changes back into a block cursor.
+-This is a quasi-minor mode, meaning that it can be turned on & off easily
+-though only globally (hence the quasi-)"
+-  :type 'boolean
+-  :set (lambda (symbol value)
+-         (set-default symbol value)
+-         (bar-cursor-change)))
++;; Moved to emacs-goodies-el.el (and modified) for package setup within
++;; `M-x customize-group[RET]emacs-goodies-el[RET]'
++;; Peter S Galbraith, May 24 2003
++;;
++;; (defcustom bar-cursor-mode t
++;;   "*Non-nil means to convert the block cursor into a bar cursor.
++;; In overwrite mode, the bar cursor changes back into a block cursor.
++;; This is a quasi-minor mode, meaning that it can be turned on & off easily
++;; though only globally (hence the quasi-)"
++;;   :type 'boolean
++;;   :set (lambda (symbol value)
++;;          (set-default symbol value)
++;;          (bar-cursor-change)))
+ 
+ ;;; **************************************************************************
+ ;;; ***** we're done
