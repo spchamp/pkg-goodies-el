@@ -4,8 +4,9 @@ emacs-goodies-el (21.4-1) UNRELEASED; urgency=low
   * dict.el: Updated to V1.27
   * Split elisp/ directory into subdirs for each binary package.
   * emacs-goodies-loaddefs.el: Generate autoloads automatically from tags.
+  * Patch some files to provide themselves. (closes: #197470)
 
- -- Peter S Galbraith <psg@debian.org>  Sun, 15 Jun 2003 21:01:36 -0400
+ -- Peter S Galbraith <psg@debian.org>  Sun, 15 Jun 2003 21:18:23 -0400
 
 emacs-goodies-el (21.3-1) unstable; urgency=low
 
