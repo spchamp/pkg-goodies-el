@@ -19,8 +19,11 @@ emacs-goodies-el (21.0-1) unstable; urgency=low
     (closes: #190177)
   * Added debian-copyright.el CVS 1.6 from devscripts-el-0.0.20030512.tar.gz
     to dpkg-dev-el.
+  * debian-changelog-mode: check if `debian-changelog-mode' is available
+    as a feature, and not simply the if the autoloaded are fboundp (which
+    is always true)  (closes: #193085).
 
- -- Peter S Galbraith <psg@debian.org>  Mon, 12 May 2003 11:25:11 -0400
+ -- Peter S Galbraith <psg@debian.org>  Mon, 12 May 2003 20:33:15 -0400
 
 emacs-goodies-el (20.0-1) unstable; urgency=low
 
