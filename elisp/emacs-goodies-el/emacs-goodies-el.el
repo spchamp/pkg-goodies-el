@@ -13,6 +13,8 @@
 
 ;;; Code:
 
+(require 'emacs-goodies-loaddefs)
+
 (defgroup emacs-goodies-el nil
   "Debian emacs-goodies-el package customization."
   :group 'convenience)
