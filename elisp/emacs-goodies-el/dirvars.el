@@ -6,8 +6,8 @@
 ;; Author: Matt Armstrong <matt@lickey.com>
 ;; Location: http://www.lickey.com/env/elisp/dirvars.el
 ;; Keywords: files
-;; Version: 1.0
-;; Obscure: matt@squeaker.lickey.com|elisp/dirvars.el|20020201065026|37720
+;; Version: 1.2
+;; Obscure: matt@squeaker.lickey.com|elisp/dirvars.el|20021213043855|48166
 
 ;; This file is free software; you can redistribute it and/or modify
 ;; it under the terms of the GNU General Public License as published by
@@ -122,13 +122,13 @@ The FILE-NAME specifies the file name to search for."
 	    (end-of-line)
 	    (delete-region begin (point)))))))
 
-(defun dirvars-hack-local-variables (dirvars-file into-buffer)
+(defun dirvars-hack-local-variables (dirvars-file)
   (save-excursion
     (let ((original-buffer (current-buffer))
 	  (temp-buffer (get-buffer-create "*dirvars-temp*"))
 	  (enable-local-variables (and local-enable-local-variables
 				       enable-local-variables
-				       enable-dirvar-variables))
+				       dirvars-enable-flag))
 	  (continue t)
 	  (parse-sexp-ignore-comments t)
 	  (lisp-mode-hook nil)
@@ -182,12 +182,16 @@ A few variable names are treated specially."
 	(t (make-local-variable var)
 	   (set var val))))
 
-(defun dirvars-hack-local-variables-hook ()
+(defun dirvars-hack-local-variables-before ()
   (let ((dirvars-file (dirvars-find-upwards ".emacs-dirvars")))
     (if dirvars-file
-	(dirvars-hack-local-variables dirvars-file (current-buffer)))))
+	(dirvars-hack-local-variables dirvars-file))))
 
-(add-hook 'hack-local-variables-hook 'dirvars-hack-local-variables-hook)
+(defadvice hack-local-variables
+  (before dirvars-hack-local-variables-before)
+  "Process dirvars before a file's local variables are processed."
+  (dirvars-hack-local-variables-before))
+(ad-activate 'hack-local-variables)
 
 (provide 'dirvars)
 ;;; dirvars.el ends here
