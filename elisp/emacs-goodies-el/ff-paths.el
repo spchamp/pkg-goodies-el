@@ -196,9 +196,16 @@
 ;;   of the the filename matches many files.  (I was given a file named
 ;;   "procedure - version 1", and locate went to town on the "-".)
 ;; V3.19  April 21st 2003 PSG
-;;   checkdoc cleaning.
+;;   - checkdoc cleaning.
+;;   - customization (still lacking the main variable `ff-paths-list'!)
 ;; ----------------------------------------------------------------------------
 ;;; Code:
+
+(defgroup ff-paths nil
+  "Find file using paths."
+  :group 'ffap
+  :group 'matching
+  :group 'convenience)
 
 ;; The following variable may be edited to suit your site:
 ;; Send me your interesting add-ons too!
@@ -225,40 +232,52 @@ You may terminate a directory name with double slashes // indicating that
 
 ;; See variable `ff-paths-use-locate' near end of file
 
-(defvar ff-paths-using-ms-windows (and (boundp 'system-type)
-				       (equal system-type 'windows-nt))
-  "*Set to t if using DOS, win95, winNT, etc.
-The effect is to set path splitting on the \";\" character instead of \":\"")
-
-(defvar ff-paths-display-non-existent-filename t
+(defcustom ff-paths-display-non-existent-filename t
   "*find-file-using-paths-hook displays the prompted-for non-existent filename.
 If you use \"C-x C-f article.sty\" in a path where it does not exists,
 find-file-using-paths-hook will presumably find it for you. If this variable
 is set, then this non-existent filename will be displayed in the completions
 buffer along with the existing found file.  This makes it more intuitive
 in case you really wanted to create the new file (instead of pressing C-g
-to create the new file).")
+to create the new file)."
+  :group 'ff-paths
+  :type 'boolean)
 
-(defvar ff-paths-prompt-for-only-one-match t
+
+(defcustom ff-paths-prompt-for-only-one-match t
   "*If non-nil, prompt the user for filename even if there is only one match.
 If nil and `ff-paths-display-non-existent-filename' is also nil, then dispense
 with confirmation prompt when a single match is found for a non-existent file
-and edit that single matched file immediately.")
+and edit that single matched file immediately."
+  :group 'ff-paths
+  :type 'boolean)
 
-(defvar ff-paths-require-match nil
+(defcustom ff-paths-require-match nil
   "*Whether user has to choose one of the listed files.
-This is the argument REQUIRE-MATCH of `completing-read'.")
+This is the argument REQUIRE-MATCH of `completing-read'."
+  :group 'ff-paths
+  :type 'boolean)
 
-(defvar ff-paths-gzipped (featurep 'jka-compr)
-  "*Search for gzipped-compressed file as well.")
+(defcustom ff-paths-gzipped (featurep 'jka-compr)
+  "*Search for gzipped-compressed file as well."
+  :group 'ff-paths
+  :type 'boolean)
 
-(defvar ff-paths-locate-max-matches 20
+(defcustom ff-paths-using-ms-windows (and (boundp 'system-type)
+                                          (equal system-type 'windows-nt))
+  "*Set to t if using DOS, win95, winNT, etc.
+The effect is to set path splitting on the \";\" character instead of \":\""
+  :group 'ff-paths
+  :type 'boolean)
+
+(defcustom ff-paths-locate-max-matches 20
   "*Maximum number of matches to extract from locate command.
-
 Only this number of mtaches will be displayed and all next matches will be
 ignored.  If set to nil, any number of matches will be processed but be
 warned that this can take some time (for example, I have 939 files called
-changelog.Debian.gz on my system)")
+changelog.Debian.gz on my system)"
+  :group 'ff-paths
+  :type 'integer)
 
 ;; Other variables
 
@@ -768,16 +787,21 @@ HOME or HOME/bin"
 ;;; `locate' stuff
 
 (defun ff-paths-have-locate ()
-  "Determine if the `locate' command exists on this system.
-Based on the ability of locate to find itself; not a bullet-proof test."
+  "Determine if the `locate' command exists on this system."
   (if (not (condition-case nil
                (not (call-process "sh" nil 0 nil))
              (error)))
       nil                               ;No `sh' command on system
-    (if (or (ff-paths-locate "locate")
-            (ff-paths-locate "locate.exe"))
-        t
-      nil)))
+    (cond
+     ((and (fboundp 'executable-find)
+           (executable-find "locate"))
+      t)
+     ((ff-paths-locate "bin/locate")
+      t)
+     ((ff-paths-locate "locate.exe")
+      t)
+     (t      
+      nil))))
 
 (defun ff-paths-locate (filename)
   "Try finding FILENAME using the locate command.
@@ -814,7 +838,7 @@ Return a string if a single match, or a list if many matches."
       (kill-buffer ff-buffer)
       matches)))
 
-(defvar ff-paths-use-locate (ff-paths-have-locate)
+(defcustom ff-paths-use-locate (ff-paths-have-locate)
   "*Determines whether the `locate' command is used by ff-paths.
 If nil don't use it.
 If t use it but only if other ff-paths methods have failed.
@@ -826,7 +850,9 @@ To set it to 1, add this to your ~/.emacs file:
 
 By default, this is set to t if it can be determined that your system has
 the locate command.
-Using locate is fairly aggressive, and so is *not* added to the ffap toolkit.")
+Using locate is fairly aggressive, and so is *not* added to the ffap toolkit."
+  :group 'ff-paths
+  :type 'boolean)
 
 ;;; Installs itself
 (add-hook 'find-file-not-found-hooks 'find-file-using-paths-hook t)
