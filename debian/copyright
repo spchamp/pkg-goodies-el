@@ -19,7 +19,7 @@ Author/copyright info for boxquote.el:
 ,----
 | ;;; boxquote.el --- Quote text with a semi-box.
 | ;; Copyright 1999,2000,2001 by Dave Pearson <davep@davep.org>
-| ;; $Revision: 1.1 $
+| ;; $Revision: 1.2 $
 | 
 | ;; boxquote is free software distributed under the terms of the GNU General
 | ;; Public Licence, version 2. For details see the file COPYING.
@@ -30,7 +30,7 @@ Author/copyright info for thinks.el:
 ,----
 | ;;; thinks.el --- Insert text in a think bubble.
 | ;; Copyright 2000,2001 by Dave Pearson <davep@davep.org>
-| ;; $Revision: 1.1 $
+| ;; $Revision: 1.2 $
 | 
 | ;; thinks is free software distributed under the terms of the GNU General
 | ;; Public Licence, version 2. For details see the file COPYING.
@@ -987,6 +987,49 @@ Author/copyright info for debian-control-mode.el:
 `----
 
 
-# Local Variables:
-# mode: text
-# End:
+Author/copyright info for apt-utils.el:
+,-
+| ;;; Copyright (C) 2002, 03 Matthew P. Hodges
+| 
+| ;; apt-utils.el is free software; you can redistribute it and/or
+| ;; modify it under the terms of the GNU General Public License as
+| ;; published by the Free Software Foundation; either version 2, or (at
+| ;; your option) any later version.
+| 
+| ;; apt-utils.el is distributed in the hope that it will be useful, but
+| ;; WITHOUT ANY WARRANTY; without even the implied warranty of
+| ;; MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
+| ;; General Public License for more details.
+`-
+
+
+Author/copyright info for debian-bts-control.el
+,-
+| ;; Copyright (C) 2003 Peter S Galbraith
+| ;;
+| ;; This file is free software; you can redistribute it and/or modify
+| ;; it under the terms of the GNU General Public License as published by
+| ;; the Free Software Foundation; either version 2, or (at your option)
+| ;; any later version.
+| ;;
+| ;; debian-bts-mode.el is distributed in the hope that it will be useful,
+| ;; but WITHOUT ANY WARRANTY; without even the implied warranty of
+| ;; MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+| ;; GNU General Public License for more details.
+`-
+
+
+Author/copyright info for debian-copyright.el
+,-
+| ;; Copyright 2002, 2003 Junichi Uekawa.
+| 
+| ;; This file is free software; you can redistribute it and/or modify
+| ;; it under the terms of the GNU General Public License as published by
+| ;; the Free Software Foundation; either version 2, or (at your option)
+| ;; any later version.
+| ;;
+| ;; debian-copyright.el is distributed in the hope that it will be useful,
+| ;; but WITHOUT ANY WARRANTY; without even the implied warranty of
+| ;; MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+| ;; GNU General Public License for more details.
+`-

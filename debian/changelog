@@ -1,7 +1,7 @@
 emacs-goodies-el (21.0-1) unstable; urgency=low
 
   * Rename whitespace to nuke-trailing-whitespace.el (closes: #191527)
-  * Add file debian-bts-control.el to dpkg-dev-el.
+  * Added file debian-bts-control.el to dpkg-dev-el.
   * Add `add-hook' expression to 50emacs-goodies-el.el to setup wdired to
     "r" key in dired-mode, since it can't really hurt anyway.
     (closes: #156830)
@@ -17,8 +17,10 @@ emacs-goodies-el (21.0-1) unstable; urgency=low
   * 50emacs-goodies-el.el: Introduce defcustom group emacs-goodies-el to
     allow full installation of packages that alter Emacs defaults.
     (closes: #190177)
+  * Added debian-copyright.el CVS 1.6 from devscripts-el-0.0.20030512.tar.gz
+    to dpkg-dev-el.
 
- -- Peter S Galbraith <psg@debian.org>  Mon, 12 May 2003 11:08:33 -0400
+ -- Peter S Galbraith <psg@debian.org>  Mon, 12 May 2003 11:25:11 -0400
 
 emacs-goodies-el (20.0-1) unstable; urgency=low
 

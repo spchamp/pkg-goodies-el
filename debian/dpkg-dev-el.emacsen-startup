@@ -48,5 +48,12 @@ being constructed."
   "Major mode for editing Debian control files (i.e. debian/control)." t)
 (add-to-list 'auto-mode-alist '("/debian/control\\'" . debian-control-mode))
 
+
+;; autoloads and automode for debian-copyright.el
+(autoload 'debian-copyright-mode "debian-copyright"
+  "Mode to edit and read debian/copyright." t)
+(add-to-list 'auto-mode-alist '("debian/copyright$" . debian-copyright-mode))
+(add-to-list 'auto-mode-alist '("^/usr/share/doc/.*/copyright" . debian-copyright-mode))
+
 ;; other useful automode
 (add-to-list 'auto-mode-alist '("/debian/[^/]*emacsen-startup\\'" . emacs-lisp-mode))
