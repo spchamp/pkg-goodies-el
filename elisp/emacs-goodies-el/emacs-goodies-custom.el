@@ -89,10 +89,11 @@
   :tag "Floating Background"
   :group 'frames
   :prefix "floatbg-"
-;;:link '(custom-manual "(emacs-goodies-el)floatbg")
+  :link '(custom-manual "(emacs-goodies-el)floatbg")
   :load 'floatbg
 ;;:require 'floatbg
   :group 'emacs-goodies-el)
+
 
 ;; highlight-completion
 (defgroup highlight-completion nil
@@ -101,9 +102,19 @@
   :prefix "hc"
   :link '(url-link :tag "Home Page" "http://www.math.washington.edu/~palmieri/Emacs/hlc.html")
   :group 'abbrev
-;;:link '(custom-manual "(emacs-goodies-el)highlight-completion")
+  :link '(custom-manual "(emacs-goodies-el)highlight-completion")
   :load 'highlight-completion
 ;;:require 'highlight-completion
+  :group 'emacs-goodies-el)
+
+;; highlight-current-line
+(defgroup highlight-current-line nil
+  "Highlight line where the cursor is."
+  :load 'highlight-current-line
+  :group 'faces
+;;:link '(custom-manual "(emacs-goodies-el)highlight-current-line")
+  :load 'highlight-current-line
+;;:require 'highlight-current-line
   :group 'emacs-goodies-el)
 
 ;; htmlize
