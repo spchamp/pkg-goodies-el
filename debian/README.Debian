@@ -122,31 +122,27 @@ name.  Use (require 'ff-paths) in your .emacs to activate it.
 filladapt.el enhances the behavior of Emacs's fill functions by
 guessing the proper fill prefix in many contexts.  Emacs has a
 built-in adaptive fill mode but Filladapt is said to be much better.
-Since this module replaces existing functions, it cannot be
-autoloaded.  To use it, type 'M-x load-library filladapt' or insert
-'(require 'filladapt)' in your .emacs file.
+Use `M-x filladapt-mode' to toggle Filladapt mode on/off in the current
+buffer.  Use 'turn-on-filladapt-mode in mode hooks.
 
 floatbg.el provides M-x floatbg-mode, to slowly modify the background
 color of your Emacs.
 
-highlight-beyond-fill-column.el provides a way to highlight (with a
-face you choose) text that is beyond the fill-column, therefore
-providing a visual indication of where the fill-* functions would wrap
-the lines.  To use it, customise highlight-beyond-fill-column-in-modes
-and highlight-beyond-fill-column-face, and add the following in your
-.emacs: (require 'highlight-beyond-fill-column).
+highlight-beyond-fill-column.el highlights (with a face you choose) text
+that is beyond the fill-column, therefore providing a visual indication of
+where the fill-* functions would wrap the lines.  Enable it on a buffer
+using `M-x highlight-beyond-fill-column.'  You may use that command in a
+hook (e.g. text-mode-hook)
 
-highlight-current-line.el highlights the line the cursor is in.  Look
-for M-x highlight-current-line-on.  Customisation happens when you
-call h-c-l-whole-line-on, h-c-l-set-fg-color, and h-c-l-set-bg-color
-("h-c-l" is "highlight-current-line").
+highlight-current-line.el highlights the line the cursor is in.  Enable a
+buffer using the command `M-x highlight-current-line-minor-mode'. You may
+enable the minor-mode automatically for (almost) all buffers by
 
-home-end.el provides some useful bindings for Home and End keys: hit
-the key once to go to the beginning/end of a line, hit it twice in a
-row to go to the beginning/end of the window, three times in a row
-goes to the beiginning/end of the buffer.  To use: add the following
-commands to your .emacs: (global-set-key [end] 'home-end-end)
-(global-set-key [home] 'home-end-home).
+home-end.el provides some useful bindings for Home and End keys: hit the
+key once to go to the beginning/end of a line, hit it twice in a row to go
+to the beginning/end of the window, three times in a row goes to the
+beiginning/end of the buffer.  To enable it, customize the variable
+`home-end-enable'.
 
 htmlize.el provides many M-x htmlize-* commands that turn files,
 buffers, or region of font-lock colorised text into an HTML
@@ -360,4 +356,4 @@ files.  This mode adds a bit of colouring, a working filling function
 (bound to "M-q" by default), tab-completion for adding fields (bound
 to "C-c C-a" by default), and viewing bugs (bound to "C-c C-b").
 
- -- Peter S Galbraith <psg@debian.org>, Tue May 13 15:39:40 2003
+ -- Peter S Galbraith <psg@debian.org>, Fri Sep 19 21:20:08 2003
