@@ -5,7 +5,7 @@ emacs-goodies-el (21.0-1) unstable; urgency=low
   * Add `add-hook' expression to 50emacs-goodies-el.el to setup wdired to
     "r" key in dired-mode, since it can't really hurt anyway.
     (closes: #156830)
-  * Update apt-sources.el to V0.9.6.
+  * Update apt-sources.el to V0.9.7.
   * Updated all.el to 5.2 (1997/03/04) from
     ftp://ftp.dina.kvl.dk:/pub/Staff/Per.Abrahamsen/auctex/all.el
   * Updated auto-fill-inhibit.el to latest upstream version (defcustom
