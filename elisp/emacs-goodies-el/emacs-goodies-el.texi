@@ -1,7 +1,7 @@
 @c -*- mode: texinfo -*-
 \input texinfo
 
-@c $Id: emacs-goodies-el.texi,v 1.10 2003/06/13 02:01:50 psg Exp $
+@c $Id: emacs-goodies-el.texi,v 1.11 2003/06/17 02:24:36 psg Exp $
 @c %**start of header
 @setfilename info/emacs-goodies-el
 @settitle Emacs-Goodies-el
@@ -65,7 +65,9 @@ documented files just yet.
 * clipper::                     Save strings of data for further use.
 * cyclebuffer::                 Select buffer by cycling through.
 * diminish::                    Diminish minor-mode's display.
+* df::                          Display space left on partitions in mode-line.
 * ff-paths::                    Searches certain paths to find files.
+
 @end menu
 
 This work compiles GPL'ed documentation from the various elisp files
@@ -331,7 +333,7 @@ searching for.
 (global-set-key "M-P" 'cyclebuffer-backward)
 @end example
 
-@node diminish, ff-paths, cyclebuffer, Top
+@node diminish, df, cyclebuffer, Top
 @chapter diminish - Diminish minor-mode's display
 
 Minor modes each put a word on the mode line to signify that they're
@@ -408,7 +410,30 @@ interface by customizing the variable @code{diminished-minor-modes}.
 The same caveat as above applies and the minor mode libraries should
 be loaded in ~/.emacs before the @code{(custom-set-variables} line.
 
-@node ff-paths,  , diminish, Top
+@node df, ff-paths, diminish, Top
+@chapter df - display space left on partitions in the mode-line.
+
+This is a quick hack to display disk usage in the mode-line.
+
+If you work with a lot of users sharing the same partition, it
+sometimes happens that there is no space left to save your work, which
+may drive you to serious brain damage when you lose important work.
+This package allows you to have the available disk space and the buffer
+size displayed in the mode-line, so you know when you can save your
+file or when it's time to do some cleanup.
+
+df is simple to use. Add something like
+@example
+(df "/home")
+@end example
+in your .emacs if you want to scan @file{/home}.  Even simpler, enable
+it using the customize interface:
+@example
+  @key{M-x} customize-group @key{RET} df @key{RET}
+@end example
+where you can toggle on the variable @code{df-run-on-startup}.
+
+@node ff-paths,  , df, Top
 @chapter ff-paths - searches certain paths to find files.
 
 This code allows you to use C-x C-f normally most of the time, except that

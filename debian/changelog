@@ -5,8 +5,9 @@ emacs-goodies-el (21.4-1) UNRELEASED; urgency=low
   * Split elisp/ directory into subdirs for each binary package.
   * emacs-goodies-loaddefs.el: Generate autoloads automatically from tags.
   * Patch some upstream files to provide themseleves (closes: #197470)
+  * Add customize support to df.el and document in Info.
 
- -- Peter S Galbraith <psg@debian.org>  Sun, 15 Jun 2003 21:18:23 -0400
+ -- Peter S Galbraith <psg@debian.org>  Mon, 16 Jun 2003 22:22:41 -0400
 
 emacs-goodies-el (21.3-1) unstable; urgency=low
 

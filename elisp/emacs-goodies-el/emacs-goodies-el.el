@@ -15,7 +15,7 @@
 
 (require 'emacs-goodies-loaddefs)
 
-(defgroup emacs-goodies-el nil
+(defgroup emacs-goodies-el '((df custom-group))
   "Debian emacs-goodies-el package customization."
   :group 'convenience)
 
@@ -56,6 +56,12 @@ non-nil also setups the keybindings:
            (require 'ff-paths)
            (ff-paths-in-ffap-install)))
   :group 'emacs-goodies-el)
+
+;; df.el
+(defgroup df nil
+  "Display space left on partitions in the mode-line."
+  :load 'df
+  :group 'tools)
 
 ;; autoloads for apt-utils.el
 (autoload 'apt-utils-search "apt-utils"
