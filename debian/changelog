@@ -2,6 +2,8 @@ emacs-goodies-el (21.2-1) UNRELEASED; urgency=low
 
   * debian-bts-control.el: Add `debian-bts-control-modes-to-reuse'.
   * debian-bug.el: update to V1.42
+  * Added 3_bar-cursor-customize.dpatch, making bar-cursor.el enables via
+    the customize interface.  Patch submitted upstream.
 
  -- Peter S Galbraith <psg@debian.org>  Fri, 23 May 2003 20:39:36 -0400
 
