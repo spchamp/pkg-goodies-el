@@ -1,0 +1,208 @@
+@c -*- mode: texinfo -*-
+\input texinfo
+
+@c $Id: emacs-goodies-el.texi,v 1.1 2003/05/12 01:08:00 psg Exp $
+@c %**start of header
+@setfilename info/emacs-goodies-el
+@settitle Emacs-Goodies-el
+@c %**end of header
+
+@dircategory Emacs
+@direntry
+* Emacs-Goodies-el: (emacs-goodies-el). Miscellaneous add-ons for Emacs
+@end direntry
+
+@c Version variables.
+@set EDITION 1.0
+@set UPDATED 8 May 2003
+
+@ifinfo
+This is Edition @value{EDITION}, last updated @value{UPDATED}, of
+@cite{Emacs-Goodies-el}.
+@end ifinfo
+
+@titlepage
+@title Emacs-Goodies-el: Miscellaneous add-ons for Emacs
+@subtitle A manual for what's in this package.
+@author Peter S. Galbraith
+@end titlepage
+
+@node Top, align-string, (dir), (dir)
+@top The Emacs-Goodies-el Package Setup
+
+This manual describes the Emacs-Goodies-el package and its setup.
+All packaged files are installed, setup and ready to use if they don't
+override standard Emacs commands, modes, or settings.
+
+Some extra package installation and setup is done if you customize the
+variable @code{emacs-goodies-el-defaults} to t (its aggressive state).
+These may override standard Emacs defaults.
+
+To customize further setup on a finer-grain basis, do:
+@example
+M-x customize-group @key{RET} emacs-goodies-el @key{RET}
+@end example
+
+Here are the file documented so far.  This is a recently started
+work-in-progress, so don't despair about the low percentage of
+documented files just yet.
+
+@menu
+* align-string::                Align string components over several lines.
+* all::                         Edit all lines matching a given regexp.
+* apt-sources::                 Mode for editing apt source.list file.  
+* ff-paths::                    Searches certain paths to find files::  
+@end menu
+
+This work compiles GPL'ed documentation from the various elisp files
+in /usr/share/emacs/site-lisp/emacs-goodies-el/.  This text is also
+licensed under the GPL V2 (See /usr/share/common-licenses/GPL-2) and
+is edited by Peter S. Galbraith <psg@@debian.org>.
+
+@node align-string, all, Top, Top
+@chapter align-string - align string components over several lines.
+
+This elisp file is not documented.  The commands are:
+
+@itemize @bullet
+@item align-string
+
+  Align first occurrence of REGEXP in each line of region.  If given a
+prefix argument, align occurrence number COUNT on each line.
+
+@item align-all-strings
+
+  Align all occurrences of REGEXP in each line of region.  That is to
+say, align the first occurrence of each line with each other, align
+the second occurence of each line with each other, and so on.
+@end itemize
+
+
+@node all, apt-sources, align-string, Top
+@chapter all - Edit all lines matching a given regexp.
+
+This is an implementation of the xedit @code{all} command for GNU Emacs.
+
+It works mostly like @code{occur} except that changes to the
+@code{*All*} buffer are propagated back to the original buffer.
+
+Type @kbd{M-x all} to try it out.
+
+@node apt-sources, ff-paths, all, Top
+@chapter apt-sources - Mode for editing apt source.list file.
+
+This mode is for editing @file{/etc/apt/sources.list}, the APT
+(Advanced Package Tool) configuration file found on Debian systems.
+
+APT is a package retrieval tool for Debian; for example you could
+install Emacs with the command:
+
+@example
+  apt-get install emacs21
+@end example
+
+and APT will then retrieve the package and install it for you. The
+sources.list file tells APT where to look for packages. Mine looks
+like this:
+
+@example
+  deb http://http.us.debian.org/debian unstable main contrib
+  deb http://non-us.debian.org/debian-non-US unstable/non-US main
+
+  deb ftp://ftp.de.debian.org/debian ../project/experimental main
+@end example
+
+This mode font-locks the file and add some things including new
+source lines and modifying existing source lines.
+
+This mode can be costumized in diferent parts. You can (interactively)
+change if you want blank lines around a new source line and comment
+with @code{apt-sources-around-lines}. Also you can change the way that
+this mode names each source line with the variable
+@code{apt-sources-source-name}; if no name is entered, no comment name
+will be inserted.
+
+You can modify existing parts of the source line; check the mode
+documentation for mor details. Another thing that this mode can do is
+to replicate an existing line (@kbd{C-c C-r}) that will be changed to
+the 'deb' or 'deb-src' corresponding line. If it replicates a 'deb'
+line, an identical 'deb-src' source line will be created.
+
+@node ff-paths,  , apt-sources, Top
+@chapter ff-paths - searches certain paths to find files.
+
+This code allows you to use C-x C-f normally most of the time, except that
+if the requested file doesn't exist, it is checked against a list of
+patterns for special paths to search for a file of the same name.
+
+Examples:
+@itemize @bullet
+ @item a file extension of @file{.bib} will cause to search the path defined in
+   $BSTINPUTS or $BIBINPUTS for the file you requested.
+ @item a file extension of @file{.h} will cause the @file{/usr/include/} and
+   @file{/usr/local/include/} directory trees to be searched.
+ @item a file extension of @file{.sty} causes a search of TEXINPUTS and of all
+   directories below @file{"/usr/share/texmf/tex/}
+ @item a file extension of @file{.el} causes a search of the path set in the
+   emacs variable @code{load-path}.
+ @item If the aboves searches don't return a match, the filename is searched
+   for using the @file{locate} command (if available on your system).
+ @item gzip-compressed files (@file{.gz}) will also be found by ff-paths if
+   the package jka-compr is present.  If you use some other package,
+   simply set the @code{ff-paths-gzipped} variable to t:
+@end itemize
+
+If one file is found, or many files of the same name are found, then the
+*completions* buffer is displayed with all possibilities, including the
+non-existing path you first provided.  Selecting it creates the new
+file.
+
+This package runs as a find-file-not-found-hooks hook, and so will
+happily live alongside other such file-finding mechanisms (e.g.
+PC-look-for-include-file PC-try-load-many-files vc-file-not-found-hook)
+
+The patterns to test against filenames and the associated paths to search
+for these files can be modified by the user by editing the variable
+@code{ff-paths-list}
+
+I suggest that you use ffap.el by Michelangelo Grigni <mic@@cs.ucsd.edu>,
+now part of GNU Emacs.  His package will guess the filename from the
+text under the editing point.  It will search for an existing file in
+various places before you even get the "File: " prompt.  ff-paths will
+provide itself to ffap as an additional tool to locate the file before
+you ever see a prompt.  ff-paths behaves slightly differently with ffap
+than it does with find-file: if the file path selected under point by
+ffap does not exist, it is not shown in the completions buffer along
+with existing paths.  If only one existing path is found for said file,
+it is placed in the minibuffer at the ffap prompt.  Also, since using
+the `locate' command is fairly aggressive, it is not used in the ffap
+toolkit.
+
+@noindent Installation:
+
+ff-paths installs itself as a hook in find-file-not-found-hooks for
+find-file.  If ffap is installed, ff-paths installs itself as a
+toolbox hook in ffap-alist.
+
+To use it, customize the variable @code{emacs-goodies-el-use-ff-paths}
+
+@example
+M-x customize-variable @key{RET} emacs-goodies-el-use-ff-paths @key{RET}
+@end example
+
+To also enable ffap, customize the variable
+@code{emacs-goodies-el-use-ffap}
+
+@example
+M-x customize-variable @key{RET} emacs-goodies-el-use-ffap @key{RET}
+@end example
+
+Both of the above are enabled if you set
+@code{emacs-goodies-el-defaults} to t (its aggressive state).
+
+You may alter various settings of @code{ff-paths} using 
+
+@example
+M-x customize-group @key{RET} ff-paths @key{RET}
+@end example
+

@@ -20,6 +20,8 @@ build-stamp:
 	dh_testdir
 	for i in debian/*.emacsen-install.in ; do cat $$i debian/emacsen-install.template > debian/$$(basename $$i .in) ; done
 	for i in debian/*.emacsen-remove.in ; do cat $$i debian/emacsen-remove.template > debian/$$(basename $$i .in) ; done
+	install -d info
+	makeinfo elisp/emacs-goodies-el.texi
 	touch build-stamp
 
 clean: unpatch
@@ -29,6 +31,7 @@ clean: unpatch
 	rm -f build-stamp configure-stamp
 	for i in debian/*.emacsen-install.in ; do rm -f debian/$$(basename $$i .in) ; done
 	for i in debian/*.emacsen-remove.in ; do rm -f debian/$$(basename $$i .in) ; done
+	rm -fR info
 	dh_clean
 
 install: build
@@ -46,6 +49,7 @@ binary-arch: build install
 	dh_testroot
 	dh_installdocs
 	dh_installemacsen
+        dh_installinfo info/*
 	dh_installchangelogs
 	dh_compress
 	dh_fixperms

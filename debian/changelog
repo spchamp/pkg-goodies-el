@@ -11,8 +11,9 @@ emacs-goodies-el (21.0-1) unstable; urgency=low
   * Updated auto-fill-inhibit.el to latest upstream version (defcustom
     patch that I submitted).
   * Updated htmlize.el to V0.68
+  * Added elisp/emacs-goodies-el.texi and install it in rules file.
 
- -- Peter S Galbraith <psg@debian.org>  Sun, 11 May 2003 20:15:58 -0400
+ -- Peter S Galbraith <psg@debian.org>  Sun, 11 May 2003 21:07:18 -0400
 
 emacs-goodies-el (20.0-1) unstable; urgency=low
 
