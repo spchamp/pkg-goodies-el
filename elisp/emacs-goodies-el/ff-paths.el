@@ -4,7 +4,7 @@
  
 ;; Author:    Peter S. Galbraith <psg@debian.org>
 ;; Created:   16 Sep 1994
-;; Version:   3.19 (21 April 2003)
+;; Version:   3.21 (Aug 14 2003)
 ;; Keywords:  find-file, ffap, paths, search
 
 ;;; This file is not part of GNU Emacs.
@@ -213,6 +213,8 @@
 ;;   - Add ff-paths-install to install this package (instead of doing so
 ;;     automatically at load time).
 ;;   - Add ff-paths-install defcustom to enable package.
+;; V3.21  Aug 14 2003 PSG
+;;   - ff-paths-list-env: code cleanup.
 ;; ----------------------------------------------------------------------------
 ;;; Code:
 
@@ -634,7 +636,7 @@ don't think it should.  ff-paths should deal with it anyway..."
   "Check for presence of FILENAME in directory LIST.  Return all found.
 If none found, recurse through directory tree of directories ending in //
 and return all matches."
-  ;;USAGE: (psg-filename-in-directory-list "emacs" (psg-list-env "PATH"))
+  ;;USAGE: (psg-filename-in-directory-list "emacs" (ff-paths-list-env "PATH"))
   ;;USAGE: (psg-filename-in-directory-list "ff-paths.el" load-path)
   ;;USAGE: (psg-filename-in-directory-list "ff-paths.el" (ff-paths-from-list "ff-paths.el"))
   (let ((the-list list) (filespec-list))
@@ -803,7 +805,8 @@ It should hold a list of:
             (setq the-elements (cdr the-elements))
             (if (string-match "^\\$" element) ; an ENVIRONMENT var?
                 (setq path-list
-                      (nconc path-list (psg-list-env (substring element 1))))
+                      (nconc path-list
+                             (ff-paths-list-env (substring element 1))))
               (if (ff-paths-file-directory-p element) ;  Add only if it exists
                   (setq path-list (cons element path-list)))))
           (if path-list
@@ -811,7 +814,7 @@ It should hold a list of:
         (setq unexpanded-path (cdr unexpanded-path)))
       the-list))))
 
-(defun psg-list-env (env)
+(defun ff-paths-list-env (env)
   "Return a list of directory elements in ENV variable (w/o leading $)
 argument may consist of environment variable plus a trailing directory, e.g.
 HOME or HOME/bin"
@@ -820,16 +823,8 @@ HOME or HOME/bin"
                     (getenv env)
                   (concat (getenv (substring env 0 slash-pos))
                           (substring env slash-pos))))
-         ;;(value (getenv env))
-	 (entries (and value (ff-paths-split-path value)))
-	 entry
-	 answers)
-    (while entries
-      (setq entry (car entries))
-      (setq entries (cdr entries))
-      (if (ff-paths-file-directory-p entry)
-	  (setq answers (cons entry answers))))
-    (nreverse answers)))
+	 (entries (and value (ff-paths-split-path value))))
+    (loop for x in entries if (ff-paths-file-directory-p x) collect x)))
 
 (defun ff-paths-file-directory-p (file)
   "Like default `file-directory-p' but allow FILE to end in // for ms-windows."
