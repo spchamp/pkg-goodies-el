@@ -2,8 +2,10 @@ emacs-goodies-el (21.3-1) UNRELEASED; urgency=low
 
   * apt-utils.el: Updated to v1.45
   * debian-bug.el: Add `d-i', `ipv6' and `lfs' tags.
+  * gnus-bonus-el.emacsen-install.in: Add directory of gnus elisp files to
+    load-path during byte-compilation.
 
- -- Peter S Galbraith <psg@debian.org>  Sat, 31 May 2003 15:33:35 -0400
+ -- Peter S Galbraith <psg@debian.org>  Tue, 10 Jun 2003 10:10:13 -0400
 
 emacs-goodies-el (21.2-1) unstable; urgency=low
 
