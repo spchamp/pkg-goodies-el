@@ -1,15 +1,12 @@
 ;;; ff-paths.el - find-file-using-paths searches certain paths to find files.
 
-;; Copyright (C) 1994-2001 Peter S. Galbraith
+;; Copyright (C) 1994-2002 Peter S. Galbraith
  
 ;; Author:    Peter S. Galbraith <GalbraithP@dfo-mpo.gc.ca>
 ;;                               <psg@debian.org>
 ;; Created:   16 Sep 1994
-;; Version:   3.17 (17 January 2001)
+;; Version:   3.18 (07 January 2002)
 ;; Keywords:  find-file, ffap, paths, search
-
-;; RCS $Id: ff-paths.el,v 1.1 2003/04/04 20:16:00 lolando Exp $
-;; Note: RCS version number does not correspond to release number.
 
 ;;; This file is not part of GNU Emacs.
 
@@ -32,7 +29,7 @@
 ;;; Commentary:
 
 ;; New versions of this package (if they exist) may be found at:
-;;   ftp://ftp.phys.ocean.dal.ca/users/rhogee/elisp/ff-paths.el
+;;   http://people.debian.org/~psg/elisp/ff-paths.el
 
 ;; This code allows you to use C-x C-f normally most of the time, except that 
 ;; if the requested file doesn't exist, it is checked against a list of 
@@ -192,6 +189,12 @@
 ;;    - Added ff-paths-locate-max-matches, defaults to 20 matches.
 ;; V3.17  January 17 2001 (RCS 1.22)
 ;;    - Oups! defvar ff-paths-locate-max-matches.
+;; V3.18  January 07 2002 (RCS 1.24) Michael Ernst <mernst@alum.mit.edu>
+;;   Quote filenames before passing them to locate.  Without this change,
+;;   ff-paths may return many irrelevant matches.  More seriously, the
+;;   locate command may take a very long time to complete, if some portion
+;;   of the the filename matches many files.  (I was given a file named
+;;   "procedure - version 1", and locate went to town on the "-".)
 ;; ----------------------------------------------------------------------------
 ;;; Code:
 
@@ -602,8 +605,6 @@ and return all matches."
 ;;  if they end in //).
 ;;  TeX-search-files is part of auc-tex:
 ;;    Maintainer: Per Abrahamsen <auc-tex@iesd.auc.dk>
-;;    Version: $Id: ff-paths.el,v 1.1 2003/04/04 20:16:00 lolando Exp $
-;;    Keywords: wp
      
 ;;    Copyright (C) 1985, 1986 Free Software Foundation, Inc.
 ;;    Copyright (C) 1987 Lars Peter Fischer
@@ -783,8 +784,9 @@ Return a string if a single match, or a list if many matches."
     (save-excursion
       (set-buffer ff-buffer)
       (setq status 
-            (call-process "sh" nil t nil "-c" (concat "locate " filename)))
-      (goto-char 1)
+            (call-process "sh" nil t nil "-c" 
+                          (concat "locate " (shell-quote-argument filename))))
+    (goto-char 1)
       (if (eq status 1)
           nil                           ;Not found...
         (while (and (or (not ff-paths-locate-max-matches)
