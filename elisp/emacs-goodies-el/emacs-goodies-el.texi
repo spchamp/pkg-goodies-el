@@ -1,7 +1,7 @@
 @c -*- mode: texinfo -*-
 \input texinfo
 
-@c $Id: emacs-goodies-el.texi,v 1.15 2003/06/21 01:29:56 psg Exp $
+@c $Id: emacs-goodies-el.texi,v 1.16 2003/08/13 02:30:39 psg Exp $
 @c %**start of header
 @setfilename info/emacs-goodies-el
 @settitle Emacs-Goodies-el
@@ -68,6 +68,7 @@ documented files just yet.
 * diminish::               Diminish minor-mode's display.
 * dirvars::                Local variables that apply to an entire directory.
 * ff-paths::               Searches certain paths to find files.
+* filladapt::              Adaptively set fill-prefix.
 @end menu
 
 This work compiles GPL'ed documentation from the various elisp files
@@ -485,7 +486,7 @@ statement to your @file{~/.emacs} file:
   (require 'dirvars)
 @end example
 
-@node ff-paths,  , dirvars, Top
+@node ff-paths, filladapt, dirvars, Top
 @chapter ff-paths - searches certain paths to find files.
 
 This code allows you to use C-x C-f normally most of the time, except that
@@ -564,3 +565,62 @@ You may alter various settings of @code{ff-paths} using
 @kbd{M-x} customize-group @key{RET} ff-paths @key{RET}
 @end example
 
+@node filladapt,  , ff-paths, Top
+@chapter filladapt - adaptively set fill-prefix and overload filling functions
+
+These functions enhance the default behavior of Emacs' Auto Fill
+mode and the commands @code{fill-paragraph}, @code{lisp-fill-paragraph},
+@code{fill-region-as-paragraph} and @code{fill-region}.
+
+The chief improvement is that the beginning of a line to be
+filled is examined and, based on information gathered, an
+appropriate value for fill-prefix is constructed.  Also the
+boundaries of the current paragraph are located.  This occurs
+only if the fill prefix is not already non-nil.
+
+The net result of this is that blurbs of text that are offset
+from left margin by asterisks, dashes, and/or spaces, numbered
+examples, included text from USENET news articles, etc. are
+generally filled correctly with no fuss.
+
+Note that in this release Filladapt mode is a minor mode and it is
+_off_ by default.  If you want it to be on by default, use
+@example
+  (setq-default filladapt-mode t)
+@end example
+
+@code{M-x filladapt-mode} toggles Filladapt mode on/off in the current
+buffer.
+
+Filladapt works well with any language that uses comments that
+start with some character sequence and terminate at end of line.
+So it is good for Postscript, Lisp, Perl, C++ and shell modes.
+It's not good for C mode because C's comments are multiline.
+
+Use
+@example
+    (add-hook 'text-mode-hook 'turn-on-filladapt-mode)
+@end example
+to have Filladapt always enabled in Text mode, or customize the
+variable @code{filladapt-turn-on-mode-hooks}
+
+@example
+@kbd{M-x} customize-variable @key{RET} filladapt-turn-on-mode-hooks @key{RET}
+@end example
+
+Use
+@example
+    (add-hook 'c-mode-hook 'turn-off-filladapt-mode)
+@end example
+to have Filladapt always disabled in C mode.
+
+In many cases, you can extend Filladapt by adding appropriate entries
+to the following three custiomizable variables.  See
+@code{postscript-comment} or @code{texinfo-comment} as a sample of
+what needs to be done.
+
+@example
+    filladapt-token-table
+    filladapt-token-match-table
+    filladapt-token-conversion-table
+@end example

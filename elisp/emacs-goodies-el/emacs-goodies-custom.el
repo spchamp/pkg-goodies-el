@@ -89,7 +89,7 @@
   :tag "Floating Background"
   :group 'frames
   :prefix "floatbg-"
-  :link '(custom-manual "(emacs-goodies-el)floatbg")
+;;:link '(custom-manual "(emacs-goodies-el)floatbg")
   :load 'floatbg
 ;;:require 'floatbg
   :group 'emacs-goodies-el)
@@ -101,7 +101,7 @@
   :prefix "hc"
   :link '(url-link :tag "Home Page" "http://www.math.washington.edu/~palmieri/Emacs/hlc.html")
   :group 'abbrev
-  :link '(custom-manual "(emacs-goodies-el)highlight-completion")
+;;:link '(custom-manual "(emacs-goodies-el)highlight-completion")
   :load 'highlight-completion
 ;;:require 'highlight-completion
   :group 'emacs-goodies-el)
@@ -110,7 +110,7 @@
 (defgroup htmlize nil
   "HTMLize font-locked buffers."
   :group 'hypermedia
-  :link '(custom-manual "(emacs-goodies-el)htmlize")
+;;:link '(custom-manual "(emacs-goodies-el)htmlize")
   :load 'htmlize
 ;;:require 'htmlize
   :group 'emacs-goodies-el)
@@ -124,7 +124,7 @@ Operations include sorting, marking by regular expression, and
 selectable views (limits)."
   :link '(url-link "http://web.verbum.org/~walters")
   :group 'convenience
-  :link '(custom-manual "(emacs-goodies-el)ibuffer")
+;;:link '(custom-manual "(emacs-goodies-el)ibuffer")
   :load 'ibuffer
 ;;:require 'ibuffer
   :group 'emacs-goodies-el)
@@ -133,7 +133,7 @@ selectable views (limits)."
 (defgroup initsplit nil
   "Code to split customizations into different files."
   :group 'initialization
-  :link '(custom-manual "(emacs-goodies-el)initsplit")
+;;:link '(custom-manual "(emacs-goodies-el)initsplit")
   :load 'initsplit
 ;;:require 'initsplit
   :group 'emacs-goodies-el)
@@ -143,7 +143,7 @@ selectable views (limits)."
   "Emacs key sequence quiz."
   :version "21.2"
   :group 'keywiz
-  :link '(custom-manual "(emacs-goodies-el)keywiz")
+;;:link '(custom-manual "(emacs-goodies-el)keywiz")
   :load 'keywiz
 ;;:require 'keywiz
   :group 'emacs-goodies-el)
@@ -153,7 +153,7 @@ selectable views (limits)."
   "Lookup mutt mail aliases."
   :group  'mail
   :prefix "mutt-alias-"
-  :link '(custom-manual "(emacs-goodies-el)mutt-alias")
+;;:link '(custom-manual "(emacs-goodies-el)mutt-alias")
   :load 'mutt-alias
 ;;:require 'mutt-alias
   :group 'emacs-goodies-el)
@@ -163,7 +163,7 @@ selectable views (limits)."
   "Muttrc editing commands for Emacs."
   :group 'files
   :prefix "muttrc-"
-  :link '(custom-manual "(emacs-goodies-el)muttrc-mode")
+;;:link '(custom-manual "(emacs-goodies-el)muttrc-mode")
   :load 'muttrc-mode
 ;;:require 'muttrc-mode
   :group 'emacs-goodies-el)
@@ -178,7 +178,7 @@ See `table-insert' for examples about how to use."
   :group 'wp
   :group 'paragraphs
   :group 'fill
-  :link '(custom-manual "(emacs-goodies-el)table")
+;;:link '(custom-manual "(emacs-goodies-el)table")
   :load 'table
 ;;:require 'table
   :group 'emacs-goodies-el)
@@ -188,14 +188,14 @@ See `table-insert' for examples about how to use."
   "Tail files or commands into Emacs buffers."
   :prefix "tail-"
   :group 'environment
-  :link '(custom-manual "(emacs-goodies-el)tail")
+;;:link '(custom-manual "(emacs-goodies-el)tail")
   :load 'tail
 ;;:require 'tail
   :group 'emacs-goodies-el)
 
 ;; tc
 (defgroup tc nil "Insert cited text in a nice manner"
-  :link '(custom-manual "(emacs-goodies-el)tc")
+;;:link '(custom-manual "(emacs-goodies-el)tc")
   :load 'tc
 ;;:require 'tc
   :group 'emacs-goodies-el)
@@ -205,7 +205,7 @@ See `table-insert' for examples about how to use."
   "Insert text in a think bubble."
   :group  'editing
   :prefix "thinks-"
-  :link '(custom-manual "(emacs-goodies-el)thinks")
+;;:link '(custom-manual "(emacs-goodies-el)thinks")
   :load 'thinks
 ;;:require 'thinks
   :group 'emacs-goodies-el)
@@ -214,7 +214,7 @@ See `table-insert' for examples about how to use."
 (defgroup todoo nil
   "Maintain a list of todo items."
   :group 'calendar
-  :link '(custom-manual "(emacs-goodies-el)todoo")
+;;:link '(custom-manual "(emacs-goodies-el)todoo")
   :load 'todoo
 ;;:require 'todoo
   :group 'emacs-goodies-el)
@@ -223,7 +223,7 @@ See `table-insert' for examples about how to use."
 (defgroup joc-toggle-buffer nil
   "toggle-buffer package customization"
   :group 'tools
-  :link '(custom-manual "(emacs-goodies-el)toggle-buffer")
+;;:link '(custom-manual "(emacs-goodies-el)toggle-buffer")
   :load 'toggle-buffer
 ;;:require 'toggle-buffer
   :group 'emacs-goodies-el)
@@ -232,7 +232,7 @@ See `table-insert' for examples about how to use."
 (defgroup joc-toggle-case nil
   "joc-toggle-case package customization"
   :group 'tools
-  :link '(custom-manual "(emacs-goodies-el)toggle-case")
+;;:link '(custom-manual "(emacs-goodies-el)toggle-case")
   :load 'toggle-case
 ;;:require 'toggle-case
   :group 'emacs-goodies-el)
@@ -241,7 +241,7 @@ See `table-insert' for examples about how to use."
 (defgroup toggle-option nil
   "Convenience library for toggling commonly toggled variables/functions."
   :group 'convenience
-  :link '(custom-manual "(emacs-goodies-el)toggle-option")
+;;:link '(custom-manual "(emacs-goodies-el)toggle-option")
   :load 'toggle-option
 ;;:require 'toggle-option
   :group 'emacs-goodies-el)
@@ -250,7 +250,7 @@ See `table-insert' for examples about how to use."
 (defgroup wdired nil
   "Mode to rename files by editing their names in dired buffers."
 :group 'dired
-  :link '(custom-manual "(emacs-goodies-el)wdired")
+;;:link '(custom-manual "(emacs-goodies-el)wdired")
   :load 'wdired
 ;;:require 'wdired
   :group 'emacs-goodies-el)
@@ -259,7 +259,7 @@ See `table-insert' for examples about how to use."
 (defgroup xrdb nil
   "Support for editing X resource database files"
   :group 'languages
-  :link '(custom-manual "(emacs-goodies-el)xrdb-mode")
+;;:link '(custom-manual "(emacs-goodies-el)xrdb-mode")
   :load 'xrdb-mode
 ;;:require 'xrdb-mode
   :group 'emacs-goodies-el)

@@ -97,6 +97,35 @@ find-file-using-paths searches certain paths to find files."
   :group 'emacs-goodies-el
   :group 'ff-paths)
 
+;; filladapt
+(autoload 'turn-on-filladapt-mode "filladapt"
+  "Unconditionally turn on Filladapt mode in the current buffer."
+  t)
+
+(defcustom filladapt-turn-on-mode-hooks nil
+  "*List of hooks for which to turn-on filladapt.
+Filladapt works well with any language that uses comments that
+start with some character sequence and terminate at end of line.
+So it is good for Postscript, Lisp, Perl, C++ and shell modes.
+It's not good for C mode because C's comments are multiline."
+  :type '(set (const text-mode-hook)
+              (const awk-mode-hook)
+              (const lisp-mode-hook)
+              (const emacs-lisp-mode-hook)
+              (const perl-mode-hook))
+  :set (lambda (symbol value)
+         ;; Remove old values since user may have deleted entries
+         (if (and (boundp 'filladapt-mode-hooks) filladapt-mode-hooks)
+             (mapcar (lambda (hook) (remove-hook hook 'turn-on-filladapt-mode))
+                     filladapt-mode-hooks))
+         (set-default symbol value)
+         ;; Set entries selected by the user.
+         (mapcar (lambda (hook) (add-hook hook 'turn-on-filladapt-mode))
+                 value))
+  :load 'filladapt
+  :group 'emacs-goodies-el
+  :group 'filladapt)
+
 ;; highlight-completion.el
 (autoload 'highlight-completion-mode "highlight-completion"
   "Activate highlight-completion."
