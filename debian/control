@@ -8,7 +8,7 @@ Standards-Version: 3.5.8
 
 Package: emacs-goodies-el
 Architecture: all
-Depends: emacs21 | emacsen, bash (>= 2.05a), emacsen-common (>= 1.4.15)
+Depends: emacs21 | emacsen, bash (>= 2.05a)
 Suggests: emacs-goodies-extra-el
 Description: Miscellaneous add-ons for Emacs
  This package contains a number of Emacs-Lisp files, obtained from
@@ -75,7 +75,7 @@ Description: Miscellaneous add-ons for Emacs
 
 Package: gnus-bonus-el
 Architecture: all
-Depends: emacs21 | emacsen, gnus | emacs21 | emacs20 | xemacs21, emacsen-common (>= 1.4.15)
+Depends: emacs21 | emacsen, gnus | emacs21 | emacs20 | xemacs21
 Section: news
 Description: Miscellaneous add-ons for Gnus
  This package contains a few Emacs-Lisp files, obtained from various
@@ -94,7 +94,7 @@ Description: Miscellaneous add-ons for Gnus
 
 Package: emacs-goodies-extra-el
 Architecture: all
-Depends: emacs21 | emacsen, bash (>= 2.05a), emacsen-common (>= 1.4.15), dict
+Depends: emacs21 | emacsen, bash (>= 2.05a), dict
 Description: Miscellaneous add-ons for Emacs -- extra
  This package contains a number of Emacs-Lisp files, obtained from
  various sources, including the gnu.emacs.sources newsgroup and a few
@@ -106,7 +106,7 @@ Description: Miscellaneous add-ons for Emacs -- extra
 
 Package: devscripts-el
 Architecture: all
-Depends: emacs21 | emacsen, bash (>= 2.05a), emacsen-common (>= 1.4.15), devscripts, dpkg-dev-el
+Depends: emacs21 | emacsen, bash (>= 2.05a), devscripts, dpkg-dev-el
 Description: Emacs wrappers for the commands in devscripts
  This package contains few Emacs-Lisp files, that provide various
  functions to Emacs.  The files in this package depend on the external
@@ -118,7 +118,7 @@ Description: Emacs wrappers for the commands in devscripts
 
 Package: debbugs-el
 Architecture: all
-Depends: emacs21 | emacsen, emacsen-common (>= 1.4.15), reportbug (>= 1.41.1) | bug
+Depends: emacs21 | emacsen, reportbug (>= 1.41.1) | bug
 Recommends: wget
 Suggests: gnus
 Section: utils
@@ -132,7 +132,7 @@ Description: Access the Debian BTS from within Emacs
 
 Package: dpkg-dev-el
 Architecture: all
-Depends: emacs21 | emacsen, emacsen-common (>= 1.4.15), debbugs-el (>= 19.4-1)
+Depends: emacs21 | emacsen, debbugs-el (>= 19.4-1)
 Suggests: dpkg-dev
 Recommends: wget
 Conflicts: dpkg-dev (<< 1.7.2)
