@@ -1,7 +1,7 @@
 @c -*- mode: texinfo -*-
 \input texinfo
 
-@c $Id: emacs-goodies-el.texi,v 1.11 2003/06/17 02:24:36 psg Exp $
+@c $Id: emacs-goodies-el.texi,v 1.12 2003/06/18 01:07:55 psg Exp $
 @c %**start of header
 @setfilename info/emacs-goodies-el
 @settitle Emacs-Goodies-el
@@ -41,7 +41,7 @@ Some extra package installation and setup is done if you customize the
 variable @code{emacs-goodies-el-defaults} to t (its aggressive state).
 These will override standard Emacs defaults.  The affected package is
 currently only: @ref{ff-paths}.  Packages which require activation in
-order to function include: @ref{bar-cursor}.
+order to function include: @ref{bar-cursor}, @ref{diminish} and @ref{df}.
 
 To customize setup of these aggressive packages on a finer-grain basis,
 do:
@@ -131,7 +131,7 @@ like this:
 This mode font-locks the file and add some things including new
 source lines and modifying existing source lines.
 
-This mode can be costumized in diferent parts. You can (interactively)
+This mode can be customized in diferent parts. You can (interactively)
 change if you want blank lines around a new source line and comment
 with @code{apt-sources-around-lines}. Also you can change the way that
 this mode names each source line with the variable
@@ -139,7 +139,7 @@ this mode names each source line with the variable
 will be inserted.
 
 You can modify existing parts of the source line; check the mode
-documentation for mor details. Another thing that this mode can do is
+documentation for more details. Another thing that this mode can do is
 to replicate an existing line (@kbd{C-c C-r}) that will be changed to
 the 'deb' or 'deb-src' corresponding line. If it replicates a 'deb'
 line, an identical 'deb-src' source line will be created.
