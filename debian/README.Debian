@@ -1,39 +1,24 @@
 Emacs Goodies for Debian
 ------------------------
-The emacs-goodies-el source package contains a number of Emacs-Lisp
-files, obtained from various sources, including the gnu.emacs.sources
-newsgroup and a few websites, that provide various added functions to
-Emacs and/or Gnus.
 
-  The emacs-goodies-el package was started as a source package
-providing a single binary package by Roland Mas <lolando@debian.org>
-on "Tue, 21 Aug 2001 20:53:38 +0200" (sic).
+This package is created from the `emacs-goodies-el' Debian source package,
+which contains a number of Emacs-Lisp files that provide various added
+functions to Emacs and/or Gnus.  The source package creates the following
+binary packages:
 
-  On the 3rd of December, 2001, the very same Roland Mas started
-working on a similar package, named gnus-bonus-el, specifically aimed
-at Gnus users.
+ emacs-goodies-el: Miscellaneous add-ons for Emacs
+ emacs-goodies-extra-el:
+                   Miscellaneous add-ons for Emacs with extra dependencies 
+ gnus-bonus-el:    Miscellaneous add-ons for Gnus
+ debbugs-el:       Access the Debian BTS from within Emacs
+ dpkg-dev-el:      Emacs-related Debian development helpers
+ devscripts-el:    Emacs wrappers for the commands in devscripts
 
-  On the 13th of October, 2002, Roland Mas, still the maintainer of
-these evil anti-Vi-fan collections of scripts and Elisp files, decided
-to merge the two packages into one source package.  It should be
-easier to maintain, and it also allows easy creation of other binary
-packages, such as emacs-goodies-extra-el, containing files that are
-not fit for the main emacs-goodies-el because they have extra
-dependencies.
-
-  And on the 16th of October, Junichi Uekawa announced to debian-devel
-the existence of devscripts.el and readme-debian.el, which were
-located in a tarball named devscripts-el.  Roland Mas immediately
-jumped on it and made a new binary target for this source package, so
-that it now also gives birth to the binary package devscripts-el.
-
-  Continuing on that track, and still in October of 2002, the
-debbugs-el and dpkg-dev-el packages were also merged in.
-
-  The numbering scheme for this package is as follows: major will
-change when adding or removing files or binary packages to this source
-package; minor will change when these files have a new upstream
-release; Debian revision is for packaging only.
+  The numbering scheme for all packages follows the source package scheme:
+the major revision number changes when adding or removing files or binary
+packages to this source package; the minor revision number changes when
+these files have a new upstream release; Debian revision is for packaging
+only.
 
   The file you're currently reading is mostly meant as an introductory
 starter for the various goodies included in the various binary
@@ -356,4 +341,4 @@ files.  This mode adds a bit of colouring, a working filling function
 (bound to "M-q" by default), tab-completion for adding fields (bound
 to "C-c C-a" by default), and viewing bugs (bound to "C-c C-b").
 
- -- Peter S Galbraith <psg@debian.org>, Fri Sep 19 21:20:08 2003
+ -- Peter S Galbraith <psg@debian.org>, Sat Sep 20 09:15:26 2003
