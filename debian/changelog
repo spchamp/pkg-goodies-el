@@ -9,8 +9,9 @@ emacs-goodies-el (21.2-1) UNRELEASED; urgency=low
     Info.
   * Update clipper.el to V1.1.1.
   * Update browse-kill-ring.el to 1.2 (CVS).
+  * debian-control-mode.el: Add 'checklist to debian-control-visit-policy.
 
- -- Peter S Galbraith <psg@debian.org>  Sun, 25 May 2003 20:21:22 -0400
+ -- Peter S Galbraith <psg@debian.org>  Mon, 26 May 2003 22:06:28 -0400
 
 emacs-goodies-el (21.1-1) unstable; urgency=low
 
