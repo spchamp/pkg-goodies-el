@@ -8,8 +8,10 @@ emacs-goodies-el (21.3-1) UNRELEASED; urgency=low
     debian-changelog-mode (closes: #196828)
   * Moved readme-debian.el from package `devscripts-el' to `dpkg-dev-el'
     such that all major modes for debian directory files are together.
+  * bar-cursor.el: Edited patch sent upstream to conform the Coding
+    Convention (don't enable simply by loading).
 
- -- Peter S Galbraith <psg@debian.org>  Tue, 10 Jun 2003 23:13:29 -0400
+ -- Peter S Galbraith <psg@debian.org>  Thu, 12 Jun 2003 21:39:33 -0400
 
 emacs-goodies-el (21.2-1) unstable; urgency=low
 

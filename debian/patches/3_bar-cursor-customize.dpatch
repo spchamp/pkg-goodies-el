@@ -39,7 +39,7 @@ diff -urNad /home/psg/emacs/emacs-goodies-el/emacs-goodies-el/elisp/bar-cursor.e
  ;;  your ~/.emacs startup file
  ;;
  ;;     (require 'bar-cursor)
--;;     (bar-cursor-mode 1)
+ ;;     (bar-cursor-mode 1)
  ;;
  ;;  To add a directory to your load-path, use something like the following:
  ;;
@@ -167,7 +167,7 @@ diff -urNad /home/psg/emacs/emacs-goodies-el/emacs-goodies-el/elisp/bar-cursor.e
  	(bar-cursor-set-cursor-type 'block frame)))
  
 +;;; --------------------------------------------------------------------------
-+(defcustom bar-cursor-mode t
++(defcustom bar-cursor-mode nil
 +  "*Non-nil means to convert the block cursor into a bar cursor.
 +In overwrite mode, the bar cursor changes back into a block cursor.
 +This is a quasi-minor mode, meaning that it can be turned on & off easily
