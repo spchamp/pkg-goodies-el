@@ -10,12 +10,4 @@
   ;; autoloads for devscripts.el
   (autoload 'debuild "devscripts" "Run debuild in the current directory." t)
   (autoload 'debc "devscripts" "Run debc in the current directory." t)
-  (autoload 'debi "devscripts" "Run debi in the current directory." t)
-  
-  ;; autoloads and automode for readme-debian.el
-  (autoload 'readme-debian-mode "readme-debian" "Mode to edit README.Debian."
-    t)
-  (add-to-list 'auto-mode-alist
-               '("debian/README.Debian$" . readme-debian-mode))
-  (add-to-list 'auto-mode-alist
-               '("^/usr/share/doc/.*/README.Debian.*$" . readme-debian-mode)))
+  (autoload 'debi "devscripts" "Run debi in the current directory." t))

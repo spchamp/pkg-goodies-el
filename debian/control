@@ -124,7 +124,6 @@ Description: Emacs wrappers for the commands in devscripts
  .
  This package contains:
   devscripts.el: wrappers around the debuild, debc and debi commands;
-  readme-debian.el: major mode for editing README.Debian files.
  .
  See /usr/share/doc/devscripts-el/README.Debian.gz for a short
  description of all files.
@@ -159,6 +158,7 @@ Description: Emacs-related Debian development helpers
   debian-changelog-mode.el: a helper mode for Debian changelogs;
   debian-control-mode.el: a helper mode for debian/control files;
   debian-copyright.el: major mode for Debian package copyright files.
+  readme-debian.el: major mode for editing README.Debian files.
  .
  See /usr/share/doc/dpkg-dev-el/README.Debian.gz for a short
  description of all files.

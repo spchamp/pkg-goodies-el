@@ -52,6 +52,14 @@ being constructed."
   (add-to-list 'auto-mode-alist
                '("^/usr/share/doc/.*/copyright" . debian-copyright-mode))
   
+  ;; autoloads and automode for readme-debian.el
+  (autoload 'readme-debian-mode "readme-debian" "Mode to edit README.Debian."
+    t)
+  (add-to-list 'auto-mode-alist
+               '("debian/README.Debian$" . readme-debian-mode))
+  (add-to-list 'auto-mode-alist
+               '("^/usr/share/doc/.*/README.Debian.*$" . readme-debian-mode)))
+
   ;; other useful automode
   (add-to-list 'auto-mode-alist
                '("/debian/[^/]*emacsen-startup\\'" . emacs-lisp-mode)))
