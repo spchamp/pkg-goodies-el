@@ -1,7 +1,7 @@
 @c -*- mode: texinfo -*-
 \input texinfo
 
-@c $Id: emacs-goodies-el.texi,v 1.4 2003/05/13 19:45:20 psg Exp $
+@c $Id: emacs-goodies-el.texi,v 1.5 2003/05/15 14:54:18 psg Exp $
 @c %**start of header
 @setfilename info/emacs-goodies-el
 @settitle Emacs-Goodies-el
@@ -30,15 +30,20 @@ This is Edition @value{EDITION}, last updated @value{UPDATED}, of
 @node Top, align-string, (dir), (dir)
 @top The Emacs-Goodies-el Package Setup
 
-This manual describes the Emacs-Goodies-el package and its setup.
+This manual describes the Emacs-Goodies-el package and its setup.  A
+quick descriptions of elisp files contained in this package can be found
+in the file @file{/usr/share/doc/emacs-goodies-el/README.Debian.gz}.
+
 All packaged files are installed, setup and ready to use if they don't
 override standard Emacs commands, modes, or settings.
 
 Some extra package installation and setup is done if you customize the
 variable @code{emacs-goodies-el-defaults} to t (its aggressive state).
-These may override standard Emacs defaults.
+These will override standard Emacs defaults.  The affected package is
+currently only: @ref{ff-paths}.
 
-To customize further setup on a finer-grain basis, do:
+To customize setup of these aggressive packages on a finer-grain basis,
+do:
 @example
 M-x customize-group @key{RET} emacs-goodies-el @key{RET}
 @end example
@@ -59,7 +64,7 @@ documented files just yet.
 This work compiles GPL'ed documentation from the various elisp files
 in /usr/share/emacs/site-lisp/emacs-goodies-el/.  This text is also
 licensed under the GPL V2 (See /usr/share/common-licenses/GPL-2) and
-is edited by Peter S. Galbraith <psg@@debian.org>.
+is edited by Peter S. Galbraith @email{psg@@debian.org}.
 
 @node align-string, all, Top, Top
 @chapter align-string - align string components over several lines.
@@ -194,19 +199,20 @@ patterns for special paths to search for a file of the same name.
 
 Examples:
 @itemize @bullet
- @item a file extension of @file{.bib} will cause to search the path defined in
-   $BSTINPUTS or $BIBINPUTS for the file you requested.
- @item a file extension of @file{.h} will cause the @file{/usr/include/} and
-   @file{/usr/local/include/} directory trees to be searched.
- @item a file extension of @file{.sty} causes a search of TEXINPUTS and of all
-   directories below @file{"/usr/share/texmf/tex/}
- @item a file extension of @file{.el} causes a search of the path set in the
-   emacs variable @code{load-path}.
- @item If the aboves searches don't return a match, the filename is searched
-   for using the @file{locate} command (if available on your system).
- @item gzip-compressed files (@file{.gz}) will also be found by ff-paths if
-   the package jka-compr is present.  If you use some other package,
-   simply set the @code{ff-paths-gzipped} variable to t:
+ @item a file extension of @file{.bib} will cause to search the path
+defined in $BSTINPUTS or $BIBINPUTS for the file you requested.
+ @item a file extension of @file{.h} will cause the @file{/usr/include/}
+and @file{/usr/local/include/} directory trees to be searched.
+ @item a file extension of @file{.sty} causes a search of TEXINPUTS and
+of all directories below @file{"/usr/share/texmf/tex/}
+ @item a file extension of @file{.el} causes a search of the path set in
+the emacs variable @code{load-path}.
+ @item If the aboves searches don't return a match, the filename is
+searched for using the @file{locate} command (if available on your
+system).
+ @item gzip-compressed files (@file{.gz}) will also be found by ff-paths
+if the package jka-compr is present.  If you use some other package,
+simply set the @code{ff-paths-gzipped} variable to t:
 @end itemize
 
 If one file is found, or many files of the same name are found, then the
