@@ -1,4 +1,4 @@
-emacs-goodies-el (21.1-1) UNRELEASED; urgency=low
+emacs-goodies-el (21.1-1) unstable; urgency=low
 
   * 50emacs-goodies-el.el: Add :link to Info manual in
     `emacs-goodies-el-defaults' defcustom.
@@ -16,7 +16,7 @@ emacs-goodies-el (21.1-1) UNRELEASED; urgency=low
     Same done for all other binary packages.
     (closes: #193367)
 
- --
+ -- Peter S Galbraith <psg@debian.org>  Wed, 21 May 2003 23:24:57 -0400
 
 emacs-goodies-el (21.0-1) unstable; urgency=low
 
