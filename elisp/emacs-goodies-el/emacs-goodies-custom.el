@@ -5,13 +5,6 @@
 ;;
 ;;; Code:
 
-;;; emacs-goodies-custom.el --- Automatically harvested defgroups
-;;
-;;  Peter S Galbraith <psg@debian.org>
-;;  License of copied code applies to this combined work (GPL V2)
-;;
-;;; Code:
-
 ;; apt-sources
 (defgroup apt-sources nil "Mode for editing apt source.list file"
   :group 'tools
@@ -167,13 +160,13 @@ selectable views (limits)."
   :load 'mutt-alias
   :group 'emacs-goodies-el)
 
-;; muttrc
+;; muttrc-mode
 (defgroup muttrc nil
   "Muttrc editing commands for Emacs."
   :group 'files
   :prefix "muttrc-"
-  :link '(custom-manual "(emacs-goodies-el)muttrc")
-  :load 'muttrc
+  :link '(custom-manual "(emacs-goodies-el)muttrc-mode")
+  :load 'muttrc-mode
   :group 'emacs-goodies-el)
 
 ;; table
@@ -222,20 +215,20 @@ See `table-insert' for examples about how to use."
   :load 'todoo
   :group 'emacs-goodies-el)
 
-;; joc-toggle-buffer
+;; toggle-buffer
 (defgroup joc-toggle-buffer nil
   "toggle-buffer package customization"
   :group 'tools
-  :link '(custom-manual "(emacs-goodies-el)joc-toggle-buffer")
-  :load 'joc-toggle-buffer
+  :link '(custom-manual "(emacs-goodies-el)toggle-buffer")
+  :load 'toggle-buffer
   :group 'emacs-goodies-el)
 
-;; joc-toggle-case
+;; toggle-case
 (defgroup joc-toggle-case nil
   "joc-toggle-case package customization"
   :group 'tools
-  :link '(custom-manual "(emacs-goodies-el)joc-toggle-case")
-  :load 'joc-toggle-case
+  :link '(custom-manual "(emacs-goodies-el)toggle-case")
+  :load 'toggle-case
   :group 'emacs-goodies-el)
 
 ;; toggle-option
@@ -254,12 +247,12 @@ See `table-insert' for examples about how to use."
   :load 'wdired
   :group 'emacs-goodies-el)
 
-;; xrdb
+;; xrdb-mode
 (defgroup xrdb nil
   "Support for editing X resource database files"
   :group 'languages
-  :link '(custom-manual "(emacs-goodies-el)xrdb")
-  :load 'xrdb
+  :link '(custom-manual "(emacs-goodies-el)xrdb-mode")
+  :load 'xrdb-mode
   :group 'emacs-goodies-el)
 
 (provide 'emacs-goodies-custom)
