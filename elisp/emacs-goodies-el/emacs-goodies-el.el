@@ -62,6 +62,14 @@ With ARG, match names only."
   t)
 (autoload 'clipper-edit-clip "clipper" "Edit an existing 'clip'." t)
 
+;; cyclebuffer.el
+(autoload 'cyclebuffer-forward "cyclebuffer"
+  "Cycle buffer forward."
+  t)
+(autoload 'cyclebuffer-backward "cyclebuffer"
+  "Cycle buffer backward."
+  t)
+
 ;; ff-paths.el
 (defcustom ff-paths-install emacs-goodies-el-defaults
   "Whether to setup ff-paths for use.
@@ -92,17 +100,32 @@ find-file-using-paths searches certain paths to find files."
   :group 'emacs-goodies-el
   :group 'ff-paths)
 
-; autoloads for highlight-completion.el
+;; highlight-completion.el
 (autoload 'highlight-completion-mode "highlight-completion"
   "Activate highlight-completion."
   t)
 
-; autoloads for toggle-buffer.el
-(autoload 'joc-toggle-buffer "toggle-buffer"
-  "Switch to previous active buffer."
+;; highlight-current-line.el
+(autoload 'highlight-current-line-on "highlight-current-line"
+  "Switch highlighting of cursor-line on/off."
   t)
 
-; autoloads for mutt-alias.el
+;; keydef.el
+(autoload 'keydef "keydef"
+  "Define the key sequence SEQ, written in kbd form, to run CMD."
+  t)
+
+;; keywiz.el
+(autoload 'keywiz "keywiz"
+  "Start a key sequence quiz."
+  t)
+
+;; map-lines.el
+(autoload 'map-lines "map-lines"
+  "Map COMMAND over lines matching REGEX."
+  t)
+
+;; mutt-alias.el
 (autoload 'mutt-alias-insert "mutt-alias"
   "Insert the expansion for ALIAS into the current buffer."
   t)
@@ -110,25 +133,10 @@ find-file-using-paths searches certain paths to find files."
   "Lookup and display the expansion for ALIAS."
   t)
   
-; autoloads for setnu.el
-(autoload 'setnu-mode "setnu"
-  "Toggle setnu-mode."
-  t)
-(autoload 'turn-on-setnu-mode "setnu"
-  "Turn on setnu-mode."
-  t)
+;; muttrc-mode.el
+(add-to-list 'auto-mode-alist '("muttrc" . muttrc-mode))
 
-; autoloads for wdired.el
-(add-hook
- 'dired-load-hook
- '(lambda ()
-    (define-key dired-mode-map "r" 'wdired-change-to-wdired-mode)
-    (define-key dired-mode-map
-      [menu-bar immediate wdired-change-to-wdired-mode]
-      '("Edit File Names" . wdired-change-to-wdired-mode))))
-
-
-; autoloads for projects.el
+;; projects.el
 (autoload 'add-project "projects"
   "Add the project named NAME with root directory DIRECTORY."
   t)
@@ -139,7 +147,37 @@ find-file-using-paths searches certain paths to find files."
   "List all projects sorted by project name."
   t)
 
-; autoloads for toggle-case.el
+;; setnu.el
+(autoload 'setnu-mode "setnu"
+  "Toggle setnu-mode."
+  t)
+(autoload 'turn-on-setnu-mode "setnu"
+  "Turn on setnu-mode."
+  t)
+
+;; tail.el
+(autoload 'tail-file "tail"
+  "Tails file specified with argument ``file'' inside a new buffer."
+  t)
+(autoload 'tail-command "tail"
+  "Tails command specified with argument ``command'' inside a new buffer."
+  t)
+
+;; todoo.el
+(autoload 'todoo "todoo"
+  "TODO Mode."
+  t)
+(autoload 'todoo-mode "todoo"
+  "TODO Mode"
+  t)
+(add-to-list 'auto-mode-alist '("TODO$" . todoo-mode))
+
+;; toggle-buffer.el
+(autoload 'joc-toggle-buffer "toggle-buffer"
+  "Switch to previous active buffer."
+  t)
+
+;; toggle-case.el
 (autoload 'joc-toggle-case "toggle-case"
   "Toggles the case of the character under point."
   t)
@@ -160,60 +198,17 @@ find-file-using-paths searches certain paths to find files."
   "Toggles the case of all characters in the current region."
   t)
 
-; autoloads for tail.el
-(autoload 'tail-file "tail"
-  "Tails file specified with argument ``file'' inside a new buffer."
-  t)
-(autoload 'tail-command "tail"
-  "Tails command specified with argument ``command'' inside a new buffer."
-  t)
-
-; autoloads for under.el
-(autoload 'underline-region "under"
-  "Underline the region."
-  t)
-
-; autoloads for highlight-current-line.el
-(autoload 'highlight-current-line-on "highlight-current-line"
-  "Switch highlighting of cursor-line on/off."
-  t)
-
-; autoloads for keydef.el
-(autoload 'keydef "keydef"
-  "Define the key sequence SEQ, written in kbd form, to run CMD."
-  t)
-
-; autoloads for toggle-option.el
+;; toggle-option.el
 (autoload 'toggle-option "toggle-option"
   "Easily toggle frequently toggled options."
   t)
 
-; autoloads and automode for todoo.el
-(autoload 'todoo "todoo"
-  "TODO Mode."
-  t)
-(autoload 'todoo-mode "todoo"
-  "TODO Mode"
-  t)
-(add-to-list 'auto-mode-alist '("TODO$" . todoo-mode))
-
-; autoloads for cyclebuffer.el
-(autoload 'cyclebuffer-forward "cyclebuffer"
-  "Cycle buffer forward."
-  t)
-(autoload 'cyclebuffer-backward "cyclebuffer"
-  "Cycle buffer backward."
+;; under.el
+(autoload 'underline-region "under"
+  "Underline the region."
   t)
 
-; autoloads for keywiz.el
-(autoload 'keywiz "keywiz"
-  "Start a key sequence quiz."
-  t)
-
-; autoloads and automode for muttrc-mode.el
-(add-to-list 'auto-mode-alist '("muttrc" . muttrc-mode))
-
-; autoloads and automode for xrdb-mode.el
+;; xrdb-mode.el
 (add-to-list 'auto-mode-alist '("\\.Xdefaults$" . xrdb-mode))
 (add-to-list 'auto-mode-alist '("\\.Xenvironment$". xrdb-mode))
 (add-to-list 'auto-mode-alist '("\\.Xresources$". xrdb-mode))
@@ -221,10 +216,14 @@ find-file-using-paths searches certain paths to find files."
 (add-to-list 'auto-mode-alist '("/app-defaults/". xrdb-mode))
 (add-to-list 'auto-mode-alist '("/Xresources/". xrdb-mode))
 
-; autoloads for map-lines.el
-(autoload 'map-lines "map-lines"
-  "Map COMMAND over lines matching REGEX."
-  t)
+;; wdired.el
+(add-hook
+ 'dired-load-hook
+ '(lambda ()
+    (define-key dired-mode-map "r" 'wdired-change-to-wdired-mode)
+    (define-key dired-mode-map
+      [menu-bar immediate wdired-change-to-wdired-mode]
+      '("Edit File Names" . wdired-change-to-wdired-mode))))
 
 (provide 'emacs-goodies-el)
 
