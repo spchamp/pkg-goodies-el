@@ -14,9 +14,6 @@
 
   ;; autoloads for debian-bug.el
   (autoload 'debian-bug "debian-bug" "Submit a Debian bug report." t)
-  (autoload 'debian-bug-filename "debian-bug"
-    "Submit a Debian bug report for a given filename's package."
-    t)
   (autoload 'debian-bug-web-bug "debian-bug"
     "Browse the BTS for a bug report number via browse-url"
     t)
@@ -29,7 +26,6 @@
   (autoload 'debian-bug-ITP "debian-bug"
     "Shortcut for debian-bug-wnpp with ITP action (for Debian developers)"
     t)
-
   (autoload 'debian-bug-get-bug-as-email "debian-bug"
     "Read bug report #BUG-NUMBER via Email interface."
     t))
