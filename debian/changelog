@@ -1,3 +1,10 @@
+emacs-goodies-el (21.12-1) unstable; urgency=low
+
+  * emacs-goodies-el's highligh-current-line.el is now a minor-mode,
+    enhanced by yours truly.
+
+ -- Peter S Galbraith <psg@debian.org>  Fri, 19 Sep 2003 19:36:16 -0400
+
 emacs-goodies-el (21.11-1) unstable; urgency=low
 
   * dpkg-dev-el's debian-bts-control.el adds package', 'owner' and
