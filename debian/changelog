@@ -1,6 +1,7 @@
 emacs-goodies-el (21.2-1) UNRELEASED; urgency=low
 
   * debian-bts-control.el: Add `debian-bts-control-modes-to-reuse'.
+  * debian-bug.el: update to V1.42
 
  -- Peter S Galbraith <psg@debian.org>  Fri, 23 May 2003 20:39:36 -0400
 
