@@ -1,4 +1,11 @@
-emacs-goodies-el (21.9-1) UNRELEASED; urgency=low
+emacs-goodies-el (21.10-1) unstable; urgency=low
+
+  * debbugs-el's debian-bug.el: http://bugs.debian.org HTML code changed a
+    bit and broke my parser.  Fixed.
+
+ -- Peter S Galbraith <psg@debian.org>  Wed, 17 Sep 2003 20:41:19 -0400
+
+emacs-goodies-el (21.9-1) unstable; urgency=low
 
   * debbugs: debian-bug-filename adds File: info to informational block in
     draft bug report.
@@ -18,7 +25,7 @@ emacs-goodies-el (21.9-1) UNRELEASED; urgency=low
   * patches/5_highlight-beyond-fill-column.dpatch: New patch to fix
     indentation and remove extra fontified space.
 
- -- Peter S Galbraith <psg@debian.org>  Wed, 17 Sep 2003 15:15:35 -0400
+ -- Peter S Galbraith <psg@debian.org>  Wed, 17 Sep 2003 15:30:25 -0400
 
 emacs-goodies-el (21.8-1) unstable; urgency=low
 
