@@ -1,7 +1,7 @@
 @c -*- mode: texinfo -*-
 \input texinfo
 
-@c $Id: emacs-goodies-el.texi,v 1.18 2003/09/13 02:21:46 psg Exp $
+@c $Id: emacs-goodies-el.texi,v 1.19 2003/09/19 23:44:49 psg Exp $
 @c %**start of header
 @setfilename info/emacs-goodies-el
 @settitle Emacs-Goodies-el
@@ -80,6 +80,7 @@ documented files just yet.
 * filladapt::                   Adaptively set fill-prefix.
 * floatbg::                     Slowly modify background color
 * highlight-completion::        Completion with highlighted provisional text
+* highlight-current-line::      highlight line where the cursor is
 @end menu
 
 This work compiles GPL'ed documentation from the various elisp files
@@ -632,7 +633,7 @@ To enable it, customize the variable @code{floatbg-mode}.
 There are other tweaks to set in the customization group
 @code{floatbg}.
 
-@node highlight-completion,  , floatbg, Top
+@node highlight-completion, highlight-current-line, floatbg, Top
 @chapter highlight-completion - completion with highlighted provisional text
 
 This package modified how Emacs performs completions.  Ordinarily,
@@ -707,3 +708,30 @@ of the entries in "Highlight completion list".
 @end verbatim
 
 These functions can be used anywhere, not just in the minibuffer.
+
+@node highlight-current-line,  , highlight-completion, Top
+@chapter highlight-current-line.el - highlight line where the cursor is
+
+This is a minor mode to highlight the line the cursor is in. You can
+change colors of foreground (text) and background. The default
+behaviour is to set only a background color, so that font-lock
+fontification colors remain visible (syntax coloring).
+
+Enable it on a buffer using @code{M-x highlight-current-line-minor-mode} or
+globally by customizing @code{highlight-current-line-globally}.  Customize
+it via the @code{highlight-current-line} customization group.
+
+You can select whether the whole line (from left to right window border)
+is marked or only the really filled parts of the line (from left window
+border to the last char in the line). The second behaviour is suitable
+if it's important for you to see trailing spaces or tabs in a
+line. Customize the variable @code{highlight-current-line-whole-line}.
+
+You may enable the minor-mode automatically for (almost) all buffers by
+customizing the variable @code{highlight-current-line-globally}.  Buffers
+whose buffer-name match the regular expression in the customizable variable
+@code{highlight-current-line-ignore-regexp} are not highlighted.  You can
+extend or redefine this regexp. This works together with the default ignore
+function @code{highlight-current-line-ignore-function}. You can redefine this
+function to implement your own criterias.
+
