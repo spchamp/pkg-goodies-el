@@ -2,11 +2,12 @@ emacs-goodies-el (21.5-1) UNRELEASED; urgency=low
 
   * patches/6_diminish-defcustom.dpatch: new defcustom tweaks sent
     upstream.
-  * apt-utils.el: Updated to v1.53 (2003/06/19)
   * bar-cursor.el: A few tweaks also submitted upstream.
   * dirvars.el: Update to v1.2.  Add Info entry for it.
+  * ff-paths.el: Fix setup defcustoms.
+  * apt-utils.el: Updated to v1.54 (2003/06/22)
 
- -- Peter S Galbraith <psg@debian.org>  Fri, 20 Jun 2003 20:28:10 -0400
+ -- Peter S Galbraith <psg@debian.org>  Sun, 22 Jun 2003 20:45:12 -0400
 
 emacs-goodies-el (21.4-1) unstable; urgency=low
 

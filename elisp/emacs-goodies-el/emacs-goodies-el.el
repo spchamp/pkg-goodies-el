@@ -40,12 +40,6 @@ Setting to aggresisve will enable feature that superceed Emacs defaults."
 ;; apt-sources
 (add-to-list 'auto-mode-alist '("sources.list$" . apt-sources-mode))
 
-;; apt-utils.el
-(autoload 'apt-utils-search "apt-utils"
-  "Search Debian packages for regular expression.
-With ARG, match names only."
-  t)
-
 ;;  auto-fill-inhibit.el
 (defgroup auto-fill-inhibit '((auto-fill-inhibit-list custom-variable))
   "Finer grained control over auto-fill-mode (de)activation."

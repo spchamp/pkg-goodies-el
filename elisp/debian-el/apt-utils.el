@@ -3,7 +3,7 @@
 ;;; Copyright (C) 2002, 03 Matthew P. Hodges
 
 ;; Author: Matthew P. Hodges <matt@tc.bham.ac.uk>
-;;	$Id: apt-utils.el,v 1.4 2003/06/19 23:55:25 psg Exp $
+;;	$Id: apt-utils.el,v 1.5 2003/06/23 00:46:34 psg Exp $
 
 ;; apt-utils.el is free software; you can redistribute it and/or
 ;; modify it under the terms of the GNU General Public License as
@@ -270,6 +270,7 @@ Only works for installed packages; uses `apt-utils-dpkg-program'."
         (setq apt-utils-dired-buffer (dired-noselect files))
         (display-buffer apt-utils-dired-buffer))))))
 
+;;;###autoload
 (defun apt-utils-search ()
   "Search Debian packages for regular expression.
 To search for multiple patterns use a string like \"foo&&bar\"."
