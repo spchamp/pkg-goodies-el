@@ -12,7 +12,8 @@ excluded_all=$(for i in ${!EXCLUDED_*} ; do
 
 if [ ${FLAVOR} = emacs ]; then exit 0; fi
 
-echo install/${PACKAGE}: Handling install for emacsen flavor ${FLAVOR}
+LOG=`tempfile -pelc_ -s.log -m644`
+echo install/${PACKAGE}: Handling emacsen flavor ${FLAVOR}, logged in ${LOG}
 
 FLAGS="-q -no-site-file --no-site-file -batch -l path.el -f batch-byte-compile"
 ELDIR=/usr/share/emacs/site-lisp/${PACKAGE}
@@ -65,8 +66,8 @@ cd ${ELCDIR}
 cat << EOF > path.el
 (setq load-path (cons "." load-path) byte-compile-warnings nil)
 EOF
-echo ${FLAVOR} ${FLAGS} ${FILES}
-${FLAVOR} ${FLAGS} ${FILES}
+echo ${FLAVOR} ${FLAGS} ${FILES} >> ${LOG}
+${FLAVOR} ${FLAGS} ${FILES} >> ${LOG} &> ${LOG}
 rm -f *.el path.el
 
 exit 0
