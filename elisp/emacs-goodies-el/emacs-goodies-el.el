@@ -131,10 +131,26 @@ It's not good for C mode because C's comments are multiline."
   "Activate highlight-completion."
   t)
 
-;; highlight-current-line.el
+;; highlight-current-line.el - compatibility
 (autoload 'highlight-current-line-on "highlight-current-line"
-  "Switch highlighting of cursor-line on/off."
+  "Switch highlighting of cursor-line on/off globally."
   t)
+
+;; home-end.el
+(defcustom home-end-enable nil
+  "*Define [home] and [end] keys to act differently when hit 1, 2 or 3 times."
+  :type 'boolean
+  :set (lambda (symbol value)
+         (set-default symbol value)
+         (cond
+          (value
+           (global-set-key [end]  'home-end-end)
+           (global-set-key [home] 'home-end-home))
+          (t
+           (global-unset-key [end])
+           (global-unset-key [home]))))
+  :load 'home-end
+  :group 'emacs-goodies-el)
 
 ;; keydef.el
 (autoload 'keydef "keydef"
