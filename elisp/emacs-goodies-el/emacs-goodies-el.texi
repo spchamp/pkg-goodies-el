@@ -1,7 +1,7 @@
 @c -*- mode: texinfo -*-
 \input texinfo
 
-@c $Id: emacs-goodies-el.texi,v 1.3 2003/05/13 02:40:14 psg Exp $
+@c $Id: emacs-goodies-el.texi,v 1.4 2003/05/13 19:45:20 psg Exp $
 @c %**start of header
 @setfilename info/emacs-goodies-el
 @settitle Emacs-Goodies-el
@@ -171,6 +171,11 @@ using, e.g.
 @example
  (add-hook 'text-mode-hook 'turn-on-auto-fill)
 @end example
+or, using the custom interface
+@example
+M-x customize-variable @key{RET} text-mode-hook @key{RET}
+@end example
+and select @command{turn-on-auto-fill} and then save the setting.
 
 and yet disable @command{auto-fill-mode} on buffers with names that
 match one of a list of regular expressions.  Customize this list
