@@ -1,0 +1,156 @@
+#!/bin/sh -e
+## 5_highlight-beyond-fill-column.dpatch by Peter S Galbraith <psg@debian.org>
+##
+## All lines beginning with `## DP:' are a description of the patch.
+## DP: Fix indentation and remove extra fontified space
+
+if [ $# -ne 1 ]; then
+    echo >&2 "`basename $0`: script expects -patch|-unpatch as argument"
+    exit 1
+fi
+
+[ -f debian/patches/00patch-opts ] && . debian/patches/00patch-opts
+patch_opts="${patch_opts:--f --no-backup-if-mismatch}"
+
+case "$1" in
+       -patch) patch $patch_opts -p1 < $0;;
+       -unpatch) patch $patch_opts -p1 -R < $0;;
+        *)
+                echo >&2 "`basename $0`: script expects -patch|-unpatch as argument"
+                exit 1;;
+esac
+
+exit 0
+
+@DPATCH@
+diff -urNad /home/psg/emacs/emacs-goodies-el/emacs-goodies-el/elisp/emacs-goodies-el/highlight-beyond-fill-column.el emacs-goodies-el/elisp/emacs-goodies-el/highlight-beyond-fill-column.el
+--- /home/psg/emacs/emacs-goodies-el/emacs-goodies-el/elisp/emacs-goodies-el/highlight-beyond-fill-column.el	2003-09-17 15:09:03.000000000 -0400
++++ emacs-goodies-el/elisp/emacs-goodies-el/highlight-beyond-fill-column.el	2003-09-17 15:13:17.000000000 -0400
+@@ -28,8 +28,8 @@
+ 
+ ;; Commentary:
+ 
+-;; This defines a function that can be used by `font-lock-add-keywords' to find the columns
+-;; that are beyond `fill-column'.
++;; This defines a function that can be used by `font-lock-add-keywords' to
++;; find the columns that are beyond `fill-column'.
+ ;;
+ ;; Installation:
+ ;; Put the following in your .emacs
+@@ -48,78 +48,62 @@
+ ;;
+ ;; This is based on initial code provided by Jim Janney (jjanney@xmission.com)
+ ;;
++;; Modified 2003-09-12 by Peter S Galbraith <psg@debian.org>
++;; Made checkdoc clean and fixed indentation and parentheses placement.
+ 
+ ;;; Code:
+ (defcustom highlight-beyond-fill-column-in-modes nil
+   "The list of modes in which to highlight-beyond-fill-column."
+   :group 'fill
+-  :type  '(repeat string)
+-  )
++  :type  '(repeat string))
+ 
+ (defcustom highlight-beyond-fill-column-face 'underline
+   "The face to use with highlight-beyond-fill-column."
+   :group 'fill
+-  :type  'face
+-  )
++  :type  'face)
+ 
+ (defun find-after-fill-column (limit)
+-  "A function that can be used by `font-lock-add-keywords' to find columns that are
+-beyond the `fill-column'."
+-  (let (
+- ; remember the point
+- (original-point (point))
+- )
+-    ; if already past the fill column start on next line
++  "Function for font-lock to highlight beyond the `fill-column' until LIMIT."
++  (let ((original-point (point)))       ;; remember the point
++    ;; if already past the fill column start on next line
+     (if (> (current-column) fill-column)
+- (forward-line 1)
+-      )
+-    (while (and (< (point) limit)                                     ; still within limit
+-                    (or (< (move-to-column fill-column) fill-column)  ; the line has less than `fill-column' columns
+-                        (= (point) (line-end-position))               ; end of line
+-   )
+-      )
+-      ; goto next line
+-      (forward-line 1)
+-      )
++        (forward-line 1))
++    (while (and (< (point) limit)       ; still within limit
++                ;; the line has less than `fill-column' columns
++                (or (< (move-to-column fill-column) fill-column)
++                    (= (point) (line-end-position)))) ; end of line
++      ;; goto next line
++      (forward-line 1))
+ 
+-    (if (>= (point) limit)                                            ; beyond limit
+- (progn
+-   (goto-char original-point)                                  ; restore point
+-   nil                                                         ; return nil
+-   )
+-      (set-match-data (list (point-marker)                            ; set match data
+-       (progn
+-         (end-of-line)
+-         (forward-char)                          ; this gives the highlight till the end of the window
+-         (point-marker)
+-         )
+-       )
+-        )
+-      t)                                                              ; return t indicating that the match data was set
+-    )
+-  )
++    (if (>= (point) limit)              ; beyond limit
++        (progn
++          (goto-char original-point)    ; restore point
++          nil)                          ; return nil
++
++      (set-match-data (list (point-marker) ; set match data
++                            (progn
++                              (end-of-line)
++;;                              (forward-char)
++                              ;; gives the highlight till the end of the window
++                              (point-marker))))
++      ;; return t indicating that the match data was set
++      t)))
+ 
+ (defun init-highlight-beyond-fill-column ()
+-  ""
+-  (let (
+- (modelist highlight-beyond-fill-column-in-modes)
+- mode
+- )
++  "Setup modes in `highlight-beyond-fill-column-in-modes'."
++  (let ((modelist highlight-beyond-fill-column-in-modes)
++        mode)
+     (while modelist
+       (setq mode (intern (car modelist)))
+-      (if (and mode
+-        (functionp mode))
+-   (font-lock-add-keywords mode
+-      '(
+-        (find-after-fill-column 0 highlight-beyond-fill-column-face prepend)
+-        )
+-      )
+- )
+-      (setq modelist (cdr modelist))
+-      )
+-    )
+-  )
++      (if (and mode (functionp mode))
++          (font-lock-add-keywords
++           mode
++           '((find-after-fill-column 0 highlight-beyond-fill-column-face
++                                     prepend))))
++      (setq modelist (cdr modelist)))))
+ 
+ (add-hook 'after-init-hook 'init-highlight-beyond-fill-column)
+ 
+ (provide 'highlight-beyond-fill-column)
++
++;;; highlight-beyond-fill-column.el ends here
