@@ -4,7 +4,7 @@
 
 ;; Author: Christoph Conrad <Christoph.Conrad@gmx>
 ;; Created: 10 Oct 1997
-;; Version: 0.56
+;; Version: 0.57
 ;; Keywords: faces
 
 ;; This file is not yet part of any Emacs.
@@ -25,36 +25,41 @@
 
 ;;; Commentary:
 
-;; Highlights the line the cursor is in. You can change colors of
-;; foreground (text) and background. Highlighting is (currently)
-;; switched on in ALL buffers including minibuffers. Default behaviour
-;; is to set only background color, so that font-lock fontification
-;; colors remain visible (syntax coloring). See functions
-;; `highlight-current-line-on' and customization via M-x customize-group
-;; highlight-current-line <RET>. (`highlight-current-line-set-fg-color'
-;; and `highlight-current-line-set-bg-color' are retained for backward
-;; compatibility. There's a special color "none" defined to set no
-;; color.)
+;; Minor mode to highlight the line the cursor is in. You can change colors
+;; of foreground (text) and background. The default behaviour is to set
+;; only a background color, so that font-lock fontification colors remain
+;; visible (syntax coloring). Enable a buffer using the command
+;; `highlight-current-line-minor-mode' and customize via:
+;;
+;;   M-x customize-group highlight-current-line <RET>.
+;;
+;; You can select whether the whole line (from left to right window border)
+;; is marked or only the really filled parts of the line (from left window
+;; border to the last char in the line). The second behaviour is suitable
+;; if it's important for you to see trailing spaces or tabs in a
+;; line. Customize the variable `highlight-current-line-whole-line' (or use
+;; the function `highlight-current-line-whole-line-on' retained for
+;; compatibility with prior versions).
+;;
+;; You may enable the minor-mode automatically for (almost) all buffers by
+;; customizing the variable `highlight-current-line-globally' (or using the
+;; compatibility command `highlight-current-line-on').  Buffers whose
+;; buffer-name match the regular expression in the customizable variable
+;; `highlight-current-line-ignore-regexp' do not highlighted.  You can
+;; extend or redefine this regexp. This works together with the default
+;; ignore function `highlight-current-line-ignore-function'. You can
+;; redefine this function to implement your own criterias.
 
-;; You can select whether the whole line (from left to right window
-;; border) is marked or only the really filled parts of the line (from
-;; left window border to the last char in the line). The second
-;; behaviour is suitable if its important for you to see trailing spaces
-;; or tabs in a line. See function
-;; `highlight-current-line-whole-line-on'. In XEmacs this is hardly to
-;; recognize, cause there the region is a notch more extended.
+;; (The functions `highlight-current-line-on',
+;; `highlight-current-line-set-fg-color' and
+;; `highlight-current-line-set-bg-color' are retained for backward
+;; compatibility. There's a special color "none" defined to set no color.)
 
-;; You can ignore buffers, whose buffer-name match some regular
-;; expression, so they never get highlighted. Some buffers are ignored
-;; by default, see variable `highlight-current-line-ignore-regexp'. You
-;; can extend or redefine this regexp. This works together with the
-;; default ignore function `highlight-current-line-ignore-function'. You
-;; can redefine this function to implement your own criterias.
 
 ;;; People which made contributions or suggestions:
 
 ;; This list is ordered by time. Latest in time first.
-;; - Peter S Galbraith   <p.galbraith@globetrotter.net>
+;; - Peter S Galbraith   <psg@debian.org>
 ;; - Masatake Yamato     <jet@gyve.org>
 ;; - Hrvoje Niksic	 <hniksic@srce.hr>
 ;; - Jari Aalto		 <jari.aalto@ntc.nokia.com>
@@ -64,29 +69,33 @@
 ;;   editor ("Q").
 
 ;;; Installation:
-
-;; e.g. in .emacs
-;; (require 'highlight-current-line)
-;; ;; If you want to mark only to the end of line:
-;; (highlight-current-line-whole-line-on nil)
-;; ;; switch highlighting on
-;; (highlight-current-line-on t)
-;;
-;; ;; If you want to change default-foreground/background color add use
-;; customization via M-x customize-group highlight-current-line <RET>.
-;;
-;; ;; Ignore no buffer
-;; (setq highlight-current-line-ignore-regexp nil) ; or set to ""
-;; ;; alternate way to ignore no buffers
-;; (fmakunbound 'highlight-current-line-ignore-function)
-;; ;; Ignore more buffers
-;; (setq highlight-current-line-ignore-regexp
-;;      (concat "Dilberts-Buffer\\|"
-;;	      highlight-current-line-ignore-regexp))
 ;;
 ;; Put a copy of highlight-current-line.el/.elc into some path of
 ;; `load-path'. To show `load-path': <C-h v> load-path RET
 ;;
+;; Load the file, e.g. add in ~/.emacs
+;;
+;;  (require 'highlight-current-line)
+;;
+;; Enable it on a buffer using `M-x highlight-current-line-minor-mode'
+;; or globally by customizing `highlight-current-line-globally'.
+;;
+;; Previous versions of this code worked by adding other comamnds in
+;; ~/.emacs instead of using the custom interface.  This is still
+;; supported:
+;;
+;;  ;; If you want to mark only to the end of line:
+;;  (highlight-current-line-whole-line-on nil)
+;;  ;; switch highlighting on
+;;  (highlight-current-line-on t)
+;;  ;; Ignore no buffer
+;;  (setq highlight-current-line-ignore-regexp nil) ; or set to ""
+;;  ;; alternate way to ignore no buffers
+;;  (fmakunbound 'highlight-current-line-ignore-function)
+;;  ;; Ignore more buffers
+;;  (setq highlight-current-line-ignore-regexp
+;;       (concat "Dilberts-Buffer\\|"
+;;	       highlight-current-line-ignore-regexp))
 
 ;;; Troubleshooting:
 
@@ -108,6 +117,10 @@
 ;; - highlight-current-line as minor mode. Suggested by Shawn Ostermann.
 
 ;;; Change log:
+
+;; 10 Sept 2003 - v0.57 <psg@debian.org>
+;; - highlight-current-line-minor-mode created.
+;; - highlight-current-line-globally defcustom added.
 
 ;; 7 Sept 2003 - v0.56
 ;; - defface for highlight-current-line-face with customization.
@@ -172,14 +185,7 @@
 	  (error "\
 highlight-current-line.el: ** This package requires overlays.  Abort"))))
 
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;;;; Variables
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;; can be set by user
-
-;; Compatibility blob for those without the custom library:
+;; Compatibility code - blob for those without the custom library:
 (eval-and-compile
   (condition-case ()
       (require 'custom)
@@ -192,8 +198,16 @@ highlight-current-line.el: ** This package requires overlays.  Abort"))))
     (defmacro defcustom (var value doc &rest args)
       (` (defvar (, var) (, value) (, doc))))))
 
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;; Variables
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; can be set by user
+
 (defgroup highlight-current-line nil
   "Highlight line where the cursor is."
+  :load 'highlight-current-line
   :group 'faces) ;; or 'matching??
 
 (defcustom highlight-current-line-ignore-regexp
@@ -206,7 +220,6 @@ highlight-current-line.el: ** This package requires overlays.  Abort"))))
 Used by `highlight-current-line-ignore-function'."
   :type  'regexp
   :group 'highlight-current-line)
-
 
 (defcustom highlight-current-line-whole-line t
   "*If non-nil, mark up to `end-of-line'.  If nil, mark up to window-border.
@@ -227,19 +240,23 @@ Use `highlight-current-line-whole-line-on' to set this value."
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; should not be set by user
 
-(defconst highlight-current-line-version "0.56"
+(defconst highlight-current-line-version "0.57"
   "Version number." )
+
+(defvar highlight-current-line-minor-mode nil
+  "Non-nil if using highlight-current-line mode as a minor mode.
+Use the command `highlight-current-line-minor-mode' to toggle or set this
+variable.")
+(make-variable-buffer-local 'highlight-current-line-minor-mode)
 
 (defvar highlight-current-line-overlay
   ;; Dummy initialization
   (make-overlay 1 1)
-  "Overlay for highlighting."
-  )
+  "Overlay for highlighting.")
 
 ;; Set face-property of overlay
 (overlay-put highlight-current-line-overlay
 	     'face 'highlight-current-line-face)
-
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;; Functions
@@ -248,37 +265,37 @@ Use `highlight-current-line-whole-line-on' to set this value."
 ;; Internal function for test
 (defun highlight-current-line-reload ()
   "Reload library highlight-current-line for test purposes."
-  (interactive)
   (unload-feature 'highlight-current-line)
   (load-library "highlight-current-line"))
 
-
 ;; Decide whether to highlight the buffer.
 (defun highlight-current-line-ignore-function  ()
-  "Default ignore function.
-If the return value is nil, buffer can be highlighted."
+  "Check current buffer name against `highlight-current-line-ignore-regexp'.
+Inhibits global enabling of highlight-current-line on buffer whose name
+match this regexp."
   (if (or (equal "" highlight-current-line-ignore-regexp)
 	  (not highlight-current-line-ignore-regexp))
       nil
-       (string-match highlight-current-line-ignore-regexp (buffer-name))))
+    (string-match highlight-current-line-ignore-regexp (buffer-name))))
+
+(defvar highlight-current-line-globally)
 
 ;; Post-Command-Hook for highlighting
 (defun highlight-current-line-hook ()
   "Post-Command-Hook for highlighting."
   (condition-case ()
-      (if (not (and (fboundp 'highlight-current-line-ignore-function)
-                    (highlight-current-line-ignore-function)))
-
+      (if (or highlight-current-line-minor-mode
+              (and highlight-current-line-globally
+                   (or (not (fboundp 'highlight-current-line-ignore-function))
+                       (not (highlight-current-line-ignore-function)))))
           (let ((current-point (point)))
 
             ;; Set overlay
-            (let ((beg (progn (beginning-of-line)
-                              (point)))
+            (let ((beg (progn (beginning-of-line) (point)))
                   (end (progn (if highlight-current-line-whole-line
                                   (forward-line 1)
                                 (end-of-line))
                               (point))))
-
               (if (delete nil (mapcar
                                  (lambda( face )
                                    (text-property-any beg end 'face face))
@@ -290,13 +307,20 @@ If the return value is nil, buffer can be highlighted."
               (goto-char current-point))))
     (error nil)))
 
-
 (defconst highlight-current-line-no-color (if (boundp 'xemacs-logo)
                                               '[]
                                             nil)
   "'color' value that represents \"no color\".")
 
-;; Set foregroundcolor of cursor-line.
+;; Compatibility code
+(defun highlight-current-line-on (&optional on-off)
+  "Switch highlighting of cursor-line on/off globally.
+Key: \\[highlight-current-line-on]"
+  (interactive (list (y-or-n-p "Highlight line with cursor? ")))
+  (setq-default highlight-current-line-globally on-off)
+  (highlight-current-line on-off nil))
+
+;; Compatibility code - Set foregroundcolor of cursor-line.
 (defun highlight-current-line-set-fg-color (color)
   "Set foregroundcolor for highlighting cursor-line to COLOR.
 Key: \\[highlight-current-line-set-fg-color]"
@@ -306,7 +330,7 @@ Key: \\[highlight-current-line-set-fg-color]"
   (set-face-foreground 'highlight-current-line-face color))
 
 
-;; Set backgroundcolor of cursor-line.
+;; Compatibility code - Set backgroundcolor of cursor-line.
 (defun highlight-current-line-set-bg-color (color)
   "Set backgroundcolor for highlighting cursor-line to COLOR.
 Key: \\[highlight-current-line-set-bg-color]"
@@ -315,33 +339,68 @@ Key: \\[highlight-current-line-set-bg-color]"
       (setq color highlight-current-line-no-color))
   (set-face-background 'highlight-current-line-face color))
 
-;; Enable/Disable Highlighting
-(defun highlight-current-line-on (&optional on-off)
-  "Switch highlighting of cursor-line ON-OFF.
-Key: \\[highlight-current-line-on]"
-  (interactive (list (y-or-n-p "Highlight line with cursor? ")))
-
-  (if on-off
-      (progn
-        (add-hook 'post-command-hook 'highlight-current-line-hook)
-        (if (boundp 'server-switch-hook)
-            (add-hook 'server-switch-hook 'highlight-current-line-hook))
-        (if (boundp 'gnuserv-visit-hook)
-            (add-hook 'gnuserv-visit-hook 'highlight-current-line-hook)))
-    (if  (boundp 'server-switch-hook)
-        (remove-hook 'server-switch-hook 'highlight-current-line-hook))
-    (if (boundp 'gnuserv-visit-hook)
-        (remove-hook 'gnuserv-visit-hook 'highlight-current-line-hook))
-    (remove-hook 'post-command-hook 'highlight-current-line-hook)
-    (delete-overlay highlight-current-line-overlay)))
-
-;; Enable/Disable whole line marking
+;; Compatibility code - Enable/Disable whole line marking
 (defun highlight-current-line-whole-line-on (&optional on-off)
   "Switch highlighting of whole line ON-OFF.
 Key: \\[highlight-current-line-whole-line-on]"
   (interactive (list (y-or-n-p "Highlight whole line? ")))
-
   (setq highlight-current-line-whole-line on-off))
+
+;; Enable/Disable Highlighting
+(defun highlight-current-line (&optional on-off local)
+  "Switch highlighting of cursor-line ON-OFF
+If LOCAL is non-nil, do so locally for the current buffer only."
+  (cond
+   (on-off
+    (if (or (= emacs-major-version 20)
+            (string-match "XEmacs" emacs-version))
+        (make-local-hook 'post-command-hook))
+    (add-hook 'post-command-hook 'highlight-current-line-hook nil local)
+    (if (boundp 'server-switch-hook)
+        (add-hook 'server-switch-hook 'highlight-current-line-hook nil local))
+    (if (boundp 'gnuserv-visit-hook)
+        (add-hook 'gnuserv-visit-hook 'highlight-current-line-hook nil local)))
+   (t
+    (if  (boundp 'server-switch-hook)
+        (remove-hook 'server-switch-hook 'highlight-current-line-hook local))
+    (if (boundp 'gnuserv-visit-hook)
+        (remove-hook 'gnuserv-visit-hook 'highlight-current-line-hook local))
+    (remove-hook 'post-command-hook 'highlight-current-line-hook t)
+    (delete-overlay highlight-current-line-overlay))))
+
+;;;###autoload
+(defun highlight-current-line-minor-mode (&optional arg)
+  "Toggle highlight-current-line minor mode.
+With ARG, turn minor mode on if ARG is positive, off otherwise.
+You can customize the face of the highlighted line and whether the entire
+line is hightlighted by customizing the group highlight-current-line."
+  (interactive "P")
+  (setq highlight-current-line-minor-mode
+        (if (null arg)
+            (not highlight-current-line-minor-mode)
+          (> (prefix-numeric-value arg) 0)))
+  (if highlight-current-line-minor-mode
+      (highlight-current-line t t)
+    (highlight-current-line nil t)))
+
+(or (assq 'highlight-current-line-minor-mode minor-mode-alist)
+    (setq minor-mode-alist
+          (append minor-mode-alist
+                  (list '(highlight-current-line-minor-mode " hcl")))))
+
+(defcustom highlight-current-line-globally nil
+  "*Whether to enable `highlight-current-line-minor-mode' automatically.
+This affects only files visited after this variable is set.
+Buffers will not be enabled if they match the regular expression in
+`highlight-current-line-ignore-regexp'."
+  :type  'boolean
+  :require 'highlight-current-line
+  :set (lambda (symbol value)
+         (set-default symbol value)
+         (if value
+             (highlight-current-line t nil)
+           (highlight-current-line nil nil)))
+  :group 'highlight-current-line)
 
 (provide 'highlight-current-line)
 
