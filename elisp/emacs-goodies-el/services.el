@@ -1,6 +1,6 @@
 ;;; services.el --- Services database access functions.
-;; Copyright 2000 by Dave Pearson <davep@davep.org>
-;; $Revision: 1.1 $
+;; Copyright 2000,2003 by Dave Pearson <davep@davep.org>
+;; $Revision: 1.2 $
 
 ;; services.el is free software distributed under the terms of the GNU
 ;; General Public Licence, version 2. For details see the file COPYING.
@@ -38,6 +38,16 @@
 (eval-when-compile
   (require 'cl))
 
+;; Non-customize variables.
+
+(defvar services-cache nil
+  "\"Cache\" of services.")
+
+(defvar services-name-cache nil
+  "\"Cache\" of service names.")
+
+;; Main code:
+
 (defsubst service-name (service)
   "Get the name of service SERVICE."
   (car service))
@@ -70,26 +80,28 @@
   "Read the services list from FILE.
 
 If FILE isn't supplied /etc/services is used."
-  (when (file-readable-p file)
-    (with-temp-buffer
-      (insert-file-contents-literally file)
-      (setf (point) (point-min))
-      (let ((services (list)))
-        (loop for service in
-              (loop until (eobp)
-                    do (setf (point) (line-beginning-position))
-                    unless (or (looking-at "^[ \t]*#") (looking-at "^[ \t]*$"))
-                    collect (services-line-to-list (buffer-substring (line-beginning-position) (line-end-position)))
-                    do (forward-line))
-              do (let ((hit (assoc (service-name service) services)))
-                   (if (and hit (= (service-port hit) (service-port service)))
-                       (setf (cdr hit) (list
-                                        (service-port hit)
-                                        (append (service-protocols hit) (service-protocols service))
-                                        (service-aliases hit)))
-                     (push service services)))
-              finally return (reverse services))))))
-
+  (or services-cache
+      (setq services-cache
+            (when (file-readable-p file)
+              (with-temp-buffer
+                (insert-file-contents-literally file)
+                (setf (point) (point-min))
+                (let ((services (list)))
+                  (loop for service in
+                        (loop until (eobp)
+                              do (setf (point) (line-beginning-position))
+                              unless (or (looking-at "^[ \t]*#") (looking-at "^[ \t]*$"))
+                              collect (services-line-to-list (buffer-substring (line-beginning-position) (line-end-position)))
+                              do (forward-line))
+                        do (let ((hit (assoc (service-name service) services)))
+                             (if (and hit (= (service-port hit) (service-port service)))
+                                 (setf (cdr hit) (list
+                                                  (service-port hit)
+                                                  (append (service-protocols hit) (service-protocols service))
+                                                  (service-aliases hit)))
+                               (push service services)))
+                        finally return (reverse services))))))))
+      
 (defun* services-find-by-name (name &optional (protocol "tcp") (services (services-read)))
   "Find the service whose name is NAME."
   (loop for service in services
@@ -115,8 +127,15 @@ If FILE isn't supplied /etc/services is used."
 (defun services-lookup (search protocol)
   "Find a service and display its details."
   (interactive (list
-                (read-from-minibuffer "Service Search: ")
-                (read-from-minibuffer "Protocol: " "tcp")))
+                (completing-read "Service Search: "
+                                 (or services-name-cache
+                                     (setq services-name-cache
+                                           (loop for service in (services-read)
+                                                 collect (list (service-name service))
+                                                 append (loop for alias in (service-aliases service)
+                                                              collect (list alias)))))
+                                 nil nil "" nil)
+                (completing-read "Protocol: " '(("tcp") ("udp")) nil nil "tcp" nil)))
   (let* ((services (services-read))
          (service (or (when (string-match "^[0-9]+$" search)
                         (services-find-by-port (string-to-int search) protocol services))
@@ -146,6 +165,13 @@ If FILE isn't supplied /etc/services is used."
                                          do (princ protocol) (princ " "))))
                      "")))
       (error "No service matching \"%s\" using protocol %s" search protocol))))
+
+;;;###autoload
+(defun services-clear-cache ()
+  "Clear the services \"cache\"."
+  (interactive)
+  (setq services-cache nil
+        services-name-cache nil))
 
 (provide 'services)
 
