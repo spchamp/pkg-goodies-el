@@ -19,8 +19,8 @@ esac
 exit 0
 				    
 diff -urNad 1.tmp/elisp/home-end.el 1/elisp/home-end.el
---- 1.tmp/elisp/home-end.el	2003-01-05 17:10:41.000000000 +0100
-+++ 1/elisp/home-end.el	2003-01-05 17:21:41.000000000 +0100
+--- 1.tmp/elisp//emacs-goodies-el/home-end.el	2003-01-05 17:10:41.000000000 +0100
++++ 1/elisp//emacs-goodies-el/home-end.el	2003-01-05 17:21:41.000000000 +0100
 @@ -50,8 +50,8 @@
             (key1 (if (> len 0) (elt keys (- len 1)) nil))
             (key2 (if (> len 1) (elt keys (- len 2)) nil))

@@ -18,8 +18,8 @@ esac
 
 exit 0
 				    
-diff -urNad 2.tmp/elisp/muttrc-mode.el 2/elisp/muttrc-mode.el
---- 2.tmp/elisp/muttrc-mode.el	2003-01-05 17:10:41.000000000 +0100
+diff -urNad 2.tmp/elisp/emacs-goodies-el/muttrc-mode.el 2/elisp/muttrc-mode.el
+--- 2.tmp/elisp/emacs-goodies-el/muttrc-mode.el	2003-01-05 17:10:41.000000000 +0100
 +++ 2/elisp/muttrc-mode.el	2003-01-05 17:27:33.000000000 +0100
 @@ -89,7 +89,7 @@
    :group 'files

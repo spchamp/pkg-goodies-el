@@ -21,7 +21,7 @@ build-stamp:
 	for i in debian/*.emacsen-install.in ; do cat $$i debian/emacsen-install.template > debian/$$(basename $$i .in) ; done
 	for i in debian/*.emacsen-remove.in ; do cat $$i debian/emacsen-remove.template > debian/$$(basename $$i .in) ; done
 	install -d info
-	makeinfo elisp/emacs-goodies-el.texi
+	makeinfo elisp/emacs-goodies-el/emacs-goodies-el.texi
 	touch build-stamp
 
 clean: unpatch

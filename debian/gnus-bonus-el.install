@@ -1,7 +1,7 @@
-elisp/gnus-junk.el /usr/share/emacs/site-lisp/gnus-bonus-el/
-elisp/gnus-outlook-deuglify.el /usr/share/emacs/site-lisp/gnus-bonus-el/
-elisp/message-x.el /usr/share/emacs/site-lisp/gnus-bonus-el/
-elisp/nnir.el /usr/share/emacs/site-lisp/gnus-bonus-el/
-elisp/nnnil.el /usr/share/emacs/site-lisp/gnus-bonus-el/
-elisp/nntodo.el /usr/share/emacs/site-lisp/gnus-bonus-el/
-elisp/spam-stat.el /usr/share/emacs/site-lisp/gnus-bonus-el/
+elisp/gnus-bonus-el/gnus-junk.el /usr/share/emacs/site-lisp/gnus-bonus-el/
+elisp/gnus-bonus-el/gnus-outlook-deuglify.el /usr/share/emacs/site-lisp/gnus-bonus-el/
+elisp/gnus-bonus-el/message-x.el /usr/share/emacs/site-lisp/gnus-bonus-el/
+elisp/gnus-bonus-el/nnir.el /usr/share/emacs/site-lisp/gnus-bonus-el/
+elisp/gnus-bonus-el/nnnil.el /usr/share/emacs/site-lisp/gnus-bonus-el/
+elisp/gnus-bonus-el/nntodo.el /usr/share/emacs/site-lisp/gnus-bonus-el/
+elisp/gnus-bonus-el/spam-stat.el /usr/share/emacs/site-lisp/gnus-bonus-el/

@@ -18,9 +18,9 @@ esac
 
 exit 0
 				    
-diff -urNad 7.emacs-goodies-el.tmp/elisp/devscripts.el 7.emacs-goodies-el/elisp/devscripts.el
---- 7.emacs-goodies-el.tmp/elisp/devscripts.el	2003-03-19 22:09:47.000000000 +0100
-+++ 7.emacs-goodies-el/elisp/devscripts.el	2003-03-19 22:26:48.000000000 +0100
+diff -urNad 7.emacs-goodies-el.tmp/elisp/devscripts-devscripts.el 7.emacs-goodies-el/elisp/devscripts.el
+--- 7.emacs-goodies-el.tmp/elisp/devscripts-el/devscripts.el	2003-03-19 22:09:47.000000000 +0100
++++ 7.emacs-goodies-el/elisp/devscripts-el/devscripts.el	2003-03-19 22:26:48.000000000 +0100
 @@ -9,7 +9,7 @@
      (switch-to-buffer debuild-buffer)
      (kill-region (point-min) (point-max))
