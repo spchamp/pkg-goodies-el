@@ -1,7 +1,7 @@
 @c -*- mode: texinfo -*-
 \input texinfo
 
-@c $Id: emacs-goodies-el.texi,v 1.7 2003/05/25 14:32:58 psg Exp $
+@c $Id: emacs-goodies-el.texi,v 1.8 2003/05/26 00:31:33 psg Exp $
 @c %**start of header
 @setfilename info/emacs-goodies-el
 @settitle Emacs-Goodies-el
@@ -46,7 +46,7 @@ order to function include: @ref{bar-cursor}.
 To customize setup of these aggressive packages on a finer-grain basis,
 do:
 @example
-@kbd{\M-x} customize-group @key{RET} emacs-goodies-el @key{RET}
+@kbd{M-x} customize-group @key{RET} emacs-goodies-el @key{RET}
 @end example
 
 The following files are documented so far.  This is a recently started
@@ -62,6 +62,7 @@ documented files just yet.
 * bar-cursor::                  Switch block cursor to a bar
 * boxquote::                    Quote text with a semi-box.
 * browse-kill-ring::            Interactively insert items from kill-ring.
+* clipper::                     Save strings of data for further use.
 * ff-paths::                    Searches certain paths to find files.
 @end menu
 
@@ -144,7 +145,7 @@ line, an identical 'deb-src' source line will be created.
 
 Start things off using e.g.:
 @example
-@kbd{\M-x} apt-utils-show-package @key{RET} emacs21 @key{RET}
+@kbd{M-x} apt-utils-show-package @key{RET} emacs21 @key{RET}
 @end example
 
 Other packages (dependencies, conflicts etc) can be navigated using
@@ -168,7 +169,7 @@ or use the menu.
 You may alter various settings of @code{apt-utils} using 
 
 @example
-@kbd{\M-x} customize-group @key{RET} apt-utils @key{RET}
+@kbd{M-x} customize-group @key{RET} apt-utils @key{RET}
 @end example
 
 @node auto-fill-mode-inhibit, bar-cursor, apt-utils, Top
@@ -182,7 +183,7 @@ using, e.g.
 @end example
 or, using the custom interface
 @example
-@kbd{\M-x} customize-variable @key{RET} text-mode-hook @key{RET}
+@kbd{M-x} customize-variable @key{RET} text-mode-hook @key{RET}
 @end example
 and select @command{turn-on-auto-fill} and then save the setting.
 
@@ -191,7 +192,7 @@ match one of a list of regular expressions.  Customize this list
 using:
 
 @example
-@kbd{\M-x} customize-variable @key{RET} auto-fill-inhibit-list @key{RET}
+@kbd{M-x} customize-variable @key{RET} auto-fill-inhibit-list @key{RET}
 @end example
 
 @node bar-cursor, boxquote, auto-fill-mode-inhibit, Top
@@ -204,7 +205,7 @@ easily though only globally (hence the quasi-).
 
 To enable it, customize the variable @code{bar-cursor-mode}:
 @example
-@kbd{\M-x} customize-variable @key{RET} bar-cursor-mode @key{RET}
+@kbd{M-x} customize-variable @key{RET} bar-cursor-mode @key{RET}
 @end example
 
 It is also listed when you @command{customize-group} @code{emacs-goodies-el}.
@@ -227,23 +228,23 @@ paragraph and a defun. There are also functions for quoting text while
 pulling it in, either by inserting the contents of another file or by
 yanking text into the current buffer.
 
-Look for the @command{@kbd{\M-x} boxquote-*} commands.
+Look for the @command{@kbd{M-x} boxquote-*} commands.
 
-@node browse-kill-ring, ff-paths, boxquote, Top
+@node browse-kill-ring, clipper, boxquote, Top
 @chapter browse-kill-ring.el -  interactively insert items from kill-ring.
 
 Ever feel that @kbd{C-y M-y M-y M-y ...} is not a great way of trying
 to find that piece of text you know you killed a while back?  Then
 browse-kill-ring.el is for you.
 
-To use, type @command{@kbd{\M-x} browse-kill-ring}.  You can bind
+To use, type @command{@kbd{M-x} browse-kill-ring}.  You can bind
 @command{browse-kill-ring} to a key, like:
 
 @example
 (global-set-key (kbd "C-c k") 'browse-kill-ring)
 @end example
 
-Even better than doing that, though, is to set up @kbd{\M-y} such that
+Even better than doing that, though, is to set up @kbd{M-y} such that
 it invokes @command{browse-kill-ring} if the last command wasn't a
 yank.  This great idea is from Michael Slass @email{mikesl@@wrq.com}.
 Here is code (from him) to do this:
@@ -259,22 +260,62 @@ Here is code (from him) to do this:
 @end example
 
 (The emacs-goodies-el package could add a customizable variable to
-set this up.  Ask if this would be useful.)
+set this up.  Ask if this would be useful. - @email{psg@@debian.org})
 
 Note that the command keeps track of the last window displayed to
 handle insertion of chosen text; this might have unexpected
-consequences if you do @command{@kbd{\M-x} browse-kill-ring}, then
+consequences if you do @command{@kbd{M-x} browse-kill-ring}, then
 switch your window configuration, and try to use the same @code{*Kill
 Ring*} buffer again.
 
-@node ff-paths,  , browse-kill-ring, Top
+@node clipper, ff-paths, browse-kill-ring, Top
+@chapter clipper.el - Save strings of data for further use.
+
+Clipper is a way to handle 'clips' of text with some persistance via handles.
+A good example is something like the GNU Public License.  If you do a lot of
+Free Software work and need to have a copy of the GPL for insertion in your
+source files, you can save this text as a 'GPL' clip.  When you call
+clipper-insert you will be prompted for a name and when you enter GPL this
+will be inserted.
+
+Clipper can also perform search and replacement on token names.  For example
+if want the current buffer filename you can use the token
+@code{CLIPPER_FILE_NAME_NONDIRECTORY}.
+
+@noindent Available tokens are:
+
+@code{CLIPPER_FILE_NAME_NONDIRECTORY}: The current filename
+without its directory.  If this buffer isn't saved to disk then the
+buffer name is used.
+
+@code{CLIPPER_FILE_NAME_NONDIRECTORY_SANS_EXTENSION}: The current
+filename without its directory and without an extension.
+
+@noindent The following functions allow you to manipulate clipper:
+
+@command{clipper-create} creates a new clip.
+
+@command{clipper-delete} deletes an existing clip.
+
+@command{clipper-insert} inserts a clip into the current buffer.
+
+@command{clipper-edit-clip} edits an existing clip.
+
+@noindent You might also want to setup personal key bindings:
+
+@example
+(global-set-key "\C-cci" 'clipper-insert)
+(global-set-key "\C-ccc" 'clipper-create)
+@end example
+
+@node ff-paths,  , clipper, Top
 @chapter ff-paths - searches certain paths to find files.
 
 This code allows you to use C-x C-f normally most of the time, except that
 if the requested file doesn't exist, it is checked against a list of
 patterns for special paths to search for a file of the same name.
 
-Examples:
+@noindent Examples:
 @itemize @bullet
  @item a file extension of @file{.bib} will cause to search the path
 defined in $BSTINPUTS or $BIBINPUTS for the file you requested.
@@ -327,14 +368,14 @@ toolbox hook in ffap-alist.
 To use it, customize the variable @code{emacs-goodies-el-use-ff-paths}
 
 @example
-@kbd{\M-x} customize-variable @key{RET} emacs-goodies-el-use-ff-paths @key{RET}
+@kbd{M-x} customize-variable @key{RET} emacs-goodies-el-use-ff-paths @key{RET}
 @end example
 
 To also enable ffap, customize the variable
 @code{emacs-goodies-el-use-ffap}
 
 @example
-@kbd{\M-x} customize-variable @key{RET} emacs-goodies-el-use-ffap @key{RET}
+@kbd{M-x} customize-variable @key{RET} emacs-goodies-el-use-ffap @key{RET}
 @end example
 
 Both of the above are enabled if you set
@@ -343,6 +384,6 @@ Both of the above are enabled if you set
 You may alter various settings of @code{ff-paths} using 
 
 @example
-@kbd{\M-x} customize-group @key{RET} ff-paths @key{RET}
+@kbd{M-x} customize-group @key{RET} ff-paths @key{RET}
 @end example
 
