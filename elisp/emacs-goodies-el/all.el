@@ -1,55 +1,27 @@
-;; From: blackie@ifad.dk (Jesper K. Pedersen)
-;; Newsgroups: comp.emacs
-;; Subject: Re: hiding lines; XEDIT-"all"-like command
-;; Date: 07 Dec 1998 11:28:59 +0100
-
-;; This is an implementation of the xedit `all' command for GNU Emacs.
-;;
-;; It works mostly like `occur' except that changes to the `*All*' buffer
-;; are propagated back to the original buffer.
-;;
-;; The package is inspired by a discussion in `gnu.emacs.help'.  It uses
-;; `before-change-functions' and `after-change-functions' to propagate
-;; the changes from a separate buffer, instead of `invisible' and
-;; 'intangible' text properties in the original buffer as has been
-;; proposed on the newsgroup.  I feel using text properties is
-;; conceptually cleaner, but this version works.
-;;
-;; Insert
-;;	(autoload 'all "all" nil t)
-;; in your `.emacs' file to enable this package.
-;;
-;; Type `M-x all RET' to try it out.
-;;
-;; You need GNU Emacs 19.23 or later to use it.
-;;
-;; Some code have been stolen from `replace.el' in the Emacs 19.25.93
-;; distribution.
-
 ;;; all.el --- Edit all lines matching a given regexp.
 
 ;; Copyright (C) 1985, 1986, 1987, 1992, 1994 Free Software Foundation, Inc.
 ;; Copyright (C) 1994 Per Abrahamsen
 
-;; Author: Per Abrahamsen <abraham@iesd.auc.dk>
-;; Version: $Id: all.el,v 1.1 2003/04/04 20:15:54 lolando Exp $
+;; Author: Per Abrahamsen <abraham@dina.kvl.dk>
+;; Version: $Id: all.el,v 1.2 2003/05/09 16:22:59 psg Exp $
 ;; Keywords: matching
 
 ;; LCD Archive Entry:
-;; all|Per Abrahamsen|abraham@iesd.auc.dk|
+;; all|Per Abrahamsen|abraham@dina.kvl.dk|
 ;; Edit all lines matching a given regexp|
-;; 09-Aug-1994|0.0|~/misc/all.el.Z|
+;; $Date: 2003/05/09 16:22:59 $|$Revision: 1.2 $|~/misc/all.Z|
 
 ;; This program is free software; you can redistribute it and/or modify
 ;; it under the terms of the GNU General Public License as published by
 ;; the Free Software Foundation; either version 2, or (at your option)
 ;; any later version.
-;;
+;; 
 ;; This program is distributed in the hope that it will be useful,
 ;; but WITHOUT ANY WARRANTY; without even the implied warranty of
 ;; MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 ;; GNU General Public License for more details.
-;;
+;; 
 ;; You should have received a copy of the GNU General Public License
 ;; along with this program; if not, write to the Free Software
 ;; Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
@@ -62,7 +34,7 @@
 ;; I also added highlighting of the matches.
 
 ;; You can no longer use mouse-2 to find a match in the original file,
-;; since the default definition of mouse to is useful.
+;; since the default definition of mouse to is useful.  
 ;; However, `C-c C-c' still works.
 
 ;; Line numbers are not listed in the *All* buffer.
@@ -77,7 +49,7 @@
 
 ;; Requires GNU Emacs 19.23 or later.
 
-;;; Code:
+;;; Code: 
 
 (defvar all-mode-map ())
 
@@ -94,7 +66,7 @@
 All changes made in this buffer will be propagated to the buffer where
 you ran \\[all].
 
-Press \\[all-mode-find] to return to the original buffer."
+Press \\[all-mode-goto] to go to the same spot in the original buffer."
   (kill-all-local-variables)
   (use-local-map all-mode-map)
   (setq major-mode 'all-mode)
@@ -105,8 +77,9 @@ Press \\[all-mode-find] to return to the original buffer."
 (defun all-mode-find (pos)
   ;; Find position in original buffer corresponding to POS.
   (let ((overlay (all-mode-find-overlay pos)))
-    (+ (marker-position (overlay-get overlay 'marker))
-       (- pos (overlay-start overlay)))))
+    (if overlay
+	(+ (marker-position (overlay-get overlay 'marker))
+	   (- pos (overlay-start overlay))))))
 
 (defun all-mode-find-overlay (pos)
   ;; Find the overlay containing POS.
@@ -168,10 +141,10 @@ Interactively it is the prefix arg.
 The lines are shown in a buffer named `*All*'.
 Any changes made in that buffer will be propagated to this buffer."
   (interactive (list (let* ((default (car regexp-history))
-			    (input
+			    (input 
 			     (read-from-minibuffer
 			      (if default
-				  (format
+				  (format 
    "Edit lines matching regexp (default `%s'): " default)
 				"Edit lines matching regexp: ")
 			      nil nil nil
