@@ -10,8 +10,10 @@ emacs-goodies-el (21.2-1) UNRELEASED; urgency=low
   * Update clipper.el to V1.1.1.
   * Update browse-kill-ring.el to 1.2 (CVS).
   * debian-control-mode.el: Add 'checklist to debian-control-visit-policy.
+  * debian-changelog-mode.el: Define (really) match-string-no-properties
+    for XEmacs (closes: #195181).
 
- -- Peter S Galbraith <psg@debian.org>  Mon, 26 May 2003 22:06:28 -0400
+ -- Peter S Galbraith <psg@debian.org>  Wed, 28 May 2003 23:23:52 -0400
 
 emacs-goodies-el (21.1-1) unstable; urgency=low
 
