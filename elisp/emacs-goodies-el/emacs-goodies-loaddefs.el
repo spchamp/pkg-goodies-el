@@ -160,7 +160,7 @@ Display items in the `kill-ring' in another buffer." t nil)
 
 ;;;***
 
-;;;### (autoloads (coffee) "coffee" "coffee.el" (16107 56175))
+;;;### (autoloads (coffee) "coffee" "coffee.el" (16222 36415))
 ;;; Generated autoloads from coffee.el
 
 (autoload (quote coffee) "coffee" "\
@@ -237,8 +237,8 @@ Update ``egocentric-regexp-list'' from $USER and $NAME variables." t nil)
 
 ;;;***
 
-;;;### (autoloads (ff-paths-install) "ff-paths" "ff-paths.el" (16115
-;;;;;;  46218))
+;;;### (autoloads (ff-paths-install) "ff-paths" "ff-paths.el" (16188
+;;;;;;  18180))
 ;;; Generated autoloads from ff-paths.el
 
 (autoload (quote ff-paths-install) "ff-paths" "\
@@ -251,6 +251,18 @@ Install ff-paths as a `find-file-not-found-hooks' and to ffap package." nil nil)
 
 (autoload (quote floatbg-mode) "floatbg" "\
 Toggle floatbg mode" t nil)
+
+;;;***
+
+;;;### (autoloads (highlight-current-line-minor-mode) "highlight-current-line"
+;;;;;;  "highlight-current-line.el" (16225 6398))
+;;; Generated autoloads from highlight-current-line.el
+
+(autoload (quote highlight-current-line-minor-mode) "highlight-current-line" "\
+Toggle highlight-current-line minor mode.
+With ARG, turn minor mode on if ARG is positive, off otherwise.
+You can customize the face of the highlighted line and whether the entire
+line is hightlighted by customizing the group highlight-current-line." t nil)
 
 ;;;***
 
