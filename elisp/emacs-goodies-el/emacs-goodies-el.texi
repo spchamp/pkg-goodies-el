@@ -1,7 +1,7 @@
 @c -*- mode: texinfo -*-
 \input texinfo
 
-@c $Id: emacs-goodies-el.texi,v 1.16 2003/08/13 02:30:39 psg Exp $
+@c $Id: emacs-goodies-el.texi,v 1.17 2003/09/09 02:29:42 psg Exp $
 @c %**start of header
 @setfilename info/emacs-goodies-el
 @settitle Emacs-Goodies-el
@@ -48,6 +48,14 @@ do:
 @example
 @kbd{M-x} customize-group @key{RET} emacs-goodies-el @key{RET}
 @end example
+
+In the following document, when we speak of customizing a variable, we
+mean to use the Emacs custom interface, such as in:
+@example
+@kbd{M-x} customize-variable @key{RET} some-variable @key{RET}
+@end example
+When we speak of customizing a group, it's as the example above for the
+group @code{emacs-goodies-el}.
 
 The following files are documented so far.  This is a recently started
 work-in-progress, so don't despair about the low percentage of
@@ -171,11 +179,8 @@ for the "Reverse Depends".
 View the key bindings with describe-mode (bound to ? by default)
 or use the menu.
 
-You may alter various settings of @code{apt-utils} using 
-
-@example
-@kbd{M-x} customize-group @key{RET} apt-utils @key{RET}
-@end example
+You may alter various settings of @code{apt-utils} bu customizing the
+group @code{apt-utils}.
 
 @node auto-fill-mode-inhibit, bar-cursor, apt-utils, Top
 @chapter auto-fill-mode-inhibit - auto-fill-mode (de)activation
@@ -186,19 +191,12 @@ using, e.g.
 @example
  (add-hook 'text-mode-hook 'turn-on-auto-fill)
 @end example
-or, using the custom interface
-@example
-@kbd{M-x} customize-variable @key{RET} text-mode-hook @key{RET}
-@end example
-and select @command{turn-on-auto-fill} and then save the setting.
+or, using by customizing the variable @code{text-mode-hook},
+selecting @command{turn-on-auto-fill} and then save the setting.
 
-and yet disable @command{auto-fill-mode} on buffers with names that
-match one of a list of regular expressions.  Customize this list
-using:
-
-@example
-@kbd{M-x} customize-variable @key{RET} auto-fill-inhibit-list @key{RET}
-@end example
+You may disable @command{auto-fill-mode} on buffers with names that
+match one of a list of regular expressions by customizing the variable
+@code{auto-fill-inhibit-list}.
 
 @node bar-cursor, boxquote, auto-fill-mode-inhibit, Top
 @chapter bar-cursor - switch block cursor to a bar
@@ -208,12 +206,9 @@ overwrite mode, the bar cursor changes back into a block cursor.
 This is a quasi-minor mode, meaning that it can be turned on & off
 easily though only globally (hence the quasi-).
 
-To enable it, customize the variable @code{bar-cursor-mode}:
-@example
-@kbd{M-x} customize-variable @key{RET} bar-cursor-mode @key{RET}
-@end example
+To enable it, customize the variable @code{bar-cursor-mode}.
 
-It is also listed when you @command{customize-group} @code{emacs-goodies-el}.
+It is also listed when you customize the group @code{emacs-goodies-el}.
 
 @node boxquote, browse-kill-ring, bar-cursor, Top
 @chapter boxquote - Quote text with a semi-box.
@@ -351,11 +346,8 @@ df is simple to use. Add something like
 (df "/home")
 @end example
 in your .emacs if you want to scan @file{/home}.  Even simpler, enable
-it using the customize interface:
-@example
-  @key{M-x} customize-group @key{RET} df @key{RET}
-@end example
-where you can toggle on the variable @code{df-run-on-startup}.
+it by customizing the group @code{df} where you can toggle on the
+variable @code{df-run-on-startup}.
 
 @node diminish, dirvars, df, Top
 @chapter diminish - Diminish minor-mode's display
@@ -543,27 +535,15 @@ ff-paths installs itself as a hook in find-file-not-found-hooks for
 find-file.  If ffap is installed, ff-paths installs itself as a
 toolbox hook in ffap-alist.
 
-To use it, customize the variable @code{ff-paths-install}
+To use it, customize the variable @code{ff-paths-install}.
 
-@example
-@kbd{M-x} customize-variable @key{RET} ff-paths-install @key{RET}
-@end example
+To also enable ffap, customize the variable @code{ff-paths-use-ffap}.
 
-To also enable ffap, customize the variable
-@code{ff-paths-use-ffap}
-
-@example
-@kbd{M-x} customize-variable @key{RET} ff-paths-use-ffap @key{RET}
-@end example
-
-Both of the above are enabled if you set
+Both of the above are enabled if you customize the variable
 @code{emacs-goodies-el-defaults} to t (its aggressive state).
 
-You may alter various settings of @code{ff-paths} using 
-
-@example
-@kbd{M-x} customize-group @key{RET} ff-paths @key{RET}
-@end example
+You may alter various settings of @code{ff-paths} using the
+customization group @code{ff-paths}.
 
 @node filladapt,  , ff-paths, Top
 @chapter filladapt - adaptively set fill-prefix and overload filling functions
@@ -602,11 +582,7 @@ Use
     (add-hook 'text-mode-hook 'turn-on-filladapt-mode)
 @end example
 to have Filladapt always enabled in Text mode, or customize the
-variable @code{filladapt-turn-on-mode-hooks}
-
-@example
-@kbd{M-x} customize-variable @key{RET} filladapt-turn-on-mode-hooks @key{RET}
-@end example
+variable @code{filladapt-turn-on-mode-hooks}.
 
 Use
 @example
