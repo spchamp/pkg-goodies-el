@@ -10,8 +10,11 @@ emacs-goodies-el (21.3-1) UNRELEASED; urgency=low
     such that all major modes for debian directory files are together.
   * bar-cursor.el: Edited patch sent upstream to conform the Coding
     Convention (don't enable simply by loading).
+  * Added 6_diminish-defcustom.dpatch, making diminish.el configurable
+    using the customize interface.  Patch sent upstream.  Also documented
+    file in Info.
 
- -- Peter S Galbraith <psg@debian.org>  Thu, 12 Jun 2003 21:39:33 -0400
+ -- Peter S Galbraith <psg@debian.org>  Thu, 12 Jun 2003 22:00:38 -0400
 
 emacs-goodies-el (21.2-1) unstable; urgency=low
 

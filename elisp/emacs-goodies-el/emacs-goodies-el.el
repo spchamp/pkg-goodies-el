@@ -336,6 +336,25 @@ though only globally (hence the quasi-)"
 (autoload 'diminished-modes "diminish"
   "Echo all active diminished or minor modes as if they were minor."
   t)
+(defcustom diminished-minor-modes nil
+  "List of minor modes to diminish and their mode line display strings.
+The display string can be the empty string if you want the name of the mode
+completely removed from the mode line.  If you prefer, you can abbreviate
+the name.  For 2 characters or more will be displayed as a separate word on
+the mode line, just like minor modes' names.  A single character will be
+scrunched up against the previous word.  Multiple single-letter diminished
+modes will all be scrunched together.
+
+The display of undiminished modes will not be affected."
+  :type '(alist :key-type (symbol :tag "Minor-mode")
+		:value-type (string :tag "Title"))
+  :options (mapcar 'car minor-mode-alist)
+  :set (lambda (symbol value)
+         (if (and (boundp 'diminished-minor-modes) diminished-minor-modes)
+             (mapcar 
+              (lambda (x) (diminish-undo (car x) t)) diminished-minor-modes))
+         (set-default symbol value)
+         (mapcar (lambda (x) (diminish (car x) (cdr x) t)) value)))
 
 ; autoloads for htmlize.el
 (autoload 'htmlize-buffer "htmlize"

@@ -1,7 +1,7 @@
 @c -*- mode: texinfo -*-
 \input texinfo
 
-@c $Id: emacs-goodies-el.texi,v 1.9 2003/05/27 00:13:50 psg Exp $
+@c $Id: emacs-goodies-el.texi,v 1.10 2003/06/13 02:01:50 psg Exp $
 @c %**start of header
 @setfilename info/emacs-goodies-el
 @settitle Emacs-Goodies-el
@@ -64,6 +64,7 @@ documented files just yet.
 * browse-kill-ring::            Interactively insert items from kill-ring.
 * clipper::                     Save strings of data for further use.
 * cyclebuffer::                 Select buffer by cycling through.
+* diminish::                    Diminish minor-mode's display.
 * ff-paths::                    Searches certain paths to find files.
 @end menu
 
@@ -309,7 +310,7 @@ filename without its directory and without an extension.
 (global-set-key "\C-ccc" 'clipper-create)
 @end example
 
-@node cyclebuffer, ff-paths, clipper, Top
+@node cyclebuffer, diminish, clipper, Top
 @chapter cyclebuffer - Select buffer by cycling through.
 
 Cyclebuffer is yet another way of selecting buffers.  Instead of
@@ -330,7 +331,84 @@ searching for.
 (global-set-key "M-P" 'cyclebuffer-backward)
 @end example
 
-@node ff-paths,  , cyclebuffer, Top
+@node diminish, ff-paths, cyclebuffer, Top
+@chapter diminish - Diminish minor-mode's display
+
+Minor modes each put a word on the mode line to signify that they're
+active.  This can cause other displays, such as % of file that point is
+at, to run off the right side of the screen.  For some minor modes, such
+as mouse-avoidance-mode, the display is a waste of space, since users
+typically set the mode in their .emacs & never change it.  For other
+modes, such as my jiggle-mode, it's a waste because there's already a
+visual indication of whether the mode is in effect.
+
+A diminished mode is a minor mode that has had its mode line
+display diminished, usually to nothing, although diminishing to a
+shorter word or a single letter is also supported.  This package
+implements diminished modes.
+
+@noindent To create diminished modes interactively, type
+@example
+@kbd{M-x} diminish
+@end example
+@noindent to get a prompt like
+@example
+  Diminish what minor mode:
+@end example
+@noindent and respond with the name of some minor mode, like
+@code{mouse-avoidance-mode}. You'll then get this prompt:
+@example
+  To what mode-line display:
+@end example
+Respond by just hitting @key{<Enter>} if you want the name of the mode
+completely removed from the mode line.  If you prefer, you can abbreviate
+the name.  If your abbreviation is 2 characters or more, such as "Av",
+it'll be displayed as a separate word on the mode line, just like minor
+modes' names.  If it's a single character, such as "V", it'll be scrunched
+up against the previous word, so for example if the undiminished mode line
+display had been "Abbrev Fill Avoid", it would become "Abbrev FillV".
+Multiple single-letter diminished modes will all be scrunched together.
+The display of undiminished modes will not be affected.
+
+To find out what the mode line would look like if all diminished modes
+were still minor, type @command{@key{M-x} diminished-modes}.  This
+displays in the echo area the complete list of minor or diminished
+modes now active, but displays them all as minor.  They remain
+diminished on the mode line.
+
+To convert a diminished mode back to a minor mode, type
+@command{@key{M-x} diminish-undo} to get a prompt like
+@example
+  Restore what diminished mode:
+@end example
+Respond with the name of some diminished mode.  To convert all
+diminished modes back to minor modes, respond to that prompt
+with @code{diminished-modes} (unquoted, & note the hyphen).
+
+When you're responding to the prompts for mode names, you can use
+completion to avoid extra typing; for example, m o u SPC SPC SPC
+is usually enough to specify mouse-avoidance-mode.  Mode names
+typically end in "-mode", but for historical reasons
+auto-fill-mode is named by "auto-fill-function".
+
+To create diminished modes noninteractively in your .emacs file, put
+code like
+@example
+  (require 'diminish)
+  (diminish 'abbrev-mode "Abv")
+  (diminish 'jiggle-mode)
+  (diminish 'mouse-avoidance-mode "M")
+@end example
+near the end of your .emacs file.  It should be near the end so that any
+minor modes your .emacs loads will already have been loaded by the time
+they're to be converted to diminished modes.
+
+Alternatively, you can setup dimished modes using the customize
+interface by customizing the variable @code{diminished-minor-modes}.
+The same caveat as above applies and the minor mode libraries should
+be loaded in ~/.emacs before the @code{(custom-set-variables} line.
+
+@node ff-paths,  , diminish, Top
 @chapter ff-paths - searches certain paths to find files.
 
 This code allows you to use C-x C-f normally most of the time, except that
