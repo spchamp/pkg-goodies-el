@@ -1,4 +1,4 @@
-;;; ff-paths.el --- find-file-using-paths searches certain paths to find files.
+;;; ff-paths.el --- searches certain paths to find files.
 
 ;; Copyright (C) 1994-2003 Peter S. Galbraith
  
