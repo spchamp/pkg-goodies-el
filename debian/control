@@ -1,8 +1,8 @@
 Source: emacs-goodies-el
 Section: editors
 Priority: optional
-Maintainer: Roland Mas <lolando@debian.org>
-Uploaders: Roland Mas <lolando@debian.org>, Peter S Galbraith <psg@debian.org>
+Maintainer: Peter S Galbraith <psg@debian.org>
+Uploaders: Roland Mas <lolando@debian.org>
 Build-Depends-Indep: debhelper (>= 4.0.0), dpatch (>=1.5), texinfo
 Standards-Version: 3.5.10
 

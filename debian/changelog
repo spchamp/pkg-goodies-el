@@ -1,3 +1,9 @@
+emacs-goodies-el (21.4-1) UNRELEASED; urgency=low
+
+  * New maintainer.  Thanks for all the work getting it this far Roland!
+
+ -- Peter S Galbraith <psg@debian.org>  Fri, 13 Jun 2003 21:19:21 -0400
+
 emacs-goodies-el (21.3-1) unstable; urgency=low
 
   * apt-utils.el: Updated to v1.45
