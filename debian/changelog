@@ -7,6 +7,7 @@ emacs-goodies-el (21.1-1) unstable; urgency=low
     (closes: #193272)
   * Updated debian-copyright.el from devscripts-el-0.0.20030521.tar.gz
   * Updated readme-debian.el    from devscripts-el-0.0.20030521.tar.gz
+  * Deleted patches/3_readme-debian-automode.dpatch
   * Updated services.el to upstream version CVS 1.4
   * Updated protocols.el to upstream version CVS 1.5
   * debian/control: Rephrase debian-bug.el description (closes: #193322)
@@ -16,7 +17,7 @@ emacs-goodies-el (21.1-1) unstable; urgency=low
     Same done for all other binary packages.
     (closes: #193367)
 
- -- Peter S Galbraith <psg@debian.org>  Wed, 21 May 2003 23:24:57 -0400
+ -- Peter S Galbraith <psg@debian.org>  Wed, 21 May 2003 23:34:36 -0400
 
 emacs-goodies-el (21.0-1) unstable; urgency=low
 
