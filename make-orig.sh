@@ -4,6 +4,9 @@ set -e
 
 dh_testdir
 dh_clean
+rm -f `find . -name "*~"`
+rm -f `find . -name "*#"`
+rm -f `find . -name "*.#"`
 
 SOURCE=$(dpkg-parsechangelog | awk '/^Source:/ { print $2 }')
 FULLVERSION=$(dpkg-parsechangelog | awk '/^Version:/ { print $2 }')
