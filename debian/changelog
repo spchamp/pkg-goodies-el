@@ -5,7 +5,8 @@ emacs-goodies-el (21.1-1) UNRELEASED; urgency=low
   * debian-bug.el: Add `confirmed' tag (for debian-bts-control.el).
   * debian/control: Added texinfo to Build-Depends-Indep for makeinfo
     (closes: #193272)
-  * Updated debian-copyright.el from devscripts-el-0.0.20030514.tar.gz
+  * Updated debian-copyright.el from devscripts-el-0.0.20030521.tar.gz
+  * Updated readme-debian.el    from devscripts-el-0.0.20030521.tar.gz
   * Updated services.el to upstream version CVS 1.4
   * Updated protocols.el to upstream version CVS 1.5
   * debian/control: Rephrase debian-bug.el description (closes: #193322)
@@ -15,7 +16,7 @@ emacs-goodies-el (21.1-1) UNRELEASED; urgency=low
     Same done for all other binary packages.
     (closes: #193367)
 
- -- Peter S Galbraith <psg@debian.org>  Wed, 14 May 2003 22:52:29 -0400
+ --
 
 emacs-goodies-el (21.0-1) unstable; urgency=low
 
