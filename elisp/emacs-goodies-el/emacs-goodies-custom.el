@@ -11,6 +11,7 @@
   :prefix "apt-sources-"
   :link '(custom-manual "(emacs-goodies-el)apt-sources")
   :load 'apt-sources
+  :require 'apt-sources
   :group 'emacs-goodies-el)
 
 ;; apt-utils
@@ -20,15 +21,7 @@
   :link '(url-link "http://www.tc.bham.ac.uk/~matt/AptUtilsEl.html")
   :link '(custom-manual "(emacs-goodies-el)apt-utils")
   :load 'apt-utils
-  :group 'emacs-goodies-el)
-
-;; bar-cursor
-(defgroup bar-cursor nil
-  "switch block cursor to a bar."
-  :link '(custom-manual "(emacs-goodies-el)bar-cursor")
-  :group 'convenience
-  :link '(custom-manual "(emacs-goodies-el)bar-cursor")
-  :load 'bar-cursor
+  :require 'apt-utils
   :group 'emacs-goodies-el)
 
 ;; boxquote
@@ -38,6 +31,7 @@
   :prefix "boxquote-"
   :link '(custom-manual "(emacs-goodies-el)boxquote")
   :load 'boxquote
+  :require 'boxquote
   :group 'emacs-goodies-el)
 
 ;; browse-kill-ring
@@ -47,6 +41,7 @@
   :group 'convenience
   :link '(custom-manual "(emacs-goodies-el)browse-kill-ring")
   :load 'browse-kill-ring
+  :require 'browse-kill-ring
   :group 'emacs-goodies-el)
 
 ;; df
@@ -55,14 +50,7 @@
   :group 'convenience
   :link '(custom-manual "(emacs-goodies-el)df")
   :load 'df
-  :group 'emacs-goodies-el)
-
-;; diminish
-(defgroup diminish nil
-  "Diminished modes are minor modes with no modeline display."
-  :group 'convenience
-  :link '(custom-manual "(emacs-goodies-el)diminish")
-  :load 'diminish
+  :require 'df
   :group 'emacs-goodies-el)
 
 ;; egocentric
@@ -72,6 +60,7 @@
   :group 'convenience
   :link '(custom-manual "(emacs-goodies-el)egocentric")
   :load 'egocentric
+  :require 'egocentric
   :group 'emacs-goodies-el)
 
 ;; ff-paths
@@ -82,6 +71,7 @@
   :group 'convenience
   :link '(custom-manual "(emacs-goodies-el)ff-paths")
   :load 'ff-paths
+  :require 'ff-paths
   :group 'emacs-goodies-el)
 
 ;; filladapt
@@ -90,6 +80,7 @@
   :group 'fill
   :link '(custom-manual "(emacs-goodies-el)filladapt")
   :load 'filladapt
+  :require 'filladapt
   :group 'emacs-goodies-el)
 
 ;; floatbg
@@ -100,6 +91,7 @@
   :prefix "floatbg-"
   :link '(custom-manual "(emacs-goodies-el)floatbg")
   :load 'floatbg
+  :require 'floatbg
   :group 'emacs-goodies-el)
 
 ;; highlight-completion
@@ -111,6 +103,7 @@
   :group 'abbrev
   :link '(custom-manual "(emacs-goodies-el)highlight-completion")
   :load 'highlight-completion
+  :require 'highlight-completion
   :group 'emacs-goodies-el)
 
 ;; htmlize
@@ -119,6 +112,7 @@
   :group 'hypermedia
   :link '(custom-manual "(emacs-goodies-el)htmlize")
   :load 'htmlize
+  :require 'htmlize
   :group 'emacs-goodies-el)
 
 ;; ibuffer
@@ -132,6 +126,7 @@ selectable views (limits)."
   :group 'convenience
   :link '(custom-manual "(emacs-goodies-el)ibuffer")
   :load 'ibuffer
+  :require 'ibuffer
   :group 'emacs-goodies-el)
 
 ;; initsplit
@@ -140,6 +135,7 @@ selectable views (limits)."
   :group 'initialization
   :link '(custom-manual "(emacs-goodies-el)initsplit")
   :load 'initsplit
+  :require 'initsplit
   :group 'emacs-goodies-el)
 
 ;; keywiz
@@ -149,6 +145,7 @@ selectable views (limits)."
   :group 'keywiz
   :link '(custom-manual "(emacs-goodies-el)keywiz")
   :load 'keywiz
+  :require 'keywiz
   :group 'emacs-goodies-el)
 
 ;; mutt-alias
@@ -158,6 +155,7 @@ selectable views (limits)."
   :prefix "mutt-alias-"
   :link '(custom-manual "(emacs-goodies-el)mutt-alias")
   :load 'mutt-alias
+  :require 'mutt-alias
   :group 'emacs-goodies-el)
 
 ;; muttrc-mode
@@ -167,6 +165,7 @@ selectable views (limits)."
   :prefix "muttrc-"
   :link '(custom-manual "(emacs-goodies-el)muttrc-mode")
   :load 'muttrc-mode
+  :require 'muttrc-mode
   :group 'emacs-goodies-el)
 
 ;; table
@@ -181,6 +180,7 @@ See `table-insert' for examples about how to use."
   :group 'fill
   :link '(custom-manual "(emacs-goodies-el)table")
   :load 'table
+  :require 'table
   :group 'emacs-goodies-el)
 
 ;; tail
@@ -190,12 +190,14 @@ See `table-insert' for examples about how to use."
   :group 'environment
   :link '(custom-manual "(emacs-goodies-el)tail")
   :load 'tail
+  :require 'tail
   :group 'emacs-goodies-el)
 
 ;; tc
 (defgroup tc nil "Insert cited text in a nice manner"
   :link '(custom-manual "(emacs-goodies-el)tc")
   :load 'tc
+  :require 'tc
   :group 'emacs-goodies-el)
 
 ;; thinks
@@ -205,6 +207,7 @@ See `table-insert' for examples about how to use."
   :prefix "thinks-"
   :link '(custom-manual "(emacs-goodies-el)thinks")
   :load 'thinks
+  :require 'thinks
   :group 'emacs-goodies-el)
 
 ;; todoo
@@ -213,6 +216,7 @@ See `table-insert' for examples about how to use."
   :group 'calendar
   :link '(custom-manual "(emacs-goodies-el)todoo")
   :load 'todoo
+  :require 'todoo
   :group 'emacs-goodies-el)
 
 ;; toggle-buffer
@@ -221,6 +225,7 @@ See `table-insert' for examples about how to use."
   :group 'tools
   :link '(custom-manual "(emacs-goodies-el)toggle-buffer")
   :load 'toggle-buffer
+  :require 'toggle-buffer
   :group 'emacs-goodies-el)
 
 ;; toggle-case
@@ -229,6 +234,7 @@ See `table-insert' for examples about how to use."
   :group 'tools
   :link '(custom-manual "(emacs-goodies-el)toggle-case")
   :load 'toggle-case
+  :require 'toggle-case
   :group 'emacs-goodies-el)
 
 ;; toggle-option
@@ -237,6 +243,7 @@ See `table-insert' for examples about how to use."
   :group 'convenience
   :link '(custom-manual "(emacs-goodies-el)toggle-option")
   :load 'toggle-option
+  :require 'toggle-option
   :group 'emacs-goodies-el)
 
 ;; wdired
@@ -245,6 +252,7 @@ See `table-insert' for examples about how to use."
 :group 'dired
   :link '(custom-manual "(emacs-goodies-el)wdired")
   :load 'wdired
+  :require 'wdired
   :group 'emacs-goodies-el)
 
 ;; xrdb-mode
@@ -253,6 +261,7 @@ See `table-insert' for examples about how to use."
   :group 'languages
   :link '(custom-manual "(emacs-goodies-el)xrdb-mode")
   :load 'xrdb-mode
+  :require 'xrdb-mode
   :group 'emacs-goodies-el)
 
 (provide 'emacs-goodies-custom)
