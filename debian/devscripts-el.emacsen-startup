@@ -1,36 +1,21 @@
 ;; -*-emacs-lisp-*-
 ;;
 ;; Emacs startup file for the Debian GNU/Linux devscripts-el package
-;;
-;; Originally contributed by Nils Naumann <naumann@unileoben.ac.at>
-;; Modified by Dirk Eddelbuettel <edd@debian.org>
-;; Adapted for dh-make by Jim Van Zandt <jrv@vanzandt.mv.com>
 
-;; The devscripts-el package follows the Debian/GNU Linux 'emacsen' policy and
-;; byte-compiles its elisp files for each 'emacs flavor' (emacs19,
-;; xemacs19, emacs20, xemacs20...).  The compiled code is then
-;; installed in a subdirectory of the respective site-lisp directory.
-
-;; We have to add this to the load-path:
-(debian-pkg-add-load-path-item
- (concat "/usr/share/"
-	 (symbol-name flavor)
-	 "/site-lisp/devscripts-el") )
-
-; autoloads for devscripts.el
-(autoload 'debuild "devscripts"
-  "Run debuild in the current directory."
-  t)
-(autoload 'debc "devscripts"
-  "Run debc in the current directory."
-  t)
-(autoload 'debi "devscripts"
-  "Run debi in the current directory."
-  t)
-
-; autoloads and automode for readme-debian.el
-(autoload 'readme-debian-mode "readme-debian"
-  "Mode to edit README.Debian."
-  t)
-(add-to-list 'auto-mode-alist '("debian/README.Debian$" . readme-debian-mode))
-(add-to-list 'auto-mode-alist '("^/usr/share/doc/.*/README.Debian.*$" . readme-debian-mode))
+(if (not (file-exists-p "/usr/share/emacs/site-lisp/devscripts-el"))
+    (message "Package devscripts-el removed but not purged.  Skipping setup.")
+  (debian-pkg-add-load-path-item
+   (concat "/usr/share/" (symbol-name flavor) "/site-lisp/devscripts-el") )
+  
+  ;; autoloads for devscripts.el
+  (autoload 'debuild "devscripts" "Run debuild in the current directory." t)
+  (autoload 'debc "devscripts" "Run debc in the current directory." t)
+  (autoload 'debi "devscripts" "Run debi in the current directory." t)
+  
+  ;; autoloads and automode for readme-debian.el
+  (autoload 'readme-debian-mode "readme-debian" "Mode to edit README.Debian."
+    t)
+  (add-to-list 'auto-mode-alist
+               '("debian/README.Debian$" . readme-debian-mode))
+  (add-to-list 'auto-mode-alist
+               '("^/usr/share/doc/.*/README.Debian.*$" . readme-debian-mode)))

@@ -12,7 +12,7 @@ emacs-goodies-el (21.1-1) UNRELEASED; urgency=low
   * Move most of 50emacs-goodies-el.el into a required emacs-goodies-el.el
     file, and wrap 50emacs-goodies-el.el around code testing if the
     package is really installed or possibly removed (and not purged).
-    Still needs to be done for all other binary packages.
+    Same done for all other binary packages.
     (closes: #193367)
 
  -- Peter S Galbraith <psg@debian.org>  Wed, 14 May 2003 22:52:29 -0400

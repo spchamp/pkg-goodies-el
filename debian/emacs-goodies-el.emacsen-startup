@@ -1,18 +1,11 @@
 ;; -*-emacs-lisp-*-
 ;;
 ;; Emacs startup file for the Debian GNU/Linux emacs-goodies-el package
-;;
-;; This is installed as /etc/emacs/site-start.d/50emacs-goodies-el.el
-;;
-;; The emacs-goodies-el package follows the Debian/GNU Linux 'emacsen'
-;; policy and byte-compiles its elisp files for each 'emacs flavor'
-;; (emacs19, xemacs19, emacs20, xemacs20...).  The compiled code is then
-;; installed in a subdirectory of the respective site-lisp directory.
 
 (if (not (file-exists-p "/usr/share/emacs/site-lisp/emacs-goodies-el"))
     (message
-     "Package emacs-goodies-el is removed but not purged.  Setup not done.")
+     "Package emacs-goodies-el removed but not purged.  Skipping setup.")
   (debian-pkg-add-load-path-item
-   (concat
-    "/usr/share/" (symbol-name flavor) "/site-lisp/emacs-goodies-el"))
+   (concat "/usr/share/" (symbol-name flavor) "/site-lisp/emacs-goodies-el"))
+  
   (require 'emacs-goodies-el))

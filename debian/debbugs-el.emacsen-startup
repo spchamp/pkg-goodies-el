@@ -1,38 +1,26 @@
 ;; -*-emacs-lisp-*-
 ;;
 ;; Emacs startup file for the Debian GNU/Linux devscripts-el package
-;;
-;; Originally contributed by Nils Naumann <naumann@unileoben.ac.at>
-;; Modified by Dirk Eddelbuettel <edd@debian.org>
-;; Adapted for dh-make by Jim Van Zandt <jrv@vanzandt.mv.com>
 
-;; The devscripts-el package follows the Debian/GNU Linux 'emacsen' policy and
-;; byte-compiles its elisp files for each 'emacs flavor' (emacs19,
-;; xemacs19, emacs20, xemacs20...).  The compiled code is then
-;; installed in a subdirectory of the respective site-lisp directory.
-
-;; We have to add this to the load-path:
-(debian-pkg-add-load-path-item
- (concat "/usr/share/"
-	 (symbol-name flavor)
-	 "/site-lisp/debbugs-el") )
-
-; autoloads for debian-bug.el
-(autoload 'debian-bug "debian-bug"
-  "Submit a Debian bug report."
-  t)
-(autoload 'debian-bug-filename "debian-bug"
-  "Submit a Debian bug report for a given filename's package."
-  t)
-(autoload 'debian-bug-web-bug "debian-bug"
-  "Browse the BTS for a bug report number via browse-url"
-  t)
-(autoload 'debian-bug-wnpp "debian-bug"
-  "Submit a WNPP bug report to Debian."
-  t)
-(autoload 'debian-bug-request-for-package "debian-bug"
-  "Shortcut for debian-bug-wnpp with RFP action"
-  t)
-(autoload 'debian-bug-ITP "debian-bug"
-  "Shortcut for debian-bug-wnpp with ITP action (for Debian developers)"
-  t)
+(if (not (file-exists-p "/usr/share/emacs/site-lisp/debbugs-el"))
+    (message "Package debbugs-el removed but not purged.  Skipping setup.")
+  (debian-pkg-add-load-path-item
+   (concat "/usr/share/" (symbol-name flavor) "/site-lisp/debbugs-el"))
+  
+  ;; autoloads for debian-bug.el
+  (autoload 'debian-bug "debian-bug" "Submit a Debian bug report." t)
+  (autoload 'debian-bug-filename "debian-bug"
+    "Submit a Debian bug report for a given filename's package."
+    t)
+  (autoload 'debian-bug-web-bug "debian-bug"
+    "Browse the BTS for a bug report number via browse-url"
+    t)
+  (autoload 'debian-bug-wnpp "debian-bug"
+    "Submit a WNPP bug report to Debian."
+    t)
+  (autoload 'debian-bug-request-for-package "debian-bug"
+    "Shortcut for debian-bug-wnpp with RFP action"
+    t)
+  (autoload 'debian-bug-ITP "debian-bug"
+    "Shortcut for debian-bug-wnpp with ITP action (for Debian developers)"
+    t))
