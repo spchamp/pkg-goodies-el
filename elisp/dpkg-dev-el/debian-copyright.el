@@ -39,12 +39,15 @@
   :type 'hook
   :options '(turn-on-auto-fill flyspell-mode))
 
-(defconst debian-copyright-mode-version "$Id: debian-copyright.el,v 1.2 2003/05/14 15:15:11 psg Exp $" "Version of debian copyright mode.")
+(defconst debian-copyright-mode-version "$Id: debian-copyright.el,v 1.3 2003/06/24 18:54:33 psg Exp $" "Version of debian copyright mode.")
 
 (defvar debian-copyright-mode-map nil
   "Keymap for debian/copyright mode.")
 (defvar debian-copyright-mode-syntax-table nil
   "Syntax table for debian/copyright mode.")
+
+(defvar debian-copyright-font-lock-keywords nil
+  "Regexps to highlight in font-lock.")
 
 (if debian-copyright-mode-syntax-table
          ()              ; Do not change the table if it is already set up.
@@ -65,21 +68,19 @@
   (set-syntax-table debian-copyright-mode-syntax-table)
   (if (or (not (featurep 'goto-addr))
           (not goto-address-highlight-p))
-      (setq font-lock-defaults
-            '((("http:.*$" . font-lock-function-name-face)
-               ("ftp:.*$" . font-lock-function-name-face)
-               ("^Copyright:$" . font-lock-keyword-face))
-              nil		;keywords-only
-              nil		;case-fold
-              ()		;syntax-alist
-              ))
-    (setq font-lock-defaults
-          '((("^Copyright:$" . font-lock-keyword-face))
-            nil		;keywords-only
-            nil		;case-fold
-            ()		;syntax-alist
-            ))
+      (setq debian-copyright-font-lock-keywords
+            '(("http:.*$" . font-lock-function-name-face)
+              ("ftp:.*$" . font-lock-function-name-face)
+              ("^Copyright:$" . font-lock-keyword-face)))
+    (setq debian-copyright-font-lock-keywords
+          '(("^Copyright:$" . font-lock-keyword-face)))
     (goto-address))
+  (setq font-lock-defaults
+        '(debian-copyright-font-lock-keywords
+          nil		;keywords-only
+          nil		;case-fold
+          ()		;syntax-alist
+          ))
   (run-hooks 'debian-copyright-mode-hook))
 
 (run-hooks 'debian-copyright-mode-load-hook)
