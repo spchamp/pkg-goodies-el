@@ -17,6 +17,47 @@
 	 (symbol-name flavor)
 	 "/site-lisp/emacs-goodies-el") )
 
+(defgroup emacs-goodies-el nil
+  "Debian emacs-goodies-el package customization."
+  :group 'convenience)
+
+(defcustom emacs-goodies-el-defaults nil
+  "Whether default settings are chosen conservatively or aggressively
+in emacs-goodies-el.
+non-nil means aggressive."
+  :type '(radio (const :tag "conservative" nil)
+                (const :tag "aggressive" t))
+  :group 'emacs-goodies-el)
+
+(defcustom emacs-goodies-el-use-ff-paths emacs-goodies-el-defaults
+  "Whether to setup ff-paths for use.
+find-file-using-paths searches certain paths to find files."
+  :type 'boolean
+  :set (lambda (symbol value)
+         (set-default symbol value)
+         (when value
+           (require 'ff-paths)))
+  :group 'emacs-goodies-el)
+
+(defcustom emacs-goodies-el-use-ffap emacs-goodies-el-defaults
+  "Whether to setup ffap for use, and add ff-paths as a helper to it.
+ffap.el --- find file (or url) at point.
+non-nil also setups the keybindings:
+ C-x C-f       find-file-at-point (abbreviated as ffap)
+ C-x 4 f       ffap-other-window
+ C-x 5 f       ffap-other-frame
+ S-mouse-3     ffap-at-mouse
+ C-S-mouse-3   ffap-menu"
+  :type 'boolean
+  :set (lambda (symbol value)
+         (set-default symbol value)
+         (when value
+           (require 'ffap)
+           (ffap-bindings)
+           (require 'ff-paths)
+           (ff-paths-in-ffap-install)))
+  :group 'emacs-goodies-el)
+
 ;; autoloads for apt-utils.el
 (autoload 'apt-utils-show-package "apt-utils"
   "Write APT package information to buffer.
