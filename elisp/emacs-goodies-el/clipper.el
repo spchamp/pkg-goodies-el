@@ -6,7 +6,7 @@
 ;; Maintainer: Kevin A. Burton (burton@openprivacy.org)
 ;; Location: http://relativity.yi.org
 ;; Keywords: clip save text
-;; Version: 1.1.0
+;; Version: 1.1.1
 
 ;; This file is [not yet] part of GNU Emacs.
 
@@ -66,12 +66,16 @@
 ;; (global-set-key "\C-cci" 'clipper-insert)
 ;; (global-set-key "\C-ccc" 'clipper-create)
 
+
 ;;; TODO
 
 ;; sort the alist with `sort'
 
 ;;; History:
 ;;
+;; - Wed Jan 30 2002 03:14 PM (burton@openprivacy.org): fixed a bug WRT data
+;; loss when editing existing clips.
+;; 
 ;; - Sun Nov 04 2001 05:33 PM (burton@openprivacy.org): we are now supporting a
 ;; file-name-nondirectory in special buffers.
 ;;
@@ -94,7 +98,7 @@
 
 (defvar clipper-alist '() "Associated list for holding clips.")
 
-(defvar clipper-file "~/.clipper" "File used for saving clipper information.")
+(defvar clipper-file "~/.clipper.el" "File used for saving clipper information.")
 
 (defvar clipper-input-buffer "*clipper input*" "Buffer used for entering new clips.")
 
@@ -182,7 +186,7 @@
         (insert clipper-input-message)
 
         (pop-to-buffer clipper-input-buffer)
-        (end-of-buffer)
+        (goto-char (point-max))
 
         (message "Enter new clip.  Type C-c C-c when complete."))
     (error "The specified clip already exists")))
@@ -198,7 +202,7 @@
   
   ;;clean up the input buffer by removing comment lines.
   (save-excursion
-    (beginning-of-buffer)
+    (goto-char (point-min))
     (while (re-search-forward "^CLIPPER: .*$" nil t)
       (delete-region (match-beginning 0) (match-end 0))
       (kill-line 1)))
@@ -207,9 +211,9 @@
   (let(clipper-input begin end)
 
     (save-excursion
-      (beginning-of-buffer)
+      (goto-char (point-min))
       (setq begin (point))
-      (end-of-buffer)
+      (goto-char (point-max))
       (setq end (point)))
 
     (setq clipper-input (buffer-string))
@@ -259,55 +263,48 @@
 
 (defun clipper-restore()
   "Read the clipper data file from disk"
-  (if (file-readable-p clipper-file)
-      (let(buffer)
-        (message "Reading %s..." clipper-file)
-        
-        (load-file clipper-file)
-        
-        (message "Reading %s...done" clipper-file))))
+  (when (file-readable-p clipper-file)
+    (message "Reading %s..." clipper-file)
+    
+    (load-file clipper-file)
+    
+    (message "Reading %s...done" clipper-file)))
 
 (defun clipper-get-clip()
   "Use completion to ask the user for a clip"
 
   ;;build a list for completion
-  (let(clip i completion-list)
+  (let((completion-list nil)
+       (index 1)
+       (clip-name nil))
+    (dolist(clip clipper-alist)
 
-    (setq i 0)
-    ;;(setq
-    
-    (while (< i (safe-length clipper-alist))
-
-      (setq clip (symbol-name (car (nth i clipper-alist))))
+      (setq clip-name (symbol-name (car clip) ))
 
       (add-to-list 'completion-list
-                   (list clip 1))
+                   (list clip-name index))
       
-      (setq i (1+ i)))
+      (setq index (1+ index)))
 
-    (setq my-clipper-test completion-list)
-    
     (completing-read "Clip name: " completion-list nil t)))
 
-(defun clipper-edit-clip()
+(defun clipper-edit-clip(name)
   "Edit an existing clip.  Note that your clip MUST be saved even if
 you don't edit it.  Otherwise the clip will be DELETED for good."
+  (interactive
+   (list
+    (clipper-get-clip)))
 
-  (interactive)
-
+  (setq clipper-clip-name name)
   (set-buffer (get-buffer-create clipper-input-buffer))
   (erase-buffer)
   (clipper-mode)
 
-  (setq clipper-clip-name (clipper-get-clip))
-
   (insert clipper-input-message)
-  (setq value (assoc (intern clipper-clip-name) clipper-alist))
+  (setq value (assoc (intern name) clipper-alist))
   (insert (cdr value))
   (pop-to-buffer clipper-input-buffer)
-  (beginning-of-buffer)
-  (setq clipper-alist 
-        (delq (assoc (intern clipper-clip-name) clipper-alist) clipper-alist)))
+  (goto-char (point-min)))
 
 (defun clipper-replace-tokens(start end)
   "Search and replace clipper tokens in this buffer."
@@ -317,7 +314,7 @@ you don't edit it.  Otherwise the clip will be DELETED for good."
 
       (narrow-to-region start end)
 
-      (beginning-of-buffer)
+      (goto-char (point-min))
 
       (let(file-name-nondirectory file-name-nondirectory-san-extension)
 
@@ -334,7 +331,7 @@ you don't edit it.  Otherwise the clip will be DELETED for good."
         ;;setup the file-name-nondirectory extension
         (save-excursion
 
-          (beginning-of-buffer)
+          (goto-char (point-min))
           
           (while (re-search-forward " \\(CLIPPER_FILE_NAME_NONDIRECTORY\\) " nil t)
             (replace-match file-name-nondirectory t nil nil 1)))
@@ -342,7 +339,7 @@ you don't edit it.  Otherwise the clip will be DELETED for good."
         ;;---------
         (save-excursion
 
-          (beginning-of-buffer)
+          (goto-char (point-min))
 
           (while (re-search-forward "\\(CLIPPER_FILE_NAME_NONDIRECTORY_SANS_EXTENSION\\)" nil t)
 

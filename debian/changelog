@@ -7,8 +7,9 @@ emacs-goodies-el (21.2-1) UNRELEASED; urgency=low
   * Added 5_bar-cursor-move-defcustom.dpatch, commented out the defcustom
     which I have moved and edited into emacs-goodies-el.el.  Documented in
     Info.
+  * Update clipper.el to V1.1.1.
 
- -- Peter S Galbraith <psg@debian.org>  Fri, 23 May 2003 20:39:36 -0400
+ -- Peter S Galbraith <psg@debian.org>  Sun, 25 May 2003 20:16:15 -0400
 
 emacs-goodies-el (21.1-1) unstable; urgency=low
 
