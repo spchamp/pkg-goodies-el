@@ -1,10 +1,12 @@
 emacs-goodies-el (21.12-1) unstable; urgency=low
 
   * emacs-goodies-el's highligh-current-line.el is now a minor-mode,
-    enhanced by yours truly.
-  * emacs-goodies-el: Add highlight-current-line to Info docs.
+    enhanced by yours truly.  Add highlight-current-line to Info docs.
+  * emacs-goodies-el's highligh-beyond-fill-column.el: upstream approved
+    code cleanup.  Created `highligh-beyond-fill-column' to activate it.
+    Added to Info docs.
 
- -- Peter S Galbraith <psg@debian.org>  Fri, 19 Sep 2003 19:45:42 -0400
+ -- Peter S Galbraith <psg@debian.org>  Sat, 20 Sep 2003 14:29:22 -0400
 
 emacs-goodies-el (21.11-1) unstable; urgency=low
 
