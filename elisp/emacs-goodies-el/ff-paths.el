@@ -245,31 +245,6 @@ You may not mix strings with elisp lists (like `load-path').
 You may terminate a directory name with double slashes // indicating that
  all subdirectories beneath it should also be searched.")
 
-(defcustom ff-paths-install nil
-  "Whether to setup ff-paths for use.
-find-file-using-paths searches certain paths to find files."
-  :type 'boolean
-  :set (lambda (symbol value)
-         (set-default symbol value)
-         (when value
-           (ff-paths-install)))
-  :group 'ff-paths)
-
-(defcustom ff-paths-use-ffap nil
-  "Whether to setup ffap for use.
-
-Usually packages don't advertise or try to setup other packages, but
-ff-paths works well in combination with ffap (Find FILENAME, guessing a
-default from text around point) and so I recommend it here.
-
-find-file-using-paths searches certain paths to find files."
-  :type 'boolean
-  :set (lambda (symbol value)
-         (set-default symbol value)
-         (when value
-           (ff-paths-in-ffap-install)))
-  :group 'ff-paths)
-
 (defcustom ff-paths-display-non-existent-filename t
   "*find-file-using-paths-hook displays the prompted-for non-existent filename.
 If you use \"C-x C-f article.sty\" in a path where it does not exists,
@@ -905,6 +880,33 @@ Return a string if a single match, or a list if many matches."
   "Install ff-paths as a `find-file-not-found-hooks' and to ffap package."
   (add-hook 'find-file-not-found-hooks 'find-file-using-paths-hook t)
   (ff-paths-in-ffap-install))
+
+(defcustom ff-paths-install nil
+  "Whether to setup ff-paths for use.
+find-file-using-paths searches certain paths to find files."
+  :type 'boolean
+  :set (lambda (symbol value)
+         (set-default symbol value)
+         (when value
+           (ff-paths-install)))
+  :group 'ff-paths)
+
+(defcustom ff-paths-use-ffap nil
+  "Whether to setup ffap and its key bindings for use.
+
+Usually packages don't advertise or try to setup other packages, but
+ff-paths works well in combination with ffap (Find FILENAME, guessing a
+default from text around point) and so I recommend it here.
+
+find-file-using-paths searches certain paths to find files."
+  :type 'boolean
+  :set (lambda (symbol value)
+         (set-default symbol value)
+         (when value
+           (require 'ffap)
+           (ffap-bindings)
+           (ff-paths-in-ffap-install)))
+  :group 'ff-paths)
 
 (provide 'ff-paths)
 ;;; ff-paths.el ends here
