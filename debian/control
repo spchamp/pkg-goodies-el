@@ -73,6 +73,9 @@ Description: Miscellaneous add-ons for Emacs
  Other files are available in the emacs-goodies-extra-el package.
  They have not been included in emacs-goodies-el because they have
  extra dependencies.
+ .
+ See /usr/share/doc/emacs-goodies-el/README.Debian.gz for a short
+ description of all files.
 
 Package: gnus-bonus-el
 Architecture: all
@@ -92,6 +95,9 @@ Description: Miscellaneous add-ons for Gnus
   nnnil.el: empty, read-only backend;
   nntodo.el: manage to-do items;
   spam-stat.el: spam-detector based on statistics.
+ .
+ See /usr/share/doc/gnus-bonus-el/README.Debian.gz for a short
+ description of all files.
 
 Package: emacs-goodies-extra-el
 Architecture: all
@@ -104,6 +110,9 @@ Description: Miscellaneous add-ons for Emacs -- extra
  .
  This package contains:
   dict.el: wrapper around the 'dict' command.
+ .
+ See /usr/share/doc/emacs-goodies-extra-el/README.Debian.gz for a short
+ description of the file.
 
 Package: devscripts-el
 Architecture: all
@@ -116,6 +125,9 @@ Description: Emacs wrappers for the commands in devscripts
  This package contains:
   devscripts.el: wrappers around the debuild, debc and debi commands;
   readme-debian.el: major mode for editing README.Debian files.
+ .
+ See /usr/share/doc/devscripts-el/README.Debian.gz for a short
+ description of all files.
 
 Package: debbugs-el
 Architecture: all
@@ -130,6 +142,9 @@ Description: Access the Debian BTS from within Emacs
      Emacs.
    * gnus-BTS.el, an enhancement to Gnus to provide buttons on bug
      numbers seen in Debian-related messages.
+ .
+ See /usr/share/doc/debbugs-el/README.Debian.gz for a short
+ description of all files.
 
 Package: dpkg-dev-el
 Architecture: all
@@ -145,3 +160,6 @@ Description: Emacs-related Debian development helpers
   debian-changelog-mode.el: a helper mode for Debian changelogs;
   debian-control-mode.el: a helper mode for debian/control files;
   debian-copyright.el: major mode for Debian package copyright files.
+ .
+ See /usr/share/doc/dpkg-dev-el/README.Debian.gz for a short
+ description of all files.
