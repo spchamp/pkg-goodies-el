@@ -12,8 +12,10 @@ emacs-goodies-el (19.4-1) UNRELEASED; urgency=low
     <romain@orebokech.com> (closes: #189605).
   * debian-bug.el (debian-bug): always build package list (closes: #186338)
   * ff-paths.el: updated to V3.19
+  * debian/emacsen-install.template: Use --no-site-file during
+    installation byte-compilation.
 
- -- Peter S Galbraith <psg@debian.org>  Mon, 21 Apr 2003 20:13:53 -0400
+ -- Peter S Galbraith <psg@debian.org>  Tue, 22 Apr 2003 12:47:24 -0400
 
 emacs-goodies-el (19.3-1) unstable; urgency=low
 
