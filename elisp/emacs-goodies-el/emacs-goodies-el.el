@@ -15,7 +15,15 @@
 
 (require 'emacs-goodies-loaddefs)
 
-(defgroup emacs-goodies-el '((df custom-group))
+(defgroup emacs-goodies-el '((apt-sources custom-group)
+                             (apt-utils custom-group)
+                             (auto-fill-inhibit custom-group)
+                             (bar-cursor custom-group)
+                             (box-quote custom-group)
+                             (browse-kill-ring custom-group)
+                             (df custom-group)
+                             (diminish custom-group)
+                             (ff-paths custom-group))
   "Debian emacs-goodies-el package customization."
   :group 'convenience)
 
@@ -28,61 +36,125 @@ Setting to aggresisve will enable feature that superceed Emacs defaults."
   :link '(custom-manual "(emacs-goodies-el)Top")
   :group 'emacs-goodies-el)
 
-(defcustom emacs-goodies-el-use-ff-paths emacs-goodies-el-defaults
+;; align-string.el
+(autoload 'align-string "align-string"
+  "Align first occurrence of REGEXP in each line of region."
+  t)
+(autoload 'align-all-strings "align-string"
+  "Align all occurrences of REGEXP in each line of region."
+  t)
+
+;; apt-sources
+(add-to-list 'auto-mode-alist '("sources.list$" . apt-sources-mode))
+(defgroup apt-sources nil "Mode for editing apt source.list file"
+  :group 'tools
+  :load 'apt-sources
+  :link '(custom-manual "(emacs-goodies-el)apt-sources")
+  :prefix "apt-sources-")
+
+;; apt-utils.el
+(defgroup apt-utils nil
+  "Emacs interface to APT (Debian package management)"
+  :load 'apt-utils
+  :link '(custom-manual "(emacs-goodies-el)apt-utils")
+  :group 'tools)
+
+(autoload 'apt-utils-search "apt-utils"
+  "Search Debian packages for regular expression.
+With ARG, match names only."
+  t)
+
+;;  auto-fill-inhibit.el
+(defgroup auto-fill-inhibit nil
+  "Finer grained control over auto-fill-mode (de)activation."
+  :load 'auto-fill-inhibit
+  :link '(custom-manual "(emacs-goodies-el)auto-fill-inhibit")
+  :group 'emacs-goodies-el)
+
+;; bar-cursor.el
+(autoload 'bar-cursor-change "bar-cursor"
+  "Enable or disable advice based on value of variable `bar-cursor-mode'."
+  t)
+(defgroup bar-cursor nil
+  "switch block cursor to a bar."
+  :load 'bar-cursor
+  :link '(custom-manual "(emacs-goodies-el)bar-cursor")
+  :group 'emacs-goodies-el)
+
+;; boxquote.el
+(defgroup boxquote nil
+  "Mark regions of text with a half-box."
+  :load 'boxquote
+  :link '(custom-manual "(emacs-goodies-el)boxquote")
+  :group  'editing
+  :prefix "boxquote-")
+
+;; browse-kill-ring.el
+(defgroup browse-kill-ring nil
+  "A package for browsing and inserting the items in `kill-ring'."
+  :link '(url-link "http://web.verbum.org/~walters")
+  :link '(custom-manual "(emacs-goodies-el)browse-kill-ring")
+  :group 'convenience)
+
+;; clipper.el
+(autoload 'clipper-create "clipper" "Create a new 'clip' for use within Emacs."
+  t)
+(autoload 'clipper-delete "clipper" "Delete an existing 'clip'." t)
+(autoload 'clipper-insert "clipper" 
+  "Insert a new 'clip' into the current buffer."
+  t)
+(autoload 'clipper-edit-clip "clipper" "Edit an existing 'clip'." t)
+
+;; df.el
+(defgroup df nil
+  "Display space left on partitions in the mode-line."
+  :load 'df
+  :link '(custom-manual "(emacs-goodies-el)df")
+  :group 'tools)
+
+;; diminish.el
+(defgroup diminish nil
+  "Diminished modes are minor modes with no modeline display."
+  :load 'diminish
+  :link '(custom-manual "(emacs-goodies-el)diminish")
+  :group 'emacs-goodies-el)
+
+;; ff-paths.el
+(defgroup ff-paths nil
+  "Find file using paths."
+  :link '(custom-manual "(emacs-goodies-el)ff-paths")
+  :group 'ffap
+  :group 'matching
+  :group 'convenience)
+
+(defcustom ff-paths-install emacs-goodies-el-defaults
   "Whether to setup ff-paths for use.
 find-file-using-paths searches certain paths to find files."
   :type 'boolean
   :set (lambda (symbol value)
          (set-default symbol value)
          (when value
-           (require 'ff-paths)))
-  :group 'emacs-goodies-el)
+           (ff-paths-install)))
+  :load 'ff-paths
+  :group 'emacs-goodies-el
+  :group 'ff-paths)
 
-(defcustom emacs-goodies-el-use-ffap emacs-goodies-el-defaults
-  "Whether to setup ffap for use, and add ff-paths as a helper to it.
-ffap.el --- find file (or url) at point.
-non-nil also setups the keybindings:
- C-x C-f       find-file-at-point (abbreviated as ffap)
- C-x 4 f       ffap-other-window
- C-x 5 f       ffap-other-frame
- S-mouse-3     ffap-at-mouse
- C-S-mouse-3   ffap-menu"
+(defcustom ff-paths-use-ffap emacs-goodies-el-defaults
+  "Whether to setup ffap for use.
+
+Usually packages don't advertise or try to setup other packages, but
+ff-paths works well in combination with ffap (Find FILENAME, guessing a
+default from text around point) and so I recommend it here.
+
+find-file-using-paths searches certain paths to find files."
   :type 'boolean
   :set (lambda (symbol value)
          (set-default symbol value)
          (when value
-           (require 'ffap)
-           (ffap-bindings)
-           (require 'ff-paths)
            (ff-paths-in-ffap-install)))
-  :group 'emacs-goodies-el)
-
-;; df.el
-(defgroup df nil
-  "Display space left on partitions in the mode-line."
-  :load 'df
-  :group 'tools)
-
-;; autoloads for apt-utils.el
-(autoload 'apt-utils-search "apt-utils"
-  "Search Debian packages for regular expression.
-With ARG, match names only."
-  t)
-
-; autoloads for bar-cursor.el
-(autoload 'bar-cursor-change "bar-cursor"
-  "Enable or disable advice based on value of variable `bar-cursor-mode'."
-  t)
-(defcustom bar-cursor-mode nil
-  "*Non-nil means to convert the block cursor into a bar cursor.
-In overwrite mode, the bar cursor changes back into a block cursor.
-This is a quasi-minor mode, meaning that it can be turned on & off easily
-though only globally (hence the quasi-)"
-  :type 'boolean
+  :load 'ff-paths
   :group 'emacs-goodies-el
-  :set (lambda (symbol value)
-         (set-default symbol value)
-         (bar-cursor-change)))
+  :group 'ff-paths)
 
 ; autoloads for highlight-completion.el
 (autoload 'highlight-completion-mode "highlight-completion"
@@ -119,19 +191,6 @@ though only globally (hence the quasi-)"
       [menu-bar immediate wdired-change-to-wdired-mode]
       '("Edit File Names" . wdired-change-to-wdired-mode))))
 
-; autoloads for clipper.el
-(autoload 'clipper-create "clipper"
-  "Create a new 'clip' for use within Emacs."
-  t)
-(autoload 'clipper-delete "clipper"
-  "Delete an existing 'clip'."
-  t)
-(autoload 'clipper-insert "clipper"
-  "Insert a new 'clip' into the current buffer."
-  t)
-(autoload 'clipper-edit-clip "clipper"
-  "Edit an existing 'clip'."
-  t)
 
 ; autoloads for projects.el
 (autoload 'add-project "projects"
@@ -183,35 +242,6 @@ though only globally (hence the quasi-)"
   "Switch highlighting of cursor-line on/off."
   t)
 
-; autoloads for align-string.el
-(autoload 'align-string "align-string"
-  "Align first occurrence of REGEXP in each line of region."
-  t)
-(autoload 'align-all-strings "align-string"
-  "Align all occurrences of REGEXP in each line of region."
-  t)
-
-; autoloads for diminish.el
-(defcustom diminished-minor-modes nil
-  "List of minor modes to diminish and their mode line display strings.
-The display string can be the empty string if you want the name of the mode
-completely removed from the mode line.  If you prefer, you can abbreviate
-the name.  For 2 characters or more will be displayed as a separate word on
-the mode line, just like minor modes' names.  A single character will be
-scrunched up against the previous word.  Multiple single-letter diminished
-modes will all be scrunched together.
-
-The display of undiminished modes will not be affected."
-  :type '(alist :key-type (symbol :tag "Minor-mode")
-		:value-type (string :tag "Title"))
-  :options (mapcar 'car minor-mode-alist)
-  :set (lambda (symbol value)
-         (if (and (boundp 'diminished-minor-modes) diminished-minor-modes)
-             (mapcar 
-              (lambda (x) (diminish-undo (car x) t)) diminished-minor-modes))
-         (set-default symbol value)
-         (mapcar (lambda (x) (diminish (car x) (cdr x) t)) value)))
-
 ; autoloads for keydef.el
 (autoload 'keydef "keydef"
   "Define the key sequence SEQ, written in kbd form, to run CMD."
@@ -243,9 +273,6 @@ The display of undiminished modes will not be affected."
 (autoload 'keywiz "keywiz"
   "Start a key sequence quiz."
   t)
-
-; autoloads and automode for apt-sources.el
-(add-to-list 'auto-mode-alist '("sources.list$" . apt-sources-mode))
 
 ; autoloads and automode for muttrc-mode.el
 (add-to-list 'auto-mode-alist '("muttrc" . muttrc-mode))
