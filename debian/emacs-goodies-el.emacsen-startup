@@ -6,9 +6,9 @@
 ;; Modified by Dirk Eddelbuettel <edd@debian.org>
 ;; Adapted for dh-make by Jim Van Zandt <jrv@vanzandt.mv.com>
 
-;; The emacs-goodies-el package follows the Debian/GNU Linux 'emacsen' policy and
-;; byte-compiles its elisp files for each 'emacs flavor' (emacs19,
-;; xemacs19, emacs20, xemacs20...).  The compiled code is then
+;; The emacs-goodies-el package follows the Debian/GNU Linux 'emacsen'
+;; policy and byte-compiles its elisp files for each 'emacs flavor'
+;; (emacs19, xemacs19, emacs20, xemacs20...).  The compiled code is then
 ;; installed in a subdirectory of the respective site-lisp directory.
 
 ;; We have to add this to the load-path:
@@ -133,11 +133,9 @@ If not, query for text to insert in bubble."
   t)
 
 ; autoloads for whitespace.el
-(if (not (string= (symbol-name flavor) "emacs21"))
-    (autoload 'nuke-trailing-whitespace "whitespace"
-      "Nuke all trailing whitespace in the buffer."
-      t)
-  )
+(autoload 'nuke-trailing-whitespace "nuke-trailing-whitespace"
+  "Nuke all trailing whitespace in the buffer."
+  t)
 
 ; autoloads for silly-mail.el
 (autoload 'sm-add-random-header "silly-mail"

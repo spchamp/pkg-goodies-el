@@ -16,5 +16,5 @@ PACKAGE=emacs-goodies-el
 # INCLUDED_xemacs21=""
 
 # EXCLUDED_emacs20=""
-EXCLUDED_emacs21="whitespace.el"
+# EXCLUDED_emacs21="whitespace.el"
 EXCLUDED_xemacs21="todoo.el ibuffer.el"

@@ -1,0 +1,148 @@
+#! /bin/sh -e
+## 8_whitespace_rename.dpatch
+##
+## All lines beginning with `## DP:' are a description of the patch.
+## DP: Rename whitespace.el and its internals to nuke-trailing-whitespace
+
+if [ $# -ne 1 ]; then
+    echo >&2 "`basename $0`: script expects -patch|-unpatch as argument"
+    exit 1
+fi
+case "$1" in
+       -patch) patch -f --no-backup-if-mismatch -p1 < $0;;
+       -unpatch) patch -f --no-backup-if-mismatch -R -p1 < $0;;
+	*)
+		echo >&2 "`basename $0`: script expects -patch|-unpatch as argument"
+		exit 1;;
+esac
+
+exit 0
+				    
+diff -urNad 8.tmp/elisp/whitespace.el 8/elisp/whitespace.el
+--- 8.tmp/elisp/whitespace.el	2003-05-05 22:20:30.000000000 -0400
++++ 8/elisp/whitespace.el	2003-05-05 22:22:04.000000000 -0400
+@@ -1,4 +1,4 @@
+-;;; whitespace.el --- strip trailing whitespace from buffers
++;;; nuke-trailing-whitespace.el --- strip trailing whitespace from buffers
+ 
+ ;; Copyright (C) 1995, 1996, 1997, 2000 Noah S. Friedman
+ 
+@@ -7,6 +7,11 @@
+ ;; Keywords: extensions
+ ;; Status: Works in Emacs 19 and XEmacs.
+ 
++;; This file was modified from Noah Friedman's whitespace.el by Cristian
++;; Ionescu-Idbohrn because emacs21 also provides a whitespace.el.  This
++;; file, and its functions, were renamed to nuke-trailing-whitespace to
++;; avoid the namespace collision.
++
+ ;; $Id: 8_whitespace_rename.dpatch,v 1.1 2003/05/06 02:40:27 psg Exp $
+ 
+ ;; This program is free software; you can redistribute it and/or modify
+@@ -28,13 +33,13 @@
+ 
+ ;; You may wish to do the following in your .emacs:
+ ;;
+-;;     (autoload 'nuke-trailing-whitespace "whitespace" nil t)
++;;     (autoload 'nuke-trailing-whitespace "nuke-trailing-whitespace" nil t)
+ ;;     (add-hook 'mail-send-hook 'nuke-trailing-whitespace)
+ ;;     (add-hook 'write-file-hooks 'nuke-trailing-whitespace)
+ 
+ ;;; Code:
+ 
+-(defvar nuke-trailing-whitespace-p 'whitespace-check-mode
++(defvar nuke-trailing-whitespace-p 'nuke-trailing-whitespace-check-mode
+   "*Specify when stripping whitespace should be done.
+ This variable affects how the function `nuke-trailing-whitespace' behaves.
+ If `t', unreservedly strip trailing whitespace, including excess newlines.
+@@ -51,12 +56,12 @@
+ ;; The regexp "\\s-+$" is too general, since form feeds (\n), carriage
+ ;; returns (\r), and form feeds/page breaks (C-l) count as whitespace in
+ ;; some syntaxes even though they serve a functional purpose in the file.
+-(defconst whitespace-regexp "[ \t]+$"
++(defconst nuke-trailing-whitespace-regexp "[ \t]+$"
+   "Regular expression which matches trailing whitespace.")
+ 
+ ;; Match two or more trailing newlines at the end of the buffer; all but
+ ;; the first newline will be deleted.
+-(defconst whitespace-eob-newline-regexp "\n\n+\\'"
++(defconst nuke-trailing-whitespace-eob-newline-regexp "\n\n+\\'"
+   "Regular expression which matches newlines at the end of the buffer.")
+ 
+ (defvar nuke-trailing-whitespace-always-major-modes
+@@ -80,7 +85,7 @@
+     slitex-mode
+     sml-mode
+     texinfo-mode)
+-  "*Major modes for which `whitespace-check-mode' will return `t'.
++  "*Major modes for which `nuke-trailing-whitespace-check-mode' will return `t'.
+ These are major modes for which `nuke-trailing-whitespace' should
+ strip all trailing whitespace and excess newlines at the end of the buffer
+ without asking.")
+@@ -90,7 +95,7 @@
+     rmail-mode
+     vm-mode
+     vm-summary-mode)
+-  "*Major modes for which `whitespace-check-mode' will return `nil'.
++  "*Major modes for which `nuke-trailing-whitespace-check-mode' will return `nil'.
+ These are major modes for which `nuke-trailing-whitespace' should
+ never strip trailing whitespace automatically.")
+ 
+@@ -107,7 +112,7 @@
+ replacement if the buffer is read-only."
+   (interactive)
+   (cond ((interactive-p)
+-         (call-interactively 'whitespace-do-nuke-whitespace))
++	 (call-interactively 'nuke-trailing-whitespace-do-nuke-whitespace))
+         (t
+          (let ((flag nuke-trailing-whitespace-p))
+            (and nuke-trailing-whitespace-p
+@@ -116,11 +121,11 @@
+                 (setq flag (funcall nuke-trailing-whitespace-p)))
+ 
+            (and flag
+-                (whitespace-do-nuke-whitespace flag)))))
++		(nuke-trailing-whitespace-do-nuke-whitespace flag)))))
+   ;; always return nil, in case this is on write-file-hooks.
+   nil)
+ 
+-(defun whitespace-do-nuke-whitespace (&optional flag)
++(defun nuke-trailing-whitespace-do-nuke-whitespace (&optional flag)
+   (interactive)
+   (let ((buffer-orig-read-only buffer-read-only)
+         (buffer-read-only nil))
+@@ -133,20 +138,20 @@
+            ((or (and (eq flag t)
+                      (not buffer-orig-read-only))
+                 (interactive-p))
+-            (while (re-search-forward whitespace-regexp (point-max) t)
++	    (while (re-search-forward nuke-trailing-whitespace-regexp (point-max) t)
+               (delete-region (match-beginning 0) (match-end 0)))
+             (goto-char (point-min))
+-            (and (re-search-forward whitespace-eob-newline-regexp nil t)
++	    (and (re-search-forward nuke-trailing-whitespace-eob-newline-regexp nil t)
+                  (delete-region (1+ (match-beginning 0)) (match-end 0))))
+            (t
+-            (query-replace-regexp whitespace-regexp "")
++	    (query-replace-regexp nuke-trailing-whitespace-regexp "")
+             (goto-char (point-min))
+-            (and (re-search-forward whitespace-eob-newline-regexp nil t)
++	    (and (re-search-forward nuke-trailing-whitespace-eob-newline-regexp nil t)
+                  (y-or-n-p
+                   "Delete excess trailing newlines at end of buffer? ")
+                  (delete-region (1+ (match-beginning 0)) (match-end 0))))))))))
+ 
+-(defun whitespace-check-mode (&optional mode)
++(defun nuke-trailing-whitespace-check-mode (&optional mode)
+   (or mode (setq mode major-mode))
+   (cond ((memq mode nuke-trailing-whitespace-always-major-modes) t)
+         ((memq mode nuke-trailing-whitespace-never-major-modes) nil)
+@@ -156,6 +161,6 @@
+         ((get-buffer-window (current-buffer) t) 'query)
+         (t nil)))
+ 
+-(provide 'whitespace)
++(provide 'nuke-trailing-whitespace)
+ 
+-;;; whitespace.el ends here.
++;;; nuke-trailing-whitespace.el ends here.

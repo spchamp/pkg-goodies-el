@@ -1,3 +1,9 @@
+emacs-goodies-el (20.1-1) unstable; urgency=low
+
+  * Rename whitespace to nuke-trailing-whitespace.el (closes: #191527)
+
+ -- Peter S Galbraith <psg@debian.org>  Mon,  5 May 2003 21:53:42 -0400
+
 emacs-goodies-el (20.0-1) unstable; urgency=low
 
   * Make sure I include patches in debian diff.  The last upload was built
