@@ -41,12 +41,6 @@ Setting to aggresisve will enable feature that superceed Emacs defaults."
 (add-to-list 'auto-mode-alist '("sources.list$" . apt-sources-mode))
 
 ;; apt-utils.el
-(defgroup apt-utils nil
-  "Emacs interface to APT (Debian package management)"
-  :load 'apt-utils
-  :link '(custom-manual "(emacs-goodies-el)apt-utils")
-  :group 'tools)
-
 (autoload 'apt-utils-search "apt-utils"
   "Search Debian packages for regular expression.
 With ARG, match names only."
