@@ -4,8 +4,9 @@ emacs-goodies-el (21.5-1) UNRELEASED; urgency=low
     upstream.
   * apt-utils.el: Updated to v1.53 (2003/06/19)
   * bar-cursor.el: A few tweaks also submitted upstream.
+  * Add Info entry for dirvars.
 
- -- Peter S Galbraith <psg@debian.org>  Thu, 19 Jun 2003 20:31:18 -0400
+ -- Peter S Galbraith <psg@debian.org>  Thu, 19 Jun 2003 21:22:50 -0400
 
 emacs-goodies-el (21.4-1) unstable; urgency=low
 

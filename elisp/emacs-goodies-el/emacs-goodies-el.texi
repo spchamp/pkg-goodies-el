@@ -1,7 +1,7 @@
 @c -*- mode: texinfo -*-
 \input texinfo
 
-@c $Id: emacs-goodies-el.texi,v 1.13 2003/06/20 00:56:26 psg Exp $
+@c $Id: emacs-goodies-el.texi,v 1.14 2003/06/20 01:23:22 psg Exp $
 @c %**start of header
 @setfilename info/emacs-goodies-el
 @settitle Emacs-Goodies-el
@@ -54,19 +54,20 @@ work-in-progress, so don't despair about the low percentage of
 documented files just yet.
 
 @menu
-* align-string::                Align string components over several lines.
-* all::                         Edit all lines matching a given regexp.
-* apt-sources::                 Mode for editing apt source.list file.  
-* apt-utils::                   Emacs interface to APT.
-* auto-fill-mode-inhibit::      auto-fill-mode (de)activation
-* bar-cursor::                  Switch block cursor to a bar
-* boxquote::                    Quote text with a semi-box.
-* browse-kill-ring::            Interactively insert items from kill-ring.
-* clipper::                     Save strings of data for further use.
-* cyclebuffer::                 Select buffer by cycling through.
-* df::                          Display space left on partitions in mode-line.
-* diminish::                    Diminish minor-mode's display.
-* ff-paths::                    Searches certain paths to find files.
+* align-string::           Align string components over several lines.
+* all::                    Edit all lines matching a given regexp.
+* apt-sources::            Mode for editing apt source.list file.  
+* apt-utils::              Emacs interface to APT.
+* auto-fill-mode-inhibit:: auto-fill-mode (de)activation
+* bar-cursor::             Switch block cursor to a bar
+* boxquote::               Quote text with a semi-box.
+* browse-kill-ring::       Interactively insert items from kill-ring.
+* clipper::                Save strings of data for further use.
+* cyclebuffer::            Select buffer by cycling through.
+* df::                     Display space left on partitions in mode-line.
+* diminish::               Diminish minor-mode's display.
+* dirvars::                Local variables that apply to an entire directory.
+* ff-paths::               Searches certain paths to find files.
 @end menu
 
 This work compiles GPL'ed documentation from the various elisp files
@@ -355,7 +356,7 @@ it using the customize interface:
 @end example
 where you can toggle on the variable @code{df-run-on-startup}.
 
-@node diminish, ff-paths, df, Top
+@node diminish, dirvars, df, Top
 @chapter diminish - Diminish minor-mode's display
 
 Minor modes each put a word on the mode line to signify that they're
@@ -432,7 +433,59 @@ interface by customizing the variable @code{diminished-minor-modes}.
 The same caveat as above applies and the minor mode libraries should
 be loaded in ~/.emacs before the @code{(custom-set-variables} line.
 
-@node ff-paths,  , diminish, Top
+@node dirvars, ff-paths, diminish, Top
+@chapter dirvars - local variables that apply to an entire directory.
+
+Emacs allows you to specify local variable values for use when
+editing a file either in the first line or in a local variables
+list.
+
+This file provides similar functionality, but for an entire
+directory tree.
+
+You simply place an .emacs-dirvars file in the root of your
+project's tree, and you can then set emacs variables like you would
+in a Local Variables: section at the end of a file.  E.g. the
+contents of a typical dirvars file might look like this:
+
+@example
+   ;; -*- emacs-lisp -*-
+   ;;
+   ;; This file is processed by the dirvars emacs package.  Each variable
+   ;; setting below is performed when this dirvars file is loaded.
+   ;;
+   indent-tabs-mode: nil
+   tab-width: 8
+   show-trailing-whitespace: t
+   indicate-empty-lines: t
+@end example
+
+Much of this code is stolen and modified from the standard Emacs
+files.el
+
+This code refuses to set any symbol that meets any of these
+criteria (this criteria is stolen from files.el):
+
+@itemize @bullet
+@item
+the symbol is in the ignored-local-variables list
+
+@item
+the symbol has the risky-local-variable property.
+
+@item
+the symbol name ends in -hook(s), -function(s), -form(s),
+    -program, -command, or -predicate.
+@end itemize
+
+To use this package, it must be loaded.  You can do this by adding a require
+statement to your @file{~/.emacs} file:
+
+@example
+  (require 'dirvars)
+@end example
+
+@node ff-paths,  , dirvars, Top
 @chapter ff-paths - searches certain paths to find files.
 
 This code allows you to use C-x C-f normally most of the time, except that
