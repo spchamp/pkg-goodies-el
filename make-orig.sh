@@ -7,6 +7,7 @@ dh_clean
 rm -f `find . -name "*~"`
 rm -f `find . -name "*#"`
 rm -f `find . -name "*.#"`
+rm -fR elisp/emacs-goodies-el/info
 
 SOURCE=$(dpkg-parsechangelog | awk '/^Source:/ { print $2 }')
 FULLVERSION=$(dpkg-parsechangelog | awk '/^Version:/ { print $2 }')
@@ -27,3 +28,8 @@ mkdir ../${SOURCE}-${UPSTREAM_VERSION}
 tar cf - --exclude=CVS debian make-orig.sh | ( cd ../${SOURCE}-${UPSTREAM_VERSION} ; tar xf -)
 (cd .. ; tar zcf debian-${UPSTREAM_VERSION}-${DEBIAN_VERSION}.tar.gz ${SOURCE}-${UPSTREAM_VERSION})
 rm -fR ../${SOURCE}-${UPSTREAM_VERSION}
+
+(cd .. ; mkdir build_${UPSTREAM_VERSION}-${DEBIAN_VERSION})
+(cd .. ; mv ${SOURCE}_$UPSTREAM_VERSION.orig.tar.gz debian-${UPSTREAM_VERSION}-${DEBIAN_VERSION}.tar.gz build_${UPSTREAM_VERSION}-${DEBIAN_VERSION})
+(cd ../build_${UPSTREAM_VERSION}-${DEBIAN_VERSION} ; tar zxf ${SOURCE}_$UPSTREAM_VERSION.orig.tar.gz)
+(cd ../build_${UPSTREAM_VERSION}-${DEBIAN_VERSION} ; tar zxf debian-${UPSTREAM_VERSION}-${DEBIAN_VERSION}.tar.gz)
