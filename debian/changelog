@@ -1,3 +1,10 @@
+emacs-goodies-el (21.11-1) unstable; urgency=low
+
+  * dpkg-dev-el's debian-bts-control.el adds package', 'owner' and
+    'noowner' commands.
+
+ -- Peter S Galbraith <psg@debian.org>  Thu, 18 Sep 2003 22:40:53 -0400
+
 emacs-goodies-el (21.10-1) unstable; urgency=low
 
   * debbugs-el's debian-bug.el: http://bugs.debian.org HTML code changed a
@@ -40,7 +47,7 @@ emacs-goodies-el (21.8-1) unstable; urgency=low
 
 emacs-goodies-el (21.7-1) unstable; urgency=low
 
-  * Standards-Version: 3.6.1 without chnages.
+  * Standards-Version: 3.6.1 without changes.
   * Bug fix: "dpkg-dev-el: readme-debian.el uses make-local-variable on a
     hook", thanks to Kalle Olavi Niemitalo.  Fixed upstream in
     devscripts-el-0.0.20030825 (Closes: #206993).
