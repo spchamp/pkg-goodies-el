@@ -132,7 +132,7 @@ Description: Access the Debian BTS from within Emacs
 
 Package: dpkg-dev-el
 Architecture: all
-Depends: emacs21 | emacsen, emacsen-common (>= 1.4.15), debbugs-el (>= 7.10)
+Depends: emacs21 | emacsen, emacsen-common (>= 1.4.15), debbugs-el (>= 19.4-1)
 Suggests: dpkg-dev
 Recommends: wget
 Conflicts: dpkg-dev (<< 1.7.2)
