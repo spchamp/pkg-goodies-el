@@ -66,6 +66,13 @@ cd ${ELCDIR}
 cat << EOF > path.el
 (setq load-path (cons "." load-path) byte-compile-warnings nil)
 EOF
+if test "${APPEND_LOAD_PATH}" != ""
+then
+	cat << EOF >> path.el
+(setq load-path (append ${APPEND_LOAD_PATH} load-path))
+EOF
+fi
+
 echo ${FLAVOR} ${FLAGS} ${FILES} >> ${LOG}
 ${FLAVOR} ${FLAGS} ${FILES} >> ${LOG} &> ${LOG}
 rm -f *.el path.el
