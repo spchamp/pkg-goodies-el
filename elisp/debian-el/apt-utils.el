@@ -3,7 +3,7 @@
 ;;; Copyright (C) 2002, 03 Matthew P. Hodges
 
 ;; Author: Matthew P. Hodges <matt@tc.bham.ac.uk>
-;;	$Id: apt-utils.el,v 1.5 2003/06/23 00:46:34 psg Exp $
+;;	$Id: apt-utils.el,v 1.6 2003/06/25 00:39:52 psg Exp $
 
 ;; apt-utils.el is free software; you can redistribute it and/or
 ;; modify it under the terms of the GNU General Public License as
@@ -1064,7 +1064,6 @@ TYPE can be forward, backward, or toggle."
         nil)
        ((and (re-search-forward "^\\([^ \n:]+\\): " eol t)
              (setq match (match-string 1))
-             (set-text-properties 0 (length match) nil match)
              (member match keywords))
         (setq posn (point))
         (goto-char (apt-field-end-position))
