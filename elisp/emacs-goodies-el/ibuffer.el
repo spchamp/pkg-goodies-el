@@ -5,7 +5,7 @@
 ;; Author: Colin Walters <walters@verbum.org>
 ;; Created: 8 Sep 2000
 ;; Version: 2.6
-;; X-RCS: $Id: ibuffer.el,v 1.1 2003/04/04 20:16:06 lolando Exp $
+;; X-RCS: $Id: ibuffer.el,v 1.1.1.1 2003/04/04 20:16:06 lolando Exp $
 ;; URL: http://web.verbum.org/~walters
 ;; Keywords: buffer, convenience
 ;; Compatibility: Emacs 20.7, Emacs 21, XEmacs

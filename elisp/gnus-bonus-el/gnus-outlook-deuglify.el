@@ -6,7 +6,7 @@
 ;;         Thomas Steffen (unwrapping algorithm,
 ;;                         based on an idea of Stefan Monnier)
 ;; Keywords: mail, news
-;; Version: $Id: gnus-outlook-deuglify.el,v 1.1 2003/04/04 20:16:02 lolando Exp $
+;; Version: $Id: gnus-outlook-deuglify.el,v 1.1.1.1 2003/04/04 20:16:02 lolando Exp $
 ;; X-URL: http://www.zonix.de/div/el/deuglify/gnus-outlook-deuglify.el
 
 ;; This file is free software; you can redistribute it and/or modify
@@ -194,8 +194,8 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;
 ;; $Log: gnus-outlook-deuglify.el,v $
-;; Revision 1.1  2003/04/04 20:16:02  lolando
-;; Initial revision
+;; Revision 1.1.1.1  2003/04/04 20:16:02  lolando
+;; Initial import, based on version 19.2-1 currently in unstable.
 ;;
 ;; Revision 1.2  2001/12/30 20:14:34  rscholz
 ;; Clean up source.
@@ -212,7 +212,7 @@
 (require 'gnus-art)
 (require 'gnus-sum)
 
-(defconst gnus-outlook-deuglify-version "$Revision: 1.1 $"
+(defconst gnus-outlook-deuglify-version "$Revision: 1.1.1.1 $"
   "Version of gnus-outlook-deuglify.")
 
 (defvar gnus-outlook-deuglify-debug nil

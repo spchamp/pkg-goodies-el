@@ -1,6 +1,6 @@
 ;; This file is *NOT* part of GNU Emacs.
 
-;;;  $Id: under.el,v 1.1 2003/04/04 20:16:17 lolando Exp $
+;;;  $Id: under.el,v 1.1.1.1 2003/04/04 20:16:17 lolando Exp $
 
 ;; Copyright (C) 1998 by Benjamin Drieu
 ;; Author:	 Benjamin Drieu <bdrieu@april.org>
@@ -11,7 +11,7 @@
 ;; LCD Archive Entry:
 ;; under|Benjamin Drieu|bdrieu@april.org|
 ;; Underline portions of a buffer with "^"|
-;; 1998|$Revision: 1.1 $|~/misc/under.el|
+;; 1998|$Revision: 1.1.1.1 $|~/misc/under.el|
 
 ;; This program is free software; you can redistribute it and/or
 ;; modify it under the terms of the GNU General Public License as

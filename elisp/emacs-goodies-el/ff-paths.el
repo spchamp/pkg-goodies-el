@@ -8,7 +8,7 @@
 ;; Version:   3.17 (17 January 2001)
 ;; Keywords:  find-file, ffap, paths, search
 
-;; RCS $Id: ff-paths.el,v 1.1 2003/04/04 20:16:00 lolando Exp $
+;; RCS $Id: ff-paths.el,v 1.1.1.1 2003/04/04 20:16:00 lolando Exp $
 ;; Note: RCS version number does not correspond to release number.
 
 ;;; This file is not part of GNU Emacs.
@@ -602,7 +602,7 @@ and return all matches."
 ;;  if they end in //).
 ;;  TeX-search-files is part of auc-tex:
 ;;    Maintainer: Per Abrahamsen <auc-tex@iesd.auc.dk>
-;;    Version: $Id: ff-paths.el,v 1.1 2003/04/04 20:16:00 lolando Exp $
+;;    Version: $Id: ff-paths.el,v 1.1.1.1 2003/04/04 20:16:00 lolando Exp $
 ;;    Keywords: wp
      
 ;;    Copyright (C) 1985, 1986 Free Software Foundation, Inc.

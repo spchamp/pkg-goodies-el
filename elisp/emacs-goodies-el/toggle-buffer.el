@@ -161,7 +161,7 @@ may use Advise if Provided (in which case swbuff must be
 ;;; ***** version related routines
 ;;; **************************************************************************
 (defconst joc-toggle-buffer-version
-  "$Revision: 1.1 $"
+  "$Revision: 1.1.1.1 $"
   "Version number for toggle-buffer package.")
 
 ;; ---------------------------------------------------------------------------

@@ -35,7 +35,7 @@
 ;; Author: Kurt Partridge <kepart@cs.washington.edu>
 ;; Maintainer: Kurt Partridge <kepart@cs.washington.edu>
 ;; Created: 05 June 1996
-;; Version: $Revision: 1.1 $
+;; Version: $Revision: 1.1.1.1 $
 ;; Keywords: switch-to-buffer
 
 ;; LCD Archive Entry:

@@ -1,5 +1,5 @@
 ;;; @(#) bar-cursor.el -- package used to switch block cursor to a bar
-;;; @(#) $Id: bar-cursor.el,v 1.1 2003/04/04 20:15:55 lolando Exp $
+;;; @(#) $Id: bar-cursor.el,v 1.1.1.1 2003/04/04 20:15:55 lolando Exp $
 
 ;; This file is not part of Emacs
 
@@ -91,7 +91,7 @@
 ;;; ***** version related routines
 ;;; **************************************************************************
 (defconst bar-cursor-version
-  "$Revision: 1.1 $"
+  "$Revision: 1.1.1.1 $"
   "Version number for 'bar-cursor' package.")
 
 ;; ---------------------------------------------------------------------------

@@ -5,7 +5,7 @@
 ;; Authors: Kai.Grossjohann@CS.Uni-Dortmund.DE,
 ;;          John Wiegley <johnw@gnu.org>
 ;; Keywords: news, mail, calendar, convenience
-;; Version: $Id: nntodo.el,v 1.1 2003/04/04 20:16:09 lolando Exp $
+;; Version: $Id: nntodo.el,v 1.1.1.1 2003/04/04 20:16:09 lolando Exp $
 
 ;; This file is free software; you can redistribute it and/or modify
 ;; it under the terms of the GNU General Public License as published by

@@ -3,14 +3,14 @@
 ;; Copyright (C) 1996,1997 Robert Bihlmeyer
 
 ;; Author: Robert Bihlmeyer <robbe@orcus.priv.at>
-;; Version: $Revision: 1.1 $
+;; Version: $Revision: 1.1.1.1 $
 ;; Keywords: mail unsolicited commercial junk spam
 ;; X-URL: http://stud2.tuwien.ac.at/~e9426626/gnus-junk.html
 
 ;; LCD Archive Entry:
 ;; gnus-junk|Robert Bihlmeyer|robbe@orcus.priv.at|
 ;; Semiautomatic replys to junk e-mails for Gnus|
-;; $Date: 2003/04/04 20:16:01 $|$Revision: 1.1 $|~/misc/gnus-junk.el.gz|
+;; $Date: 2003/04/04 20:16:01 $|$Revision: 1.1.1.1 $|~/misc/gnus-junk.el.gz|
 
 ;; This file is not yet part of anything.
 

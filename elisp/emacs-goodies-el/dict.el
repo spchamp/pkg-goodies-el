@@ -1,4 +1,4 @@
-;;	$Id: dict.el,v 1.1 2003/04/04 20:15:59 lolando Exp $
+;;	$Id: dict.el,v 1.1.1.1 2003/04/04 20:15:59 lolando Exp $
 ;;
 ;; dict.el - Emacs interface to dict client
 ;;
@@ -44,8 +44,8 @@
 ;; Mail them to <max-appolo@mail.ru>
 
 ;;    $Log: dict.el,v $
-;;    Revision 1.1  2003/04/04 20:15:59  lolando
-;;    Initial revision
+;;    Revision 1.1.1.1  2003/04/04 20:15:59  lolando
+;;    Initial import, based on version 19.2-1 currently in unstable.
 ;;
 ;;    Revision 1.25  2002/10/11 09:41:42  max
 ;;    Name changed to dict.el
@@ -438,7 +438,7 @@ customisation."
   (shell-command "dict --version"))
 
 (defconst dict-self-version
-  "$Revision: 1.1 $"
+  "$Revision: 1.1.1.1 $"
   "Version number for 'emacs-dict-client' package.")
 
 (defun dict-version-number ()

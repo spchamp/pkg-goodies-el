@@ -9,7 +9,7 @@
 ;; Keywords: extensions, mail
 ;; Status: works in Emacs 19 and XEmacs.
 
-;; $Id: silly-mail.el,v 1.1 2003/04/04 20:16:10 lolando Exp $
+;; $Id: silly-mail.el,v 1.1.1.1 2003/04/04 20:16:10 lolando Exp $
 
 ;; This program is free software; you can redistribute it and/or modify
 ;; it under the terms of the GNU General Public License as published by

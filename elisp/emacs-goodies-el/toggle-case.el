@@ -1,6 +1,6 @@
 ;;; **************************************************************************
 ;; @(#) toggle-case.el -- toggles case at poitn like ~ in vi
-;; @(#) $Id: toggle-case.el,v 1.1 2003/04/04 20:16:17 lolando Exp $
+;; @(#) $Id: toggle-case.el,v 1.1.1.1 2003/04/04 20:16:17 lolando Exp $
 
 ;; This file is not part of Emacs
 
@@ -158,7 +158,7 @@ is reversed, the semantics of this are reveresed as well
 ;;; ***** version related routines
 ;;; **************************************************************************
 (defconst joc-toggle-case-version
-  "$Revision: 1.1 $"
+  "$Revision: 1.1.1.1 $"
   "joc-toggle-case version number.")
 
 ;; ---------------------------------------------------------------------------

@@ -45,11 +45,11 @@
 ;;    scan /home
 
 
-;; $Id: df.el,v 1.1 2003/04/04 20:15:58 lolando Exp $
+;; $Id: df.el,v 1.1.1.1 2003/04/04 20:15:58 lolando Exp $
 
 ;; $Log: df.el,v $
-;; Revision 1.1  2003/04/04 20:15:58  lolando
-;; Initial revision
+;; Revision 1.1.1.1  2003/04/04 20:15:58  lolando
+;; Initial import, based on version 19.2-1 currently in unstable.
 ;;
 ;; Revision 1.8  2001/12/07 13:08:16  benj
 ;; - fixed a misplaced (interactive)

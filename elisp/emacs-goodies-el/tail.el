@@ -22,7 +22,7 @@
 ;; Software Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA
 ;; 02111-1307, USA.
 
-;;  $Id: tail.el,v 1.1 2003/04/04 20:16:15 lolando Exp $
+;;  $Id: tail.el,v 1.1.1.1 2003/04/04 20:16:15 lolando Exp $
 
 ;;; Commentary:
 

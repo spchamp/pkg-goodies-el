@@ -32,7 +32,7 @@
 ;; Copyright (C) 1994 Per Abrahamsen
 
 ;; Author: Per Abrahamsen <abraham@iesd.auc.dk>
-;; Version: $Id: all.el,v 1.1 2003/04/04 20:15:54 lolando Exp $
+;; Version: $Id: all.el,v 1.1.1.1 2003/04/04 20:15:54 lolando Exp $
 ;; Keywords: matching
 
 ;; LCD Archive Entry:

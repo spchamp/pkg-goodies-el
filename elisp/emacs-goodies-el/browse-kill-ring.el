@@ -5,7 +5,7 @@
 ;; Author: Colin Walters <walters@verbum.org>
 ;; Created: 7 Apr 2001
 ;; Version: 1.0
-;; X-RCS: $Id: browse-kill-ring.el,v 1.1 2003/04/04 20:15:56 lolando Exp $
+;; X-RCS: $Id: browse-kill-ring.el,v 1.1.1.1 2003/04/04 20:15:56 lolando Exp $
 ;; URL: http://web.verbum.org/~walters
 ;; URL-ja: http://www.sci.osaka-cu.ac.jp/~shindo/doc/browse-kill-ring-manual.html
 ;; Keywords: convenience

@@ -6,7 +6,7 @@
 ;; Maintainer: Colin Walters <walters@debian.org>
 ;; Created: 29 Nov 2001
 ;; Version: 0.4
-;; X-RCS: $Id: debian-control-mode.el,v 1.1 2003/04/04 20:15:58 lolando Exp $
+;; X-RCS: $Id: debian-control-mode.el,v 1.1.1.1 2003/04/04 20:15:58 lolando Exp $
 ;; URL: http://cvs.verbum.org/debian/debian-control-mode
 ;; Keywords: convenience
 

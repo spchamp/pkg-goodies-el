@@ -1,7 +1,7 @@
 ;;; nnir.el --- search mail with various search engines -*- coding: iso-8859-1 -*-
 ;; Copyright (C) 1998 Kai Groﬂjohann
 
-;; $Id: nnir.el,v 1.1 2003/04/04 20:16:09 lolando Exp $
+;; $Id: nnir.el,v 1.1.1.1 2003/04/04 20:16:09 lolando Exp $
 
 ;; Author: Kai Groﬂjohann <grossjohann@ls6.cs.uni-dortmund.de>
 ;; Keywords: news, mail, searching, ir, glimpse, wais
@@ -287,7 +287,7 @@
 
 ;;; Setup Code:
 
-(defconst nnir-version "$Id: nnir.el,v 1.1 2003/04/04 20:16:09 lolando Exp $"
+(defconst nnir-version "$Id: nnir.el,v 1.1.1.1 2003/04/04 20:16:09 lolando Exp $"
   "Version of NNIR.")
 
 (require 'cl)

@@ -7,7 +7,7 @@
 ;; Keywords: extensions
 ;; Status: Works in Emacs 19 and XEmacs.
 
-;; $Id: whitespace.el,v 1.1 2003/04/04 20:16:18 lolando Exp $
+;; $Id: whitespace.el,v 1.1.1.1 2003/04/04 20:16:18 lolando Exp $
 
 ;; This program is free software; you can redistribute it and/or modify
 ;; it under the terms of the GNU General Public License as published by
