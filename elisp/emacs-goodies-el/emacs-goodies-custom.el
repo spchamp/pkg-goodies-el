@@ -5,12 +5,37 @@
 ;;
 ;;; Code:
 
+;;; emacs-goodies-custom.el --- Automatically harvested defgroups
+;;
+;;  Peter S Galbraith <psg@debian.org>
+;;  License of copied code applies to this combined work (GPL V2)
+;;
+;;; Code:
+
 ;; apt-sources
 (defgroup apt-sources nil "Mode for editing apt source.list file"
   :group 'tools
   :prefix "apt-sources-"
   :link '(custom-manual "(emacs-goodies-el)apt-sources")
   :load 'apt-sources
+  :group 'emacs-goodies-el)
+
+;; apt-utils
+(defgroup apt-utils nil
+  "Emacs interface to APT (Debian package management)"
+  :group 'tools
+  :link '(url-link "http://www.tc.bham.ac.uk/~matt/AptUtilsEl.html")
+  :link '(custom-manual "(emacs-goodies-el)apt-utils")
+  :load 'apt-utils
+  :group 'emacs-goodies-el)
+
+;; bar-cursor
+(defgroup bar-cursor nil
+  "switch block cursor to a bar."
+  :link '(custom-manual "(emacs-goodies-el)bar-cursor")
+  :group 'convenience
+  :link '(custom-manual "(emacs-goodies-el)bar-cursor")
+  :load 'bar-cursor
   :group 'emacs-goodies-el)
 
 ;; boxquote
