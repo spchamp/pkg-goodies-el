@@ -1,6 +1,6 @@
 ;;; protocols.el --- Protocol database access functions.
 ;; Copyright 2000,2001,2003 by Dave Pearson <davep@davep.org>
-;; $Revision: 1.2 $
+;; $Revision: 1.3 $
 
 ;; protocols.el is free software distributed under the terms of the GNU
 ;; General Public Licence, version 2. For details see the file COPYING.
@@ -28,7 +28,8 @@
 ;;
 ;; o Add the following autoload statement to your ~/.emacs file:
 ;;
-;;   (autoload 'protocols-lookup "protocols" "Perform a protocol lookup" t)
+;;   (autoload 'protocols-lookup      "protocols" "Perform a protocol lookup" t)
+;;   (autoload 'protocols-clear-cache "protocols" "Clear the protocols cache" t)
 
 ;;; Code:
 
@@ -56,6 +57,11 @@
       (save-excursion
         (end-of-line n)
         (point)))))
+
+;; Customisable variables.
+
+(defvar protocols-file "/etc/protocols"
+  "*Name of the protocols file.")
 
 ;; Non-customize variables.
 
@@ -89,10 +95,10 @@
            while (not (= (aref s 0) ?#))
            collect s))))
 
-(defun* protocols-read (&optional (file "/etc/protocols"))
+(defun* protocols-read (&optional (file protocols-file))
   "Read the protocol list from FILE.
 
-If FILE isn't supplied /etc/protocols is used."
+If FILE isn't supplied the value of `protocols-file' is used."
   (or protocols-cache
       (setq protocols-cache (when (file-readable-p file)
                               (with-temp-buffer

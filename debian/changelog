@@ -6,8 +6,8 @@ emacs-goodies-el (21.1-1) UNRELEASED; urgency=low
   * debian/control: Added texinfo to Build-Depends-Indep for makeinfo
     (closes: #193272)
   * Updated debian-copyright.el from devscripts-el-0.0.20030514.tar.gz
-  * Updated services.el to upstream version CVS 1.3
-  * Updated protocols.el to upstream version CVS 1.4
+  * Updated services.el to upstream version CVS 1.4
+  * Updated protocols.el to upstream version CVS 1.5
   * debian/control: Rephrase debian-bug.el description (closes: #193322)
   * Move most of 50emacs-goodies-el.el into a required emacs-goodies-el.el
     file, and wrap 50emacs-goodies-el.el around code testing if the

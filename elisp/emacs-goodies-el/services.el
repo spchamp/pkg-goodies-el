@@ -1,6 +1,6 @@
 ;;; services.el --- Services database access functions.
 ;; Copyright 2000,2003 by Dave Pearson <davep@davep.org>
-;; $Revision: 1.2 $
+;; $Revision: 1.3 $
 
 ;; services.el is free software distributed under the terms of the GNU
 ;; General Public Licence, version 2. For details see the file COPYING.
@@ -12,8 +12,7 @@
 ;;
 ;; The latest services.el is always available from:
 ;;
-;;   <URL:http://www.davep.org/emacs/services.el>
-;;
+;;   <URL:http://www.davep.org/emacs/#services.el>
 
 ;;; BUGS:
 ;;
@@ -29,7 +28,8 @@
 ;;
 ;; o Add the following autoload statement to your ~/.emacs file:
 ;;
-;;   (autoload 'services-lookup "services" "Perform a service lookup" t)
+;;   (autoload 'services-lookup      "services" "Perform a service lookup" t)
+;;   (autoload 'services-clear-cache "services" "Clear the service cache"  t)
 
 ;;; Code:
 
@@ -37,6 +37,11 @@
 
 (eval-when-compile
   (require 'cl))
+
+;; Customisable variables.
+
+(defvar services-file "/etc/services"
+  "*Name of the services file.")
 
 ;; Non-customize variables.
 
@@ -76,10 +81,10 @@
            while (not (= (aref s 0) ?#))
            collect s))))
 
-(defun* services-read (&optional (file "/etc/services"))
+(defun* services-read (&optional (file services-file))
   "Read the services list from FILE.
 
-If FILE isn't supplied /etc/services is used."
+If FILE isn't supplied the value of `services-file' is used."
   (or services-cache
       (setq services-cache
             (when (file-readable-p file)
@@ -170,7 +175,7 @@ If FILE isn't supplied /etc/services is used."
 (defun services-clear-cache ()
   "Clear the services \"cache\"."
   (interactive)
-  (setq services-cache nil
+  (setq services-cache      nil
         services-name-cache nil))
 
 (provide 'services)
