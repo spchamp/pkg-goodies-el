@@ -1,7 +1,7 @@
 @c -*- mode: texinfo -*-
 \input texinfo
 
-@c $Id: emacs-goodies-el.texi,v 1.2 2003/05/12 19:07:42 psg Exp $
+@c $Id: emacs-goodies-el.texi,v 1.3 2003/05/13 02:40:14 psg Exp $
 @c %**start of header
 @setfilename info/emacs-goodies-el
 @settitle Emacs-Goodies-el
@@ -52,6 +52,7 @@ documented files just yet.
 * all::                         Edit all lines matching a given regexp.
 * apt-sources::                 Mode for editing apt source.list file.  
 * apt-utils::                   Emacs interface to APT.
+* auto-fill-mode-inhibit::      auto-fill-mode (de)activation
 * ff-paths::                    Searches certain paths to find files.
 @end menu
 
@@ -129,7 +130,7 @@ to replicate an existing line (@kbd{C-c C-r}) that will be changed to
 the 'deb' or 'deb-src' corresponding line. If it replicates a 'deb'
 line, an identical 'deb-src' source line will be created.
 
-@node apt-utils, ff-paths, apt-sources, Top
+@node apt-utils, auto-fill-mode-inhibit, apt-sources, Top
 @chapter apt-utils - Emacs interface to APT
 
 Start things off using e.g.:
@@ -161,7 +162,25 @@ You may alter various settings of @code{apt-utils} using
 M-x customize-group @key{RET} apt-utils @key{RET}
 @end example
 
-@node ff-paths,  , apt-utils, Top
+@node auto-fill-mode-inhibit, ff-paths, apt-utils, Top
+@chapter auto-fill-mode-inhibit - auto-fill-mode (de)activation
+
+The purpose of this library is to allow the use of @command{auto-fill-mode}
+using, e.g.
+
+@example
+ (add-hook 'text-mode-hook 'turn-on-auto-fill)
+@end example
+
+and yet disable @command{auto-fill-mode} on buffers with names that
+match one of a list of regular expressions.  Customize this list
+using:
+
+@example
+M-x customize-variable @key{RET} auto-fill-inhibit-list @key{RET}
+@end example
+
+@node ff-paths,  , auto-fill-mode-inhibit, Top
 @chapter ff-paths - searches certain paths to find files.
 
 This code allows you to use C-x C-f normally most of the time, except that
