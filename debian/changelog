@@ -10,14 +10,15 @@ emacs-goodies-el (21.0-1) unstable; urgency=low
     ftp://ftp.dina.kvl.dk:/pub/Staff/Per.Abrahamsen/auctex/all.el
   * Updated auto-fill-inhibit.el to latest upstream version (defcustom
     patch that I submitted).
-  * Updated htmlize.el to V0.68
+  * Updated htmlize.el to V0.68. Remove 5_htmlize-noninteractive.dpatch
+    since it was integrated upstream.
   * Added elisp/emacs-goodies-el.texi and install it in rules file.
     (closes: #192303)
   * 50emacs-goodies-el.el: Introduce defcustom group emacs-goodies-el to
     allow full installation of packages that alter Emacs defaults.
     (closes: #190177)
 
- -- Peter S Galbraith <psg@debian.org>  Sun, 11 May 2003 21:15:50 -0400
+ -- Peter S Galbraith <psg@debian.org>  Mon, 12 May 2003 11:08:33 -0400
 
 emacs-goodies-el (20.0-1) unstable; urgency=low
 
