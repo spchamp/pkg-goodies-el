@@ -6,7 +6,10 @@
 
 ;;; History:
 ;;
-;; 2003-05-14 - Peter Galbraith - Created from 50emacs-goodies-el.el contents.
+;; 2003-06-14 - Peter Galbraith
+;;  - Delete autoloads that can be generated automatically.
+;; 2003-05-14 - Peter Galbraith
+;;  - Created from 50emacs-goodies-el.el contents.
 
 ;;; Code:
 
@@ -53,81 +56,12 @@ non-nil also setups the keybindings:
   :group 'emacs-goodies-el)
 
 ;; autoloads for apt-utils.el
-(autoload 'apt-utils-show-package "apt-utils"
-  "Write APT package information to buffer.
-With ARG, choose that package, otherwise prompt for one."
-  t)
 (autoload 'apt-utils-search "apt-utils"
   "Search Debian packages for regular expression.
 With ARG, match names only."
   t)
 
-; autoloads for boxquote.el
-(autoload 'boxquote-title "boxquote"
-  "Set the title of the current boxquote to TITLE."
-  t)
-(autoload 'boxquote-region "boxquote"
-  "Draw a box around the left hand side of a region bounding START and END."
-  t)
-(autoload 'boxquote-buffer "boxquote"
-  "Apply `boxquote-region' to a whole buffer."
-  t)
-(autoload 'boxquote-insert-file "boxquote"
-  "Insert the contents of a file, boxed with `boxquote-region'."
-  t)
-(autoload 'boxquote-yank "boxquote"
-  "Do a `yank' and box it in with `boxquote-region'."
-  t)
-(autoload 'boxquote-defun "boxquote"
-  "Apply `boxquote-region' the current defun."
-  t)
-(autoload 'boxquote-paragraph "boxquote"
-  "Apply `boxquote-region' to the current paragraph."
-  t)
-(autoload 'boxquote-boxquote "boxquote"
-  "Apply `boxquote-region' to the current boxquote."
-  t)
-(autoload 'boxquote-describe-function "boxquote"
-  "Call `describe-function' and boxquote the output into the current buffer."
-  t)
-(autoload 'boxquote-describe-variable "boxquote"
-  "Call `describe-variable' and boxquote the output into the current buffer."
-  t)
-(autoload 'boxquote-describe-key "boxquote"
-  "Call `describe-key' and boxquote the output into the current buffer."
-  t)
-(autoload 'boxquote-narrow-to-boxquote "boxquote"
-  "Narrow the buffer to the current boxquote."
-  t)
-(autoload 'boxquote-kill "boxquote"
-  "Kill the boxquote and its contents."
-  t)
-(autoload 'boxquote-unbox-region "boxquote"
-  "Remove a box created with `boxquote-region'."
-  t)
-(autoload 'boxquote-unbox "boxquote"
-  "Remove the boxquote that contains `point'."
-  t)
-
-; autoloads for thinks.el
-(autoload 'thinks "thinks"
-  "Insert TEXT wrapped in a think bubble."
-  t)
-(autoload 'thinks-region "thinks"
-  "Bubble wrap region bounding START and END."
-  t)
-(autoload 'thinks-yank "thinks"
-  "Do a `yank' and bubble wrap the yanked text."
-  t)
-(autoload 'thinks-maybe-region "thinks"
-  "If region is active, bubble wrap region bounding START and END.
-If not, query for text to insert in bubble."
-  t)
-
 ; autoloads for bar-cursor.el
-(autoload 'bar-cursor-mode "bar-cursor"
- "Toggle use of 'bar-cursor-mode'."
-  t)
 (autoload 'bar-cursor-change "bar-cursor"
   "Enable or disable advice based on value of variable `bar-cursor-mode'."
   t)
@@ -142,60 +76,9 @@ though only globally (hence the quasi-)"
          (set-default symbol value)
          (bar-cursor-change)))
 
-; autoloads for tld.el
-(autoload 'tld "tld"
-  "Perform a TLD lookup"
-  t)
-
-; autoloads for protocols.el
-(autoload 'protocols-lookup "protocols"
-  "Perform a protocol lookup"
-  t)
-
-; autoloads for services.el
-(autoload 'services-lookup "services"
-  "Perform a service lookup"
-  t)
-
 ; autoloads for highlight-completion.el
 (autoload 'highlight-completion-mode "highlight-completion"
   "Activate highlight-completion."
-  t)
-
-; autoloads for browse-kill-ring.el
-(autoload 'browse-kill-ring "browse-kill-ring"
-  "Display items in the `kill-ring' in another buffer."
-  t)
-
-; autoloads for coffee.el
-(autoload 'coffee "coffee"
-  "Submit a BREW request to an RFC2324-compliant coffee device"
-  t)
-
-; autoloads for twiddle.el
-(autoload 'twiddle-start "twiddle"
-  "Start a mode line display hack."
-  t)
-(autoload 'twiddle-compile "twiddle"
-  "Like \\[compile], but run a twiddle hack during compilation."
-  t)
-
-; autoloads for whitespace.el
-(autoload 'nuke-trailing-whitespace "nuke-trailing-whitespace"
-  "Nuke all trailing whitespace in the buffer."
-  t)
-
-; autoloads for silly-mail.el
-(autoload 'sm-add-random-header "silly-mail"
-  "Insert a random silly mail header."
-  t)
-(autoload 'sm-add-all-headers "silly-mail"
-  "Insert one of every kind of silly mail header defined."
-  t)
-
-; autoloads for obfusurl.el
-(autoload 'obfuscate-url "obfusurl"
-  "Obfuscate URL under point"
   t)
 
 ; autoloads for toggle-buffer.el
@@ -211,14 +94,6 @@ though only globally (hence the quasi-)"
   "Lookup and display the expansion for ALIAS."
   t)
   
-; autoloads for protbuf.el
-(autoload 'protect-buffer-from-kill-mode "protbuf"
-  "Protect buffer from being killed."
-  t)
-(autoload 'protect-process-buffer-from-kill-mode "protbuf"
-  "Protect buffer from being killed as long as it has an active process."
-  t)
-
 ; autoloads for setnu.el
 (autoload 'setnu-mode "setnu"
   "Toggle setnu-mode."
@@ -228,9 +103,6 @@ though only globally (hence the quasi-)"
   t)
 
 ; autoloads for wdired.el
-(autoload 'wdired-change-to-wdired-mode "wdired"
-  "Put a dired buffer in a mode in which filenames are editable."
-  t)
 (add-hook
  'dired-load-hook
  '(lambda ()
@@ -238,11 +110,6 @@ though only globally (hence the quasi-)"
     (define-key dired-mode-map
       [menu-bar immediate wdired-change-to-wdired-mode]
       '("Edit File Names" . wdired-change-to-wdired-mode))))
-
-; autoloads for floatbg.el
-(autoload 'floatbg-mode "floatbg"
-  "Toggle floatbg mode."
-  t)
 
 ; autoloads for clipper.el
 (autoload 'clipper-create "clipper"
@@ -298,16 +165,6 @@ though only globally (hence the quasi-)"
   "Tails command specified with argument ``command'' inside a new buffer."
   t)
 
-; autoloads for df.el
-(autoload 'df "df"
-  "Enables display of space left on any filesystem in mode lines."
-  t)
-
-; autoloads for egocentric.el
-(autoload 'egocentric-mode "egocentric"
-  "Highlight your name or various keywords in buffers."
-  t)
-
 ; autoloads for under.el
 (autoload 'underline-region "under"
   "Underline the region."
@@ -327,15 +184,6 @@ though only globally (hence the quasi-)"
   t)
 
 ; autoloads for diminish.el
-(autoload 'diminish "diminish"
-  "Diminish mode-line display of minor mode MODE to TO-WHAT (default \"\")."
-  t)
-(autoload 'diminish-undo "diminish"
-  "Restore mode-line display of diminished mode MODE to its minor-mode value."
-  t)
-(autoload 'diminished-modes "diminish"
-  "Echo all active diminished or minor modes as if they were minor."
-  t)
 (defcustom diminished-minor-modes nil
   "List of minor modes to diminish and their mode line display strings.
 The display string can be the empty string if you want the name of the mode
@@ -356,31 +204,9 @@ The display of undiminished modes will not be affected."
          (set-default symbol value)
          (mapcar (lambda (x) (diminish (car x) (cdr x) t)) value)))
 
-; autoloads for htmlize.el
-(autoload 'htmlize-buffer "htmlize"
-  "Convert buffer to HTML, preserving the font-lock colorization."
-  t)
-(autoload 'htmlize-region "htmlize"
-  "Convert region to HTML, preserving the font-lock colorization."
-  t)
-(autoload 'htmlize-file "htmlize"
-  "HTML-ize FILE, and save the result."
-  t)
-(autoload 'htmlize-many-files "htmlize"
-  "HTML-ize files specified by FILES, and save them to `.html' files."
-  t)
-(autoload 'htmlize-many-files-dired "htmlize"
-  "HTMLize dired-marked files."
-  t)
-
 ; autoloads for keydef.el
 (autoload 'keydef "keydef"
   "Define the key sequence SEQ, written in kbd form, to run CMD."
-  t)
-
-; autoloads for all.el
-(autoload 'all "all"
-  "Edit all lines matching a given regexp."
   t)
 
 ; autoloads for toggle-option.el
@@ -410,48 +236,13 @@ The display of undiminished modes will not be affected."
   "Start a key sequence quiz."
   t)
 
-; autoloads for table.el
-(autoload 'table-insert "table"
-  "Insert an editable text table."
-  t)
-(autoload 'table-recognize "table"
-  "Recognize all tables within the current buffer and activate them."
-  t)
-
-; autoloads for tc.el
-(autoload 'trivial-cite "tc"
-  "trivial-cite is a simple citation function for use in news/mailreaders."
-  t)
-
 ; autoloads and automode for apt-sources.el
-(autoload 'apt-sources-mode "apt-sources"
-  "Major mode for editing apt's sources.list file."
-  t)
 (add-to-list 'auto-mode-alist '("sources.list$" . apt-sources-mode))
 
 ; autoloads and automode for muttrc-mode.el
-(autoload 'muttrc-mode "muttrc-mode"
-  "Major mode to edit muttrc files."
-  t)
 (add-to-list 'auto-mode-alist '("muttrc" . muttrc-mode))
 
-; autoloads for ibuffer.el
-(autoload 'ibuffer "ibuffer"
-  "Begin using `ibuffer' to edit a list of buffers."
-  t)
-
-; autoloads for home-end.el
-(autoload 'home-end-home "home-end"
-  "Go to beginning of line/window/buffer."
-  t)
-(autoload 'home-end-end "home-end"
-  "Go to end of line/window/buffer."
-  t)
-
 ; autoloads and automode for xrdb-mode.el
-(autoload 'xrdb-mode "xrdb-mode"
-  "Mode for editing X resource files"
-  t)
 (add-to-list 'auto-mode-alist '("\\.Xdefaults$" . xrdb-mode))
 (add-to-list 'auto-mode-alist '("\\.Xenvironment$". xrdb-mode))
 (add-to-list 'auto-mode-alist '("\\.Xresources$". xrdb-mode))
@@ -462,11 +253,6 @@ The display of undiminished modes will not be affected."
 ; autoloads for map-lines.el
 (autoload 'map-lines "map-lines"
   "Map COMMAND over lines matching REGEX."
-  t)
-
-; autoloads for sys-apropos.el
-(autoload 'sys-apropos "sys-apropos"
-  "Ask the system apropos command for man-pages matching QUERY."
   t)
 
 (provide 'emacs-goodies-el)
