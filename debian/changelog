@@ -3,8 +3,10 @@ emacs-goodies-el (19.5-1) UNRELEASED; urgency=low
   * debian-changelog-mode.el: defcustom added for debian-changelog-mode-hook
    (Closes: #190853).
   * debian-bug.el: new upstream version.
+  * debian-changelog-mode.el: debian-changelog-add-version creates new
+    version in empty file (Closes: #191285).
 
- -- Peter S Galbraith <psg@debian.org>  Mon, 28 Apr 2003 21:25:45 -0400
+ -- Peter S Galbraith <psg@debian.org>  Tue, 29 Apr 2003 15:41:28 -0400
 
 emacs-goodies-el (19.4-1) unstable; urgency=low
 
