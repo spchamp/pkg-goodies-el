@@ -5,8 +5,9 @@ emacs-goodies-el (21.0-1) unstable; urgency=low
   * Add `add-hook' expression to 50emacs-goodies-el.el to setup wdired to
     "r" key in dired-mode, since it can't really hurt anyway.
     (closes: #156830)
+  * Update apt-sources.el to V0.9.6.
 
- -- Peter S Galbraith <psg@debian.org>  Thu,  8 May 2003 21:27:55 -0400
+ -- Peter S Galbraith <psg@debian.org>  Thu,  8 May 2003 22:45:30 -0400
 
 emacs-goodies-el (20.0-1) unstable; urgency=low
 
