@@ -65,7 +65,7 @@ With ARG, match names only."
   t)
 
 ;;  auto-fill-inhibit.el
-(defgroup auto-fill-inhibit nil
+(defgroup auto-fill-inhibit '((auto-fill-inhibit-list custom-variable))
   "Finer grained control over auto-fill-mode (de)activation."
   :load 'auto-fill-inhibit
   :link '(custom-manual "(emacs-goodies-el)auto-fill-inhibit")
@@ -75,7 +75,7 @@ With ARG, match names only."
 (autoload 'bar-cursor-change "bar-cursor"
   "Enable or disable advice based on value of variable `bar-cursor-mode'."
   t)
-(defgroup bar-cursor nil
+(defgroup bar-cursor '((bar-cursor-mode custom-variable))
   "switch block cursor to a bar."
   :load 'bar-cursor
   :link '(custom-manual "(emacs-goodies-el)bar-cursor")
@@ -113,7 +113,7 @@ With ARG, match names only."
   :group 'tools)
 
 ;; diminish.el
-(defgroup diminish nil
+(defgroup diminish '((diminished-minor-modes custom-variable))
   "Diminished modes are minor modes with no modeline display."
   :load 'diminish
   :link '(custom-manual "(emacs-goodies-el)diminish")
