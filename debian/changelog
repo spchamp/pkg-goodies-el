@@ -1,11 +1,11 @@
-emacs-goodies-el (19.3-1) UNRELEASED; urgency=low
+emacs-goodies-el (19.3-1) unstable; urgency=low
 
   * New upstream release for ff-paths.el (V3.18).
   * Add Uploaders field for Peter Galbraith.
   * debian-bug.el: send bug report to maintonly if priority wishlist or
     minor (closes: #176429)
 
- --
+ -- Peter S Galbraith <psg@debian.org>  Fri, 11 Apr 2003 21:05:43 -0400
 
 emacs-goodies-el (19.2-1) unstable; urgency=low
 
