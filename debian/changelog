@@ -2,8 +2,11 @@ emacs-goodies-el (21.8-1) UNRELEASED; urgency=low
 
   * Bug fix: "debian-bug should provide help when prompting for package
     name and severity", thanks to Mathieu Roy (Closes: #200058).
+  * Bug fix: "dpkg-dev-el: debian-bts-control doesn't work on emacs20",
+    Don't set `debian-bts-control-verbose-prompts-flag' to t for Emacs20
+    since it can't display multi-line prompts. (Closes: #208553).
 
- -- Peter S Galbraith <psg@debian.org>  Wed,  3 Sep 2003 12:43:44 -0400
+ --
 
 emacs-goodies-el (21.7-1) unstable; urgency=low
 
