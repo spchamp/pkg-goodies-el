@@ -1,4 +1,4 @@
-;;; df.el --- display space left on partitions in the mode-line 
+;;; df.el --- display space left on partitions in the mode-line
 
 ;; Copyright (C) 1999 by Association April
 
@@ -40,25 +40,30 @@
 
 ;;  df is simple to use :
 ;;  - Put this file in your load-path
+;;  and then
 ;;  - Put the following in your .emacs : (autoload 'df "df" nil t)
 ;;  - Add something like (df "/home") in your .emacs if you want to
 ;;    scan /home
-
+;;  or more simply by using the custom interface:
+;;    M-x customize-group df
+;;  where you can toggle on `df-run-on-startup'.
 
 ;;; History:
 ;; 
 
-;; $Id: df.el,v 1.3 2003/06/17 01:19:23 psg Exp $
+;; $Id: df.el,v 1.4 2003/06/17 02:05:26 psg Exp $
 
 ;; $Log: df.el,v $
+;; Revision 1.4  2003/06/17 02:05:26  psg
+;;   Peter S Galbraith <psg@debian.org>
+;;   - Add customize support.  Users can now enables `df' by simply
+;;     customizing variables `df-partition' and `df-run-on-startup'.
+;;
 ;; Revision 1.3  2003/06/17 01:19:23  psg
 ;; Use mode-line with a hyphen, like elsewhere in Emacs.
 ;;
 ;; Revision 1.2  2003/06/17 01:02:20  psg
 ;; Make checkdoc clean
-;;
-;; Revision 1.9  2003/06/16 Peter S Galbraith <psg@debian.org>
-;;  - checkdoc clean.
 ;;
 ;; Revision 1.1.1.1  2003/04/04 20:15:58  lolando
 ;; Initial import, based on version 19.2-1 currently in unstable.
@@ -99,17 +104,44 @@
 ;; - Mesure either in K or Mega bytes
 ;; - And so on...
 
-
-;;; Things to do :
-
-;; - add 'customize' support
-;; - sleep a little bit
-
 ;;; Code:
 
 ;; Variables that users will want to change
-(defvar df-partition "/home"
-  "*Partition to scan by df package.")
+(defgroup df nil
+  "Display space left on partitions in the mode-line."
+  :group 'tools)
+
+(defun df-list-partitions ()
+  "Return list of mounted partition directories."
+  (with-temp-buffer
+    (insert-file-contents "/etc/mtab")
+    (let ((result))
+      (while (re-search-forward "^/dev[^ ]+ \\([^ ]+\\)" nil t)
+        (if result
+            (add-to-list 'result (match-string 1))
+          (setq result (list (match-string 1)))))
+      result)))
+
+(defcustom df-partition "/home"
+  "*Partition to scan by df package."
+  :group 'df
+  :load 'df
+  :type (append '(radio)
+                (nreverse
+                 (cons
+                  '(string :tag "Other directory")
+                  (mapcar (function (lambda (arg) `(const ,arg)))
+                          (df-list-partitions))))))
+
+(defcustom df-run-on-startup nil
+  "*If non-nil, run `df' on Emacs startup."
+  :group 'df
+  :require 'df
+  :type 'boolean
+  :set (lambda (symbol value)
+         (set-default symbol value)
+         (if (and value df-partition)
+             (df))))
 
 ;; Variables that users are unlikely to want to change
 (defvar df-refresh 60
@@ -136,25 +168,30 @@
   "Unit (either M or K) used for space left.")
 (defvar df-mode nil)
 (defvar df-string "")
+(defvar df-buffer-weight "")
 
 ;; Needed because of the 'when' construct
 (require 'cl)
 
 
 (defun df-update ()
-  "Function to update disk usage.  It is used every df-refresh seconds."
+  "Function to update disk usage.  It is used every `df-refresh' seconds."
   (interactive)
-  (set-variable 'df-buffer-weight (int-to-string (/ (length (buffer-string)) 1000)))
-   (cond
-    ((> (string-to-int df-space-left) (* df-mb-threshold 1000))
-     (set-variable 'df-unit df-megabytes-unit)
-     (setq df-command-arguments df-in-megabytes))
-    ((and (< (string-to-int df-space-left) df-mb-threshold)(string-equal df-command-arguments df-in-megabytes))
-     (set-variable 'df-unit df-kilobytes-unit)
-     (setq df-command-arguments df-in-kilobytes))
-    ((not df-unit)
-     (set-variable 'df-unit df-kilobytes-unit)))
-   (set-process-filter (start-process df-command nil df-command df-command-arguments df-partition) 'df-filter))
+  (set-variable
+   'df-buffer-weight (int-to-string (/ (length (buffer-string)) 1000)))
+  (cond
+   ((> (string-to-int df-space-left) (* df-mb-threshold 1000))
+    (set-variable 'df-unit df-megabytes-unit)
+    (setq df-command-arguments df-in-megabytes))
+   ((and (< (string-to-int df-space-left) df-mb-threshold)
+         (string-equal df-command-arguments df-in-megabytes))
+    (set-variable 'df-unit df-kilobytes-unit)
+    (setq df-command-arguments df-in-kilobytes))
+   ((not df-unit)
+    (set-variable 'df-unit df-kilobytes-unit)))
+  (set-process-filter
+   (start-process df-command nil df-command df-command-arguments df-partition)
+   'df-filter))
 
 
 
@@ -175,7 +212,7 @@ Argument STRING is the output string."
 
 
 (defun df-disable ()
-  "Stop all df-mode actions."
+  "Stop all command `df-mode' actions."
   (interactive)
   (setq df-mode nil)
   (cancel-function-timers 'df-update))
@@ -209,7 +246,7 @@ Argument STRING is the output string."
 
 (defun df-mode (&optional arg)
   "Toggle display of space left on any filesystem in mode-lines.
-This display updates automatically every df-refresh seconds.
+This display updates automatically every `df-refresh' seconds.
 
 With a numeric argument, enable this display if ARG is positive."
   (interactive)
@@ -224,10 +261,11 @@ With a numeric argument, enable this display if ARG is positive."
 ;;;###autoload
 (defun df (&optional partition)
   "Enables display of space left on any PARTITION in mode-lines.
-This display updates automatically every df-refresh seconds."
+This display updates automatically every `df-refresh' seconds."
   (interactive)
   (when partition
     (set-variable 'df-partition partition))
   (df-mode 1))
 
+(provide 'df)
 ;;; df.el ends here
