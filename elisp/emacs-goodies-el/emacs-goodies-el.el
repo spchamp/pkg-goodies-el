@@ -53,16 +53,6 @@ With ARG, match names only."
   :link '(custom-manual "(emacs-goodies-el)auto-fill-inhibit")
   :group 'emacs-goodies-el)
 
-;; bar-cursor.el
-(autoload 'bar-cursor-change "bar-cursor"
-  "Enable or disable advice based on value of variable `bar-cursor-mode'."
-  t)
-(defgroup bar-cursor '((bar-cursor-mode custom-variable))
-  "switch block cursor to a bar."
-  :load 'bar-cursor
-  :link '(custom-manual "(emacs-goodies-el)bar-cursor")
-  :group 'emacs-goodies-el)
-
 ;; clipper.el
 (autoload 'clipper-create "clipper" "Create a new 'clip' for use within Emacs."
   t)
