@@ -17,7 +17,14 @@
 	 (symbol-name flavor)
 	 "/site-lisp/dpkg-dev-el") )
 
-; autoloads and automode for debian-changelog-mode.el
+;; autoloads for debian-bts-control.el
+(autoload 'debian-bts-control "debian-bts-control"
+  "Contruct a message with initial ACTION command for control@bugs.debian.org.
+Contructs a new control command line if called from within the message
+being constructed."
+  t)
+
+;; autoloads and automode for debian-changelog-mode.el
 (autoload 'debian-changelog-mode "debian-changelog-mode"
   "Major mode for editing Debian-style change logs." t)
 
@@ -36,10 +43,10 @@
 (add-to-list 'auto-mode-alist '("changelog.Debian" . debian-changelog-mode))
 (add-to-list 'auto-mode-alist '("changelog.Debian.gz" . debian-changelog-mode))
 
-; autoloads and automode for debian-control-mode.el
+;; autoloads and automode for debian-control-mode.el
 (autoload 'debian-control-mode "debian-control-mode"
   "Major mode for editing Debian control files (i.e. debian/control)." t)
 (add-to-list 'auto-mode-alist '("/debian/control\\'" . debian-control-mode))
 
-; other useful automode
+;; other useful automode
 (add-to-list 'auto-mode-alist '("/debian/[^/]*emacsen-startup\\'" . emacs-lisp-mode))

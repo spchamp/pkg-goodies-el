@@ -142,4 +142,5 @@ Description: Emacs-related Debian development helpers
  This package contains the following Emacs-related stuff:
  .
   debian-changelog-mode.el: a helper mode for Debian changelogs;
-  debian-control-mode.el: a helper mode for debian/control files.
+  debian-control-mode.el: a helper mode for debian/control files;
+  debian-bts-control.el: builds control@bugs.debian.org email messages.

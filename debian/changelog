@@ -1,8 +1,9 @@
-emacs-goodies-el (20.1-1) unstable; urgency=low
+emacs-goodies-el (21.0-1) unstable; urgency=low
 
   * Rename whitespace to nuke-trailing-whitespace.el (closes: #191527)
+  * Add file debian-bts-control.el to dpkg-dev-el.
 
- -- Peter S Galbraith <psg@debian.org>  Mon,  5 May 2003 21:53:42 -0400
+ -- Peter S Galbraith <psg@debian.org>  Mon,  5 May 2003 22:46:41 -0400
 
 emacs-goodies-el (20.0-1) unstable; urgency=low
 

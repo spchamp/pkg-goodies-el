@@ -1,2 +1,3 @@
+elisp/debian-bts-control.el /usr/share/emacs/site-lisp/dpkg-dev-el/
 elisp/debian-changelog-mode.el /usr/share/emacs/site-lisp/dpkg-dev-el/
 elisp/debian-control-mode.el /usr/share/emacs/site-lisp/dpkg-dev-el/
