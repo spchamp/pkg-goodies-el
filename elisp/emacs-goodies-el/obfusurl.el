@@ -1,6 +1,6 @@
 ;;; obfusurl.el --- Obfuscate URLs so they aren't spoilers
-;; Copyright 2001 by Dave Pearson <davep@davep.org>
-;; $Revision: 1.1 $
+;; Copyright 2001,2002 by Dave Pearson <davep@davep.org>
+;; $Revision: 1.2 $
 
 ;; obfusurl.el is free software distributed under the terms of the GNU
 ;; General Public Licence, version 2. For details see the file COPYING.
@@ -66,12 +66,12 @@ Existing percent-escapes and reserved characters (as defined in RFC 2396) in
 the text are preserved."
   (flet ((hexify-string (string)
            (with-output-to-string
-               (mapc (lambda (c)
-                       (princ (format
-                               (if (member c obfuscate-url-reserved-chars)
-                                   "%c"
-                                 "%%%02x")
-                               c))) string))))
+             (mapc (lambda (c)
+                     (princ (format
+                             (if (member c obfuscate-url-reserved-chars)
+                                 "%c"
+                               "%%%02x")
+                             c))) string))))
     (let ((case-fold-search t))
       (with-output-to-string
         (loop for i = 0 then (match-end 0)
@@ -92,6 +92,7 @@ the text are preserved."
             do (princ (concat "/" (obfuscate-url-hexify-string part)))
             finally (when trailing-slash (princ "/"))))))
 
+;;;###autoload
 (defun obfuscate-url ()
   "Obfuscate an URL under `point'.
 
