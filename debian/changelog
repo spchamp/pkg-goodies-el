@@ -20,8 +20,10 @@ emacs-goodies-el (21.1-1) unstable; urgency=low
     package is really installed or possibly removed (and not purged).
     Same done for all other binary packages.
     (closes: #193367)
+  * devscripts-el.emacsen-install.in: Use APPEND_LOAD_PATH to load
+    debian-changelog-mode.el during byte-compilation.
 
- -- Peter S Galbraith <psg@debian.org>  Thu, 22 May 2003 21:28:25 -0400
+ -- Peter S Galbraith <psg@debian.org>  Thu, 22 May 2003 21:41:51 -0400
 
 emacs-goodies-el (21.0-1) unstable; urgency=low
 

@@ -10,6 +10,7 @@
 
 FLAVOR=$1
 PACKAGE=devscripts-el
+APPEND_LOAD_PATH="'(\"/usr/share/emacs/site-lisp/dpkg-dev-el/\")"
 
 # INCLUDED_emacs20=""
 # INCLUDED_emacs21=""
