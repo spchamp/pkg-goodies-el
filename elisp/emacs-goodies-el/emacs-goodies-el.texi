@@ -1,7 +1,7 @@
 @c -*- mode: texinfo -*-
 \input texinfo
 
-@c $Id: emacs-goodies-el.texi,v 1.14 2003/06/20 01:23:22 psg Exp $
+@c $Id: emacs-goodies-el.texi,v 1.15 2003/06/21 01:29:56 psg Exp $
 @c %**start of header
 @setfilename info/emacs-goodies-el
 @settitle Emacs-Goodies-el
@@ -542,17 +542,17 @@ ff-paths installs itself as a hook in find-file-not-found-hooks for
 find-file.  If ffap is installed, ff-paths installs itself as a
 toolbox hook in ffap-alist.
 
-To use it, customize the variable @code{emacs-goodies-el-use-ff-paths}
+To use it, customize the variable @code{ff-paths-install}
 
 @example
-@kbd{M-x} customize-variable @key{RET} emacs-goodies-el-use-ff-paths @key{RET}
+@kbd{M-x} customize-variable @key{RET} ff-paths-install @key{RET}
 @end example
 
 To also enable ffap, customize the variable
-@code{emacs-goodies-el-use-ffap}
+@code{ff-paths-use-ffap}
 
 @example
-@kbd{M-x} customize-variable @key{RET} emacs-goodies-el-use-ffap @key{RET}
+@kbd{M-x} customize-variable @key{RET} ff-paths-use-ffap @key{RET}
 @end example
 
 Both of the above are enabled if you set

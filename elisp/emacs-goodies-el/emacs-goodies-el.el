@@ -80,6 +80,7 @@ find-file-using-paths searches certain paths to find files."
          (when value
            (ff-paths-install)))
   :load 'ff-paths
+  :require 'ff-paths
   :group 'emacs-goodies-el
   :group 'ff-paths)
 
@@ -95,7 +96,9 @@ find-file-using-paths searches certain paths to find files."
   :set (lambda (symbol value)
          (set-default symbol value)
          (when value
+           (require 'ffap)
            (ff-paths-in-ffap-install)))
+  :require 'ff-paths
   :load 'ff-paths
   :group 'emacs-goodies-el
   :group 'ff-paths)
