@@ -25,14 +25,14 @@
 
 ;;; Commentary:
 
-;;  This is a slight hack to display disk usage in the mode line.
-;;  Disk space remaining is updated every df-refresh second.
+;;  This is a quick hack to display disk usage in the mode line.
+;;  Disk space remaining is updated every `df-refresh' seconds.
 
 ;;  If you work with a lot of users sharing the same partition, it
-;;  sometimes happens that you have no place left to save your work,
-;;  which drives you to serious brain damage when you lost important
-;;  work.  This package allows you to have place left and buffer size
-;;  displayed in the mode line, so you know when you can save your
+;;  sometimes happens that there is no place left to save your work, which
+;;  may drive you to serious brain damage when you lose important work.
+;;  This package allows you to have the available disk space and the buffer
+;;  size displayed in the mode line, so you know when you can save your
 ;;  file or when it's time to do some cleanup.
 
 ;;  This package may (must) not be very optimized or efficient, but
@@ -45,11 +45,20 @@
 ;;    scan /home
 
 
-;; $Id: df.el,v 1.1 2003/04/04 20:15:58 lolando Exp $
+;;; History:
+;; 
+
+;; $Id: df.el,v 1.2 2003/06/17 01:02:20 psg Exp $
 
 ;; $Log: df.el,v $
-;; Revision 1.1  2003/04/04 20:15:58  lolando
-;; Initial revision
+;; Revision 1.2  2003/06/17 01:02:20  psg
+;; Make checkdoc clean
+;;
+;; Revision 1.9  2003/06/16 Peter S Galbraith <psg@debian.org>
+;;  - checkdoc clean.
+;;
+;; Revision 1.1.1.1  2003/04/04 20:15:58  lolando
+;; Initial import, based on version 19.2-1 currently in unstable.
 ;;
 ;; Revision 1.8  2001/12/07 13:08:16  benj
 ;; - fixed a misplaced (interactive)
@@ -93,33 +102,44 @@
 ;; - add 'customize' support
 ;; - sleep a little bit
 
-
 ;;; Code:
 
-;; Variables that you may want to change
-(defvar df-partition "/home" "*Partition to scan")
-(defvar df-command "df" "*df command in order to find how to get disk usage")
-(defvar df-in-kilobytes "-k" "*Argument to use when df works in kilobytes")
-(defvar df-in-megabytes "-m" "*Argument to use when df works in megabytes")
-(defvar df-command-arguments df-in-kilobytes "*df-command arguments")
-(defvar df-refresh 60 "*Seconds between every refresh")
-(defvar df-megabytes-unit "M" "String used for displaying megabytes")
-(defvar df-kilobytes-unit "K" "String used for displaying kilobytes")
+;; Variables that users will want to change
+(defvar df-partition "/home"
+  "*Partition to scan.")
 
+;; Variables that users are unlikely to want to change
+(defvar df-refresh 60
+  "*Refresh rate (in seconds) of the modeline by df.")
+(defvar df-mb-threshold 10
+  "*When free disk space reaches this amount (in Mb), show in Mb.")
+(defvar df-megabytes-unit "M"
+  "String used for displaying megabytes.")
+(defvar df-kilobytes-unit "K"
+  "String used for displaying kilobytes.")
+(defvar df-command "df"
+  "*Command used to get disk usage (usually df).")
+(defvar df-in-kilobytes "-k"
+  "*Argument to use when `df-command' works in kilobytes.")
+(defvar df-in-megabytes "-m"
+  "*Argument to use when `df-command' works in megabytes.")
+(defvar df-command-arguments df-in-kilobytes
+  "*Arguments for `df-command'.")
 
-;; Seemless variables for you
-(defvar df-mb-threshold 10 "*When free disk space reaches this amount (in Mb), show in Mb")
-(defvar df-space-left "" "Space left on device")
-(defvar df-unit nil "Unit (either M or K) used for space left")
+;; Seemless variables to the end user.
+(defvar df-space-left ""
+  "Space left on device.")
+(defvar df-unit nil
+  "Unit (either M or K) used for space left.")
 (defvar df-mode nil)
 (defvar df-string "")
 
-;; You need it because of the 'when' construct
+;; Needed because of the 'when' construct
 (require 'cl)
 
 
 (defun df-update ()
-  "Function to update disk usage.  It is used every df-refresh seconds"
+  "Function to update disk usage.  It is used every df-refresh seconds."
   (interactive)
   (set-variable 'df-buffer-weight (int-to-string (/ (length (buffer-string)) 1000)))
    (cond
@@ -136,21 +156,23 @@
 
 
 (defun df-filter (proc string)
-  "Filter for df output.  This function is responsible from updating
-the mode-line from the df process."
+  "Filter for df output.
+This function is responsible from updating the mode-line from the df process.
+Argument PROC is the df process.
+Argument STRING is the output string."
   (when (string-match (format "\\(-?[0-9]+\\) *[0-9%%]+ *%s" df-partition) string)
     (setq df-space-left (match-string 1 string))
     (if (> (string-to-int df-space-left) 1000)
 	(set-variable 'df-unit df-megabytes-unit)
       (set-variable 'df-unit df-kilobytes-unit))
-    (when (equal df-unit df-megabytes-unit) 
+    (when (equal df-unit df-megabytes-unit)
       (setq df-space-left (substring df-space-left 0 (- (length df-space-left) 3)))))
   (setq df-string (format " %s%s/%s%s" df-buffer-weight df-kilobytes-unit df-space-left df-unit)))
 
 
 
 (defun df-disable ()
-  "Stop all df-mode actions"
+  "Stop all df-mode actions."
   (interactive)
   (setq df-mode nil)
   (cancel-function-timers 'df-update))
@@ -158,35 +180,35 @@ the mode-line from the df process."
 
 
 (defun df-enable ()
-  "Function to display disk statistics in the mode line"
+  "Function to display disk statistics in the mode line."
   (interactive)
   (setq df-mode t)
   (make-variable-buffer-local 'df-buffer-weight)
   (make-variable-buffer-local 'df-string)
-;  (set-default 'df-string " plop")
+;;(set-default 'df-string " plop")
   (run-with-timer 0 df-refresh 'df-update)
   (if (not (assq 'df-mode minor-mode-alist))
       (setq minor-mode-alist
 	    (cons minor-mode-alist '((df-mode df-string)))))
   (add-hook 'find-file-hooks 'df-update)
-;  (add-hook 'write-file-hooks 'df-check)
+;;(add-hook 'write-file-hooks 'df-check)
   (df-update))
 
 
 
-;(defun df-check () 
+;;;(defun df-check ()
 					; ca servira plus tard a
 					; demander si on est sur de
 					; sauvegarder le fichier quand
 					; meme
-; )
+;;; )
 
 
 (defun df-mode (&optional arg)
   "Toggle display of space left on any filesystem in mode lines.
 This display updates automatically every df-refresh seconds.
 
-With a numeric argument, enable this display if arg is positive."
+With a numeric argument, enable this display if ARG is positive."
   (interactive)
   (if
       (if (null arg) (not df-mode)
@@ -198,7 +220,7 @@ With a numeric argument, enable this display if arg is positive."
 
 ;;;###autoload
 (defun df (&optional partition)
-  "Enables display of space left on any filesystem in mode lines.
+  "Enables display of space left on any PARTITION in mode lines.
 This display updates automatically every df-refresh seconds."
   (interactive)
   (when partition
