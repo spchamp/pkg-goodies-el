@@ -28,4 +28,8 @@
     t)
   (autoload 'debian-bug-ITP "debian-bug"
     "Shortcut for debian-bug-wnpp with ITP action (for Debian developers)"
+    t)
+
+  (autoload 'debian-bug-get-bug-as-email "debian-bug"
+    "Read bug report #BUG-NUMBER via Email interface."
     t))
