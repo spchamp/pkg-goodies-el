@@ -1,0 +1,103 @@
+#! /bin/sh -e
+## 6_readme-debian.dpatch by Roland Mas <lolando@debian.org>
+##
+## All lines beginning with `## DP:' are a description of the patch.
+## DP: Fix readme-debian.el failure to load some README.Debian files
+
+if [ $# -ne 1 ]; then
+    echo >&2 "`basename $0`: script expects -patch|-unpatch as argument"
+    exit 1
+fi
+case "$1" in
+       -patch) patch -f --no-backup-if-mismatch -p1 < $0;;
+       -unpatch) patch -f --no-backup-if-mismatch -R -p1 < $0;;
+	*)
+		echo >&2 "`basename $0`: script expects -patch|-unpatch as argument"
+		exit 1;;
+esac
+
+exit 0
+				    
+diff -urNad 5.emacs-goodies-el.tmp/elisp/readme-debian.el 5.emacs-goodies-el/elisp/readme-debian.el
+--- 5.emacs-goodies-el.tmp/elisp/readme-debian.el	2003-03-19 14:22:23.000000000 +0100
++++ 5.emacs-goodies-el/elisp/readme-debian.el	2003-03-19 14:21:39.000000000 +0100
+@@ -22,7 +22,7 @@
+   "*Full name of user, for inclusion in Debian changelog headers.
+ This defaults to the contents of environment variable DEBFULLNAME
+ or else to the value returned by the `user-full-name' function.")
+-(defvar readme-debian-mailing-address 
++(defvar readme-debian-mailing-address
+   (or (getenv "DEBEMAIL")
+       (getenv "EMAIL")
+       (and (boundp 'user-mail-address) user-mail-address)
+@@ -40,41 +40,47 @@
+     (goto-line 1)
+     (re-search-forward "^ -- ")
+     (delete-region (progn (beginning-of-line) (point)) (progn (end-of-line) (point)))
+-    (insert (concat 
++    (insert (concat
+ 	     " -- "
+ 	     readme-debian-changelog-full-name
+ 	     " <" readme-debian-mailing-address ">, "
+ 	     (current-time-string)))))
+ 
++(defconst readme-debian-font-lock-keywords
++  (list
++    '("^\\(.*\\) for \\(Debian\\)$"
++      (1 font-lock-keyword-face)
++      (2 font-lock-string-face))
++    '("^[-=]+$" 0 font-lock-preprocessor-face)
++    '("^ -- \\([^<]*\\)\\(<[^>]*>\\)\\(, \\(.*\\)\\)?$"
++      (1 font-lock-keyword-face)
++      (2 font-lock-function-name-face)
++      (3 font-lock-string-face)))
++  "Default expressions to highlight in README.Debian mode")
++
++(defvar readme-debian-mode-hook '()
++  "Hooks to run when loading a README.Debian file")
++(defvar readme-debian-mode-map nil "keymap for README.Debian mode")
++(defvar readme-debian-mode-syntax-table nil "syntax table for README.Debian mode")
++
++(if readme-debian-mode-syntax-table
++         ()              ; Do not change the table if it is already set up.
++       (setq readme-debian-mode-syntax-table (make-syntax-table))
++       (modify-syntax-entry ?\" ".   " text-mode-syntax-table)
++       (modify-syntax-entry ?\\ ".   " text-mode-syntax-table)
++       (modify-syntax-entry ?' "w   " text-mode-syntax-table))
++
+ (defun readme-debian-mode ()
+   "Mode to edit README.Debian"
+   (interactive)
+   (kill-all-local-variables)
+   (setq major-mode 'readme-debian-mode)
+   (setq mode-name "README.Debian")
+-  (mapcar 'make-local-variable '(font-lock-defaults write-file-hooks))
+   (use-local-map readme-debian-mode-map)
+   (set-syntax-table readme-debian-mode-syntax-table)
+-  (setq font-lock-defaults 
+-	'(
+-					;keywords start here
+-	  (("^\\(.*\\) for \\(Debian\\)$" (1 font-lock-keyword-face) (2 font-lock-string-face))
+-	   ("^[-=]+$" . font-lock-warning-face)
+-	   ("^ -- \\([^<]*\\)\\(<[^>]*>\\), \\(.*\\)$" (1 font-lock-keyword-face) (2 font-lock-warning-face) (3 font-lock-string-face))
+-	   )
+-	  nil		;keywords-only
+-	  nil		;case-fold
+-	  ()		;syntax-alist
+-	  ))
++  (make-local-variable 'font-lock-keywords)
++  (setq font-lock-keywords readme-debian-font-lock-keywords)
++  (make-local-variable 'write-file-hooks)
+   (add-to-list 'write-file-hooks 'readme-debian-update-timestamp) ; add timestamp update func to write-file-hook
+-  (run-hooks 'readme-debian-mode-hook)
+-  )
++  (run-hooks 'readme-debian-mode-hook))
+ 
+-(defvar readme-debian-mode-map nil "keymap for README.Debian mode")
+-(defvar readme-debian-mode-syntax-table nil "syntax table for README.Debian mode")
+-(if readme-debian-mode-syntax-table
+-         ()              ; Do not change the table if it is already set up.
+-       (setq readme-debian-mode-syntax-table (make-syntax-table))
+-       (modify-syntax-entry ?\" ".   " text-mode-syntax-table)
+-       (modify-syntax-entry ?\\ ".   " text-mode-syntax-table)
+-       (modify-syntax-entry ?' "w   " text-mode-syntax-table))

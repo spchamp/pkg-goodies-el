@@ -1,0 +1,899 @@
+emacs-goodies-el (19.2-1) unstable; urgency=low
+
+  * New upstream release for debian-bug.el (1.35) (closes: #173040,
+    #184954).
+
+ -- Roland Mas <lolando@debian.org>  Fri, 28 Mar 2003 13:19:47 +0100
+
+emacs-goodies-el (19.1-1) unstable; urgency=low
+
+  * New upstream release for debian-bug.el (1.35).
+
+ -- Roland Mas <lolando@debian.org>  Wed, 19 Mar 2003 22:33:55 +0100
+
+emacs-goodies-el (19-3) unstable; urgency=low
+
+  * Patch #7_devscripts-debuild-uc-us: the arguments to debuild need to be
+    in separate strings (closes: #185154) (yes, again).
+
+ -- Roland Mas <lolando@debian.org>  Wed, 19 Mar 2003 22:05:10 +0100
+
+emacs-goodies-el (19-2) unstable; urgency=low
+
+  * Patch #5_htmlize-noninteractive: fix htmlize.el in non-interactive
+    mode thanks to Junichi Uekawa's patch (closes: #166587).
+  * Patch #6_readme-debian: fix readme-debian.el failing to load some
+    README.Debian files thanks to James LewisMoss's patch (closes:
+    #167575).
+  * Favor reportbug over bug (closes: #184020).
+  * Patch #4_dict-pager: invoke with appropriate pager options (closes:
+    #174661).
+  * Patch #7_devscripts-debuild-uc-us: invoke debuild with "-uc -us"
+    parameters, so as not to ask for a passphrase (closes: #185154).
+
+ -- Roland Mas <lolando@debian.org>  Wed, 19 Mar 2003 15:28:25 +0100
+
+emacs-goodies-el (19-1) unstable; urgency=low
+
+  * Now using dpatch to apply patches at build time.  Much better than the
+    previous hand-made system.
+  * Patch #4_dict-pager: dict.el patched to invoke dict with --pager
+    (closes: #174661).
+  * Removed nnmaildir.el, now included in Gnus (closes: #154396).
+
+ -- Roland Mas <lolando@debian.org>  Wed, 19 Feb 2003 13:46:08 +0100
+
+emacs-goodies-el (18.2-1) unstable; urgency=low
+
+  * Fix autoload for dict.el (closes: #173143).
+  * Made README.Debian more explicit: it documents all files, not just the
+    ones in emacs-goodies-el (closes: #172335).
+  * New upstream release for debian-bug.el (1.34) (closes: #168811).
+  * Bumped Standards-Version to 3.5.8.
+
+ -- Roland Mas <lolando@debian.org>  Tue, 17 Dec 2002 19:30:10 +0100
+
+emacs-goodies-el (18.1-2) unstable; urgency=low
+
+  * Changing sections to resolve override disparity.
+  * Explicitly use the Bash shebang, since the installation scripts use
+    bashisms (closes: #166310).
+  * Fix load-path for dpkg-dev-el (closes: #166586).
+
+ -- Roland Mas <lolando@debian.org>  Tue, 12 Nov 2002 20:05:48 +0100
+
+emacs-goodies-el (18.1-1) unstable; urgency=low
+
+  * New upstream release for thinks.el (1.8).
+  * New upstream release for debian-changelog-mode.el (1.66) adds new
+    distribution (closes: #166163).
+
+ -- Roland Mas <lolando@debian.org>  Thu, 24 Oct 2002 18:34:22 +0200
+
+emacs-goodies-el (18-1) unstable; urgency=low
+
+  * New binary package: devscripts-el.  It currently includes
+    devscripts.el and readme-debian.el, both at version 0.0.20021016.
+  * Also changed the build process a bit: *.emacsen-install and
+    *.emacsen-remove files are now built from *.in files.  Since most of
+    the files are identical save for the package name and a few other
+    variables at the beginning, let's put that shared code into a separate
+    unique file.
+  * Added sys-apropos.el (no version, taken at 2002-10-17).
+  * New packages merged in: debbugs-el and dpkg-dev-el.  That should be
+    all for now.  The previous changelogs are included at the bottom of
+    this file.  Search for "8-merged-debbugs-el" or "3-merged-dpkg-dev-el"
+    to get to their beginnings.
+
+ -- Roland Mas <lolando@debian.org>  Sun, 20 Oct 2002 15:12:37 +0200
+
+emacs-goodies-el (17-1) unstable; urgency=low
+
+  * Merged the emacs-goodies-el and gnus-bonus-el source packages into one
+    (named emacs-goodies-el).
+  * The changelog of what happened to the gnus-goodies-el package before
+    this merger happened is kept for reference at the bottom of this
+    changelog file.  Search for the "4-merged-gnus-bonus-el" string to get
+    to its beginning.
+  * While I was at it, I created a new package, emacs-goodies-extra-el, so
+    that interesting files with extra dependencies can still be included.
+    Beware, this package is likely to have a growing list of dependencies.
+    But that also means that I'm going to start accepting files with
+    external dependencies into this source package (under the condition
+    that they be available as Debian packages in the "main" section).
+  * emacs-goodies-extra-el: added dict.el (1.25).
+
+ -- Roland Mas <lolando@debian.org>  Mon, 14 Oct 2002 21:17:10 +0200
+
+emacs-goodies-el (16.1-1) unstable; urgency=low
+
+  * New upstream release for boxquote.el (1.16) (closes: #163834).
+  * New upstream release for wdired.el (1.9.2pre2) (closes: #161157).
+  * Fixed the auto-mode for xrdb-mode.el (closes: #161563).
+
+ -- Roland Mas <lolando@debian.org>  Wed,  9 Oct 2002 13:55:22 +0200
+
+emacs-goodies-el (16-1) unstable; urgency=low
+
+  * Added home-end.el (2002-07-12) (closes: #152725), with proposed
+    patch.
+  * Added xrdb-mode.el (2.28) (closes: #154039).
+  * Added map-lines.el (0.1).
+  * Also cleaned up the patching system a bit.
+
+ -- Roland Mas <lolando@debian.org>  Fri, 13 Sep 2002 17:05:51 +0200
+
+emacs-goodies-el (15.1-1) unstable; urgency=low
+
+  * Bumped Standards-Version to 3.5.7.
+  * Sorted the list of files in the package description (closes:
+    #160017).
+  * New upstream release for muttrc-mode.el (2.5).
+  * Started using a (very) light patching system.  First patch is
+    500muttrc-manual, so that the file that muttrc-mode.el opens actually
+    exists (closes: #158571).
+  * Also cleaned debian/rules a bit.
+
+ -- Roland Mas <lolando@debian.org>  Mon,  9 Sep 2002 19:40:19 +0200
+
+emacs-goodies-el (15-1) unstable; urgency=low
+
+  * Added muttrc-mode.el (2.4) (closes: #146780).
+  * Added ibuffer.el (2.6) (closes: #134086).
+  * Fixed emacsen-install script again (closes: #158480).
+
+ -- Roland Mas <lolando@debian.org>  Tue, 27 Aug 2002 20:19:24 +0200
+
+emacs-goodies-el (14-2) unstable; urgency=low
+
+  * Depend on a recent bash, since we use features not available in old
+    ones.
+  * Also fixed the emacs-goodies-el.emacsen-install script so that it
+    won't forget files that are excluded in other flavours than the
+    current one (closes: #149921).
+
+ -- Roland Mas <lolando@debian.org>  Mon, 26 Aug 2002 13:46:01 +0200
+
+emacs-goodies-el (14-1) unstable; urgency=low
+
+  * The "Elmo owes me one" release.
+  * Added apt-sources.el (0.9.5).
+
+ -- Roland Mas <lolando@debian.org>  Wed, 21 Aug 2002 13:37:56 +0200
+
+emacs-goodies-el (13-1) unstable; urgency=low
+
+  * Added tc.el (0.12.3) (closes: #122243).
+  * New upstream release for keywiz.el (1.2).
+  * New upstream release for browse-kill-ring.el (1.0).
+  * New upstream release for boxquote.el (1.8).
+
+ -- Roland Mas <lolando@debian.org>  Thu,  2 May 2002 14:01:00 +0200
+
+emacs-goodies-el (12.1-1) unstable; urgency=low
+
+  * New upstream release for boxquote.el (1.7).
+
+ -- Roland Mas <lolando@debian.org>  Fri, 19 Apr 2002 19:07:15 +0200
+
+emacs-goodies-el (12-1) unstable; urgency=low
+
+  * Added keywiz.el (1.1) (closes: #143072).
+  * Added table.el (1.5.48) (closes: #124119).
+
+ -- Roland Mas <lolando@debian.org>  Fri, 19 Apr 2002 18:53:54 +0200
+
+emacs-goodies-el (11-2) unstable; urgency=low
+
+  * Excluded todoo.el from Xemacs 21.
+
+ -- Roland Mas <lolando@debian.org>  Wed, 17 Apr 2002 14:00:29 +0200
+
+emacs-goodies-el (11-1) unstable; urgency=low
+
+  * Added all.el (0.0), toggle-option.el (1.0), todoo.el (1.2),
+    cyclebuffer.el (1.2).
+
+ -- Roland Mas <lolando@debian.org>  Tue, 16 Apr 2002 19:33:07 +0200
+
+emacs-goodies-el (10-3) unstable; urgency=low
+
+  * Fixed emacsen-install script (closes: #134778).  It's a bashism, but
+    I'm too lazy to POSIXise it (I'm not even sure it can be POSIXised),
+    so I just change the shebang.
+
+ -- Roland Mas <lolando@debian.org>  Thu, 21 Feb 2002 18:47:25 +0100
+
+emacs-goodies-el (10-2) unstable; urgency=low
+
+  * Fixed README.Debian to mention the problem with Emacs 21 and
+    whitespace.el. 
+
+ -- Roland Mas <lolando@debian.org>  Mon, 18 Feb 2002 13:12:38 +0100
+
+emacs-goodies-el (10-1) unstable; urgency=low
+
+  * Added ff-paths.el (3.17), dirvars.el (1.0), perldoc.el (1.1).
+  * Patched emacsen-install to support flavor-dependent lists of files to
+    include/exclude.
+  * Use debian-pkg-add-load-path-item if available.
+  * Renamed (with wdired and rect ;-) the debian/emacsen-* files into
+    debian/emacs-goodies-el.emacsen-*.  Because I can, and also because of
+    a Secret Plan I have.
+  * Disabled whitespace.el for Emacs 21 (closes: #133014).  I'd like to
+    find a better solution fot this, but I haven't thought of it yet.
+
+ -- Roland Mas <lolando@debian.org>  Mon, 18 Feb 2002 12:55:51 +0100
+
+emacs-goodies-el (9-1) unstable; urgency=low
+
+  * Added highlight-current-line.el (0.5), align-string.el (0.1) (closes:
+    #113283), diminish.el (0.44), htmlize.el (0.62) and keydef.el (1.16).
+
+ -- Roland Mas <lolando@debian.org>  Fri,  4 Jan 2002 21:10:06 +0100
+
+emacs-goodies-el (8-2) unstable; urgency=low
+
+  * Fixed speling error in Description: field (closes: #124598).
+
+ -- Roland Mas <lolando@debian.org>  Tue, 18 Dec 2001 10:11:42 +0100
+
+emacs-goodies-el (8-1) unstable; urgency=low
+
+  * Added under.el (1.2).
+
+ -- Roland Mas <lolando@debian.org>  Fri,  7 Dec 2001 22:50:20 +0100
+
+emacs-goodies-el (7.1-1) unstable; urgency=low
+
+  * New upstream release for egocentric.el (1.1).
+  * New upstream release for df.el (1.8) (closes: #122805).
+
+ -- Roland Mas <lolando@debian.org>  Fri,  7 Dec 2001 21:48:22 +0100
+
+emacs-goodies-el (7-1) unstable; urgency=low
+
+  * Added toggle-case.el (1.4), tail.el (1.1), df.el (1.7), egocentric.el
+    (not versioned, taken on 2001-12-04) and initsplit.el (1.6).
+
+ -- Roland Mas <lolando@debian.org>  Wed,  5 Dec 2001 22:44:17 +0100
+
+emacs-goodies-el (6-2) unstable; urgency=low
+
+  * Fixed README.Debian to document the recent apparition of
+    highlight-beyond-fill-column.el.
+
+ -- Roland Mas <lolando@debian.org>  Thu, 29 Nov 2001 21:54:30 +0100
+
+emacs-goodies-el (6-1) unstable; urgency=low
+
+  * Added highlight-beyond-fill-column.el (1.1).
+
+ -- Roland Mas <lolando@debian.org>  Wed, 21 Nov 2001 22:55:35 +0100
+
+emacs-goodies-el (5.1-1) unstable; urgency=low
+
+  * New upstream release for wdired.el (1.91).
+
+ -- Roland Mas <lolando@debian.org>  Mon, 19 Nov 2001 14:44:35 +0100
+
+emacs-goodies-el (5-1) unstable; urgency=low
+
+  * Added wdired.el (1.9), floatbg.el (0.5), clipper.el (1.1.0),
+    projects.el, auto-fill-inhibit.el (20011114).
+
+ -- Roland Mas <lolando@debian.org>  Sat, 17 Nov 2001 17:33:49 +0100
+
+emacs-goodies-el (4-3) unstable; urgency=low
+
+  * debian/emacsen-startup: fix typo (closes: #116855).
+
+ -- Roland Mas <lolando@debian.org>  Wed, 24 Oct 2001 09:19:17 +0200
+
+emacs-goodies-el (4-2) unstable; urgency=low
+
+  * debian/control: changed Description: field to reflect the recent
+    additions.
+
+ -- Roland Mas <lolando@debian.org>  Mon, 22 Oct 2001 11:33:32 +0200
+
+emacs-goodies-el (4-1) unstable; urgency=low
+
+  * Added filladapt.el (2.12) (closes: #111383), setnu.el (1.06).
+  * debian/control: changed Build-Depends: to Build-Depends-Indep:.
+
+ -- Roland Mas <lolando@debian.org>  Sun, 21 Oct 2001 16:15:15 +0200
+
+emacs-goodies-el (3.1-2) unstable; urgency=low
+
+  * Changed debian/control formatting (closes: #110053).
+
+ -- Roland Mas <lolando@debian.org>  Sun,  9 Sep 2001 18:34:21 +0200
+
+emacs-goodies-el (3.1-1) unstable; urgency=low
+
+  * Upgraded browse-kill-ring.el to 0.9.
+
+ -- Roland Mas <lolando@debian.org>  Mon, 27 Aug 2001 18:53:32 +0200
+
+emacs-goodies-el (3-1) unstable; urgency=low
+
+  * Added browse-kill-ring.el (0.8), coffee.el (0.2), twiddle.el (1.3),
+    whitespace.el (1.9), silly-mail.el (1.22), obfusurl.el (1.5),
+    toggle-buffer.el (1.1), mutt-alias.el (1.2), protbuf.el (1.7).
+
+ -- Roland Mas <lolando@debian.org>  Fri, 24 Aug 2001 18:10:38 +0200
+
+emacs-goodies-el (2.0-2) unstable; urgency=low
+
+  * Fixed package description in the control file.
+
+ -- Roland Mas <lolando@debian.org>  Thu, 23 Aug 2001 17:27:02 +0200
+
+emacs-goodies-el (2.0-1) unstable; urgency=low
+
+  * Added bar-cursor.el (1.1), tld.el (1.3), services.el (1.2),
+    protocols.el (1.3) and highlight-completion.el (0.06).
+
+ -- Roland Mas <lolando@debian.org>  Thu, 23 Aug 2001 12:27:51 +0200
+
+emacs-goodies-el (1.0-1) unstable; urgency=low
+
+  * Initial Release.
+  * Contents: boxquote.el (1.6) and thinks.el (1.6).
+
+ -- Roland Mas <lolando@debian.org>  Tue, 21 Aug 2001 22:09:45 +0200
+  
+gnus-bonus-el (4-merged-gnus-bonus-el) unstable; urgency=low
+  
+  * This is the version that never happened.  The gnus-bonus-el source
+    package was merged into emacs-goodies version 17.  They still generate
+    different binary packages, though.  The following changelog entries
+    (down there in this file) are only here for reference.
+
+ -- Roland Mas <lolando@debian.org>  Sun, 13 Oct 2002 23:17:45 +0200
+
+gnus-bonus-el (3.1-1) unstable; urgency=low
+
+  * New upstream version for spam-stat.el (0.1.0).
+  * Bumped Standards-Version to 3.5.7.
+
+ -- Roland Mas <lolando@debian.org>  Fri,  6 Sep 2002 18:31:21 +0200
+
+gnus-bonus-el (3-1) unstable; urgency=low
+
+  * Added spam-stat.el (0.0.4) and gnus-outlook-deuglify.el (1.2).
+
+ -- Roland Mas <lolando@debian.org>  Mon, 26 Aug 2002 22:51:50 +0200
+
+gnus-bonus-el (2-3) unstable; urgency=low
+
+  * Applied patch from Michael Hummel <mhummel@debian.org> to fix nnir.el
+    with respect to swish++ (closes: #133278).
+
+ -- Roland Mas <lolando@debian.org>  Thu,  7 Mar 2002 13:12:21 +0100
+
+gnus-bonus-el (2-2) unstable; urgency=low
+
+  * Changed Depends: field so that the gnus package is not required (since
+    Gnus is included in the emacs21, emacs20 and xemacs21 packages)
+    (closes: #127792).
+
+ -- Roland Mas <lolando@debian.org>  Fri,  4 Jan 2002 18:28:49 +0100
+
+gnus-bonus-el (2-1) unstable; urgency=low
+
+  * Added nnir.el (1.73), nnmaildir.el (2001.09.11).
+
+ -- Roland Mas <lolando@debian.org>  Sat, 15 Dec 2001 21:01:50 +0100
+
+gnus-bonus-el (1-1) unstable; urgency=low
+
+  * Initial Release.
+  * Contents: gnus-junk.el (0.23), nnnil.el (not versioned, taken at
+    2001-12-04), nntodo.el (1.1), mesage-x.el (1.23).
+
+ -- Roland Mas <lolando@debian.org>  Tue,  4 Dec 2001 14:17:50 +0100
+
+debbugs-el (8-merged-debbugs-el) unstable; urgency=low
+  
+  * This is the version that never happened.  The debbugs-el source
+    package was merged into emacs-goodies-el version 18.  They still
+    generate different binary packages, though.  The following changelog
+    entries (down there in this file) are only here for reference.
+
+ -- Roland Mas <lolando@debian.org>  Sun, 20 Oct 2002 15:11:56 +0200
+
+debbugs-el (7.12-1) unstable; urgency=low
+
+  * New upstream version for debian-bug.el (1.33) allows the menus to be
+    split according to severity (closes: #161155).
+  * Bumped DH_COMPAT to 4.
+
+ -- Roland Mas <lolando@debian.org>  Wed,  2 Oct 2002 13:50:53 +0200
+
+debbugs-el (7.11-1) unstable; urgency=low
+
+  * New upstream version for debian-bug.el (1.32) fixes several bugs
+    (closes: #159625, #160750).
+
+ -- Roland Mas <lolando@debian.org>  Fri, 13 Sep 2002 17:14:19 +0200
+
+debbugs-el (7.10-4) unstable; urgency=low
+
+  * Fixed the fix in 7.10-3.  The flavour-independent component is needed,
+    only I have to make it lower priority than the flavour-dependent
+    component (closes: #159624).
+  * Versioned Depends: on emacsen-common, so that we can get rid of the
+    old compatibility code in the emacsen-startup file.
+  * Bumped Standards-Version to 3.5.7.
+
+ -- Roland Mas <lolando@debian.org>  Mon,  9 Sep 2002 13:32:55 +0200
+
+debbugs-el (7.10-3) unstable; urgency=low
+
+  * Fixed the load-path fiddling, so that the byte-compiled *.elc files
+    are used instead of the non-compiled *.el files (closes: #159624).
+
+ -- Roland Mas <lolando@debian.org>  Fri,  6 Sep 2002 13:38:03 +0200
+
+debbugs-el (7.10-2) unstable; urgency=low
+
+  * Force compression of the compilation log, to allow for non-interactive
+    installation (closes: #157798).
+
+ -- Roland Mas <lolando@debian.org>  Thu, 22 Aug 2002 12:48:42 +0200
+
+debbugs-el (7.10-1) unstable; urgency=low
+
+  * New upstream release for debian-bug.el (1.31) fixes several bugs
+    (closes: #117036, #156297, #156391).
+
+ -- Roland Mas <lolando@debian.org>  Tue, 20 Aug 2002 14:27:41 +0200
+
+debbugs-el (7.9-1) unstable; urgency=low
+
+  * New upstream release for debian-bug.el (1.27) (closes: #151717).
+  * Slightly patched gnus-BTS.el to allow other Elisp programs to
+    "require" it (closes: #151718).
+
+ -- Roland Mas <lolando@debian.org>  Fri, 12 Jul 2002 12:20:10 +0200
+
+debbugs-el (7.8-3) unstable; urgency=low
+
+  * Cosmetic changes to installation (closes: #124056).
+
+ -- Roland Mas <lolando@debian.org>  Tue,  9 Apr 2002 14:25:55 +0200
+
+debbugs-el (7.8-2) unstable; urgency=low
+
+  * Changed the way I call debian-pkg-add-load-path-item, since it doesn't
+    change the contents of the load-path variable as I thought it did
+    (closes: #134392).
+
+ -- Roland Mas <lolando@debian.org>  Sun, 17 Feb 2002 21:22:03 +0100
+
+debbugs-el (7.8-1) unstable; urgency=low
+
+  * New upstream release for debian-bug.el (1.26).
+  * Use debian-pkg-add-load-path-item if available.
+  * Wrapped the .emacsen-startup file into a test for the installedness of
+    the package, to prevent nasty stuff from happening when the package is
+    uninstalled but not purged (closes: #134096).
+
+ -- Roland Mas <lolando@debian.org>  Fri, 15 Feb 2002 21:26:18 +0100
+
+debbugs-el (7.7-1) unstable; urgency=low
+
+  * New upstream release for debian-bug.el (1.23).
+  * This release uses a new feature of reportbug, hence the versioned
+    Depends: field.  (closes: #122032).
+
+ -- Roland Mas <lolando@debian.org>  Fri, 14 Dec 2001 13:58:38 +0100
+
+debbugs-el (7.6-1) unstable; urgency=low
+
+  * New upstream release for debian-bug.el (1.22) (closes: #122033,
+    #121932, #123476).
+  * Also fixed the autoload docstring for #121932.
+
+ -- Roland Mas <lolando@debian.org>  Wed, 12 Dec 2001 12:22:25 +0100
+
+debbugs-el (7.5-1) unstable; urgency=low
+
+  * New upstream release for debian-bug.el (1.19) (closes: #117976,
+    #117855, #117842).
+
+ -- Roland Mas <lolando@debian.org>  Thu,  8 Nov 2001 18:50:03 +0100
+
+debbugs-el (7.4-1) unstable; urgency=low
+
+  * ACK NMU by Peter (closes: #111615).
+  * New upstream version for debian-bug.el (1.17) (closes: #111332).
+
+ -- Roland Mas <lolando@debian.org>  Sun, 21 Oct 2001 14:32:01 +0200
+
+debbugs-el (7.3-1) unstable; urgency=low
+
+  * NMU by debian-bug.el upstream maintainer (Roland is on vacation).
+  * New upstream release for debian-bug.el (1.16).
+  - Includes template for ITP/RPC bugs lifted from reportbug (closes: #111615).
+  - Work around bug #111331 (function font-lock-add-keywords doesn't exist
+    in XEmacs) temporarily.  There's no fontification in XEmacs, but at
+    least the code loads.  I'll close the bug when it's actually fixed.
+
+ -- Peter S Galbraith <psg@debian.org>  Fri, 21 Sep 2001 16:18:07 -0400
+
+debbugs-el (7.2-2) unstable; urgency=low
+
+  * Removed version numbers from package description.
+
+ -- Roland Mas <lolando@debian.org>  Thu, 16 Aug 2001 16:46:02 +0200
+
+debbugs-el (7.2-1) unstable; urgency=low
+
+  * New upstream release for debian-bug.el (1.15).
+  * 1.14 release also increased consistency in function naming scheme
+    (closes: #108808).
+  * Now Recommends: wget.
+
+ -- Roland Mas <lolando@debian.org>  Thu, 16 Aug 2001 11:43:45 +0200
+
+debbugs-el (7.1-1) unstable; urgency=low
+
+  * New upstream release for debian-bug.el (1.13).
+  * Changed Depends: line (closes: #108804).
+
+ -- Roland Mas <lolando@debian.org>  Wed, 15 Aug 2001 18:56:01 +0200
+
+debbugs-el (7.0-1) unstable; urgency=low
+  
+  * Changed numbering scheme: major will change when adding or removing
+    files to this package; minor will change when these files have a new
+    upstream release; Debian revision is for packaging only.
+  * deban-bug.el: new upstream release 1.12 (new upstream maintainer is
+    Peter S Galbraith <psg@debian.org>).
+  * Added autoloads for debian-bug.el.
+
+ -- Roland Mas <lolando@debian.org>  Wed, 15 Aug 2001 09:41:50 +0200
+  
+debbugs-el (6) unstable; urgency=low
+
+  * gnus-BTS.el: made the regexps that recognise a Debian group a bit more
+    permissive.
+  * debian-bug.el: mark the bug reporting buffer as non-modified after
+    initialisation (Toby Speight <streapadair@gmx.net>) (closes: #95372).
+
+ -- Roland Mas <lolando@debian.org>  Fri, 27 Apr 2001 18:07:05 +0200
+
+debbugs-el (5) unstable; urgency=low
+
+  * Fixed load-path problem for gnus-BTS.el (closes: #93334).
+
+ -- Roland Mas <lolando@debian.org>  Sat, 21 Apr 2001 17:12:56 +0200
+
+debbugs-el (4) unstable; urgency=low
+
+  * Removed compilation of gnus-BTS.el to avoid undefined problems with
+    undefined macros. (closes: #89838)
+
+ -- Roland Mas <lolando@debian.org>  Fri, 30 Mar 2001 18:36:00 +0200
+
+debbugs-el (3) unstable; urgency=low
+
+  * Added Depends: bug to control file (closes: #89357)
+
+ -- Roland Mas <lolando@debian.org>  Mon, 12 Mar 2001 20:20:35 +0100
+
+debbugs-el (2) unstable; urgency=low
+
+  * New upstream release for gnus-BTS.el: copyright assignment is changed,
+    Xemacs dependency is dead, more BTS keywords, regex cleanup,
+    etc. (closes: #88294).
+
+ -- Roland Mas <lolando@debian.org>  Sun, 11 Mar 2001 19:27:16 +0100
+
+debbugs-el (1) unstable; urgency=low
+
+  * Initial Release.
+  * Includes debian-bug.el and gnus-BTS.el (closes: #85883, #85974).
+
+ -- Roland Mas <lolando@debian.org>  Tue, 27 Feb 2001 20:57:06 +0100
+
+dpkg-dev-el (3-merged-dpkg-dev-el) unstable; urgency=low
+  
+  * This is the version that never happened.  The dpkg-dev-el source
+    package was merged into emacs-goodies-el version 18.  They still
+    generate different binary packages, though.  The following changelog
+    entries (down there in this file) are only here for reference.
+
+ -- Roland Mas <lolando@debian.org>  Sun, 20 Oct 2002 15:11:56 +0200
+
+dpkg-dev-el (2.9-1) unstable; urgency=low
+
+  * New upstream version for debian-changelog-mode.el (1.65).
+  * Bumped Standards-Version to 3.5.7.
+
+ -- Roland Mas <lolando@debian.org>  Fri,  6 Sep 2002 16:24:28 +0200
+
+dpkg-dev-el (2.8-1) unstable; urgency=low
+
+  * New upstream version for debian-changelog-mode.el (1.64), fixes
+    several bugs (closes: #159041, #159643).
+
+ -- Roland Mas <lolando@debian.org>  Fri,  6 Sep 2002 08:56:29 +0200
+
+dpkg-dev-el (2.7-2) unstable; urgency=low
+
+  * Changed the load-path used at install time, to fix installation
+    problem on Xemacs (closes: #157811).
+
+ -- Roland Mas <lolando@debian.org>  Thu, 22 Aug 2002 15:38:07 +0200
+
+dpkg-dev-el (2.7-1) unstable; urgency=low
+
+  * Now depends on debbugs-el.
+  * New upstream version for debian-changelog-mode.el (1.62) fixes several
+    bugs (closes: #113964, #156762).
+
+ -- Roland Mas <lolando@debian.org>  Wed, 21 Aug 2002 09:33:27 +0200
+
+dpkg-dev-el (2.6-1) unstable; urgency=low
+
+  * New upstream release for debian-changelog-mode.el (1.57) (closes: #154747).
+
+ -- Roland Mas <lolando@debian.org>  Tue, 30 Jul 2002 08:40:12 +0200
+
+dpkg-dev-el (2.5-1) unstable; urgency=low
+
+  * New upstream release for debian-changelog-mode.el (1.56) (closes: #153982).
+
+ -- Roland Mas <lolando@debian.org>  Thu, 25 Jul 2002 17:09:15 +0200
+
+dpkg-dev-el (2.4-1) unstable; urgency=low
+
+  * The "Yeah, I know I'm late" release.
+  * Acknowledging the NMU.  Thanks, Colin.
+  * New upstream release for debian-changelog-mode.el (1.55) (closes: #146583)
+
+ -- Roland Mas <lolando@debian.org>  Mon, 15 Jul 2002 13:57:45 +0200
+
+dpkg-dev-el (2.3-1) unstable; urgency=medium
+
+  * NMU
+  * New upstream release for debian-control-mode.el (0.4).
+
+ -- Colin Walters <walters@debian.org>  Fri, 31 May 2002 16:15:50 -0400
+
+dpkg-dev-el (2.2-2) unstable; urgency=low
+
+  * Changed the way I call debian-pkg-add-load-path-item, since it doesn't
+    change the contents of the load-path variable as I thought it did.
+
+ -- Roland Mas <lolando@debian.org>  Sun, 17 Feb 2002 21:51:29 +0100
+
+dpkg-dev-el (2.2-1) unstable; urgency=low
+
+  * New upstream release for debian-control-mode.el (0.3).
+  * New upstream release for debian-changelog-mode (1.52).
+  * Use debian-pkg-add-load-path-item if available.
+
+ -- Roland Mas <lolando@debian.org>  Tue, 12 Feb 2002 22:53:20 +0100
+
+dpkg-dev-el (2.1-1) unstable; urgency=low
+
+  * New upstream (bugfix) release for debian-control-mode.el (0.2).
+
+ -- Roland Mas <lolando@debian.org>  Mon,  3 Dec 2001 13:51:48 +0100
+
+dpkg-dev-el (2-1) unstable; urgency=low
+
+  * Added debian-control-mode.el (0.1) (closes: #121690).  Cool, that
+    means I was right in calling the package dpkg-dev-el and not just
+    debian-changelog-mode-el.
+  * Changed numbering scheme, see README.Debian.
+  * Also added magic in emacsen-startup so that emacsen-startup files load
+    in Emacs Lisp mode, as they should, and no more in Fundamental mode.
+  * New upstream release for debian-changelog-mode.el (1.50).
+
+ -- Roland Mas <lolando@debian.org>  Fri, 30 Nov 2001 11:00:25 +0100
+
+dpkg-dev-el (1.49-1) unstable; urgency=low
+
+  * New upstream release.
+  * Fiddled with debian/control a bit.
+
+ -- Roland Mas <lolando@debian.org>  Thu, 22 Nov 2001 19:01:24 +0100
+
+dpkg-dev-el (1.48-1) unstable; urgency=low
+
+  * NMU by upstream author (Roland is on vacation).
+  * New upstream release.
+
+ -- Peter S Galbraith <psg@debian.org>  Wed, 19 Sep 2001 11:38:59 -0400
+
+dpkg-dev-el (1.47-2) unstable; urgency=low
+
+  * Added the appropriate load-path (closes: #111702).
+
+ -- Roland Mas <lolando@debian.org>  Sun,  9 Sep 2001 18:36:53 +0200
+
+dpkg-dev-el (1.47-1) unstable; urgency=low
+
+  * New upstream release.
+
+ -- Roland Mas <lolando@debian.org>  Wed, 15 Aug 2001 21:02:43 +0200
+
+dpkg-dev-el (1.46-1) unstable; urgency=low
+
+  * New upstream release.
+  * Fix font-lock code (closes: #108809).
+  * New feature requires a Recommends: wget.
+
+ -- Roland Mas <lolando@debian.org>  Wed, 15 Aug 2001 19:38:04 +0200
+
+dpkg-dev-el (1.44-2) unstable; urgency=low
+
+  * Minor copyright tweaks.
+
+ -- Roland Mas <lolando@debian.org>  Sun,  5 Aug 2001 17:49:37 +0200
+
+dpkg-dev-el (1.44-1) unstable; urgency=low
+
+  * New upstream release.
+  * Added autoloads for the debian-changelog-web-* functions (except for
+    d-c-w-this-bug-under-mouse).
+
+ -- Roland Mas <lolando@debian.org>  Fri, 27 Jul 2001 18:55:48 +0200
+
+dpkg-dev-el (1.43-1) unstable; urgency=low
+
+  * New upstream release.
+  * Updated to policy 3.5.6.0.
+  * Added hook to find-file-hooks to switch to debian-changelog-mode for
+    files that look like some Debian changelog, even if that can't be
+    decided from the file name (closes: #105889).
+
+ -- Roland Mas <lolando@debian.org>  Thu, 26 Jul 2001 10:00:35 +0200
+
+dpkg-dev-el (1.42-1) unstable; urgency=low
+
+  * New upstream release (closes: #102088).
+
+ -- Roland Mas <lolando@debian.org>  Thu, 12 Jul 2001 13:39:08 +0200
+
+dpkg-dev-el (1.40-1) unstable; urgency=low
+
+  * New upstream release.
+
+ -- Roland Mas <lolando@debian.org>  Wed, 27 Jun 2001 09:49:22 +0200
+
+dpkg-dev-el (1.39-1) unstable; urgency=low
+
+  * New upstream release (closes: #100639).
+
+ -- Roland Mas <lolando@debian.org>  Fri, 15 Jun 2001 09:51:39 +0200
+
+dpkg-dev-el (1.37-1) unstable; urgency=low
+
+  * New upstream release (closes: #100162).
+
+ -- Roland Mas <lolando@debian.org>  Tue, 12 Jun 2001 09:45:11 +0200
+
+dpkg-dev-el (1.34-1) unstable; urgency=low
+
+  * New upstream release (closes: #99051).
+
+ -- Roland Mas <lolando@debian.org>  Tue, 29 May 2001 18:08:43 +0200
+
+dpkg-dev-el (1.33-1) unstable; urgency=low
+
+  * New upstream release.  Should fix problems with Xemacs.  Yes, again.
+
+ -- Roland Mas <lolando@debian.org>  Tue, 29 May 2001 15:53:59 +0200
+
+dpkg-dev-el (1.32-1) unstable; urgency=low
+
+  * New upstream release.  Should fix problems with Xemacs.
+  * The "Not another shrubbery!" release.
+
+ -- Roland Mas <lolando@debian.org>  Tue, 29 May 2001 09:30:56 +0200
+
+dpkg-dev-el (1.31-1) unstable; urgency=low
+
+  * New upstream release (closes: #98577).
+
+ -- Roland Mas <lolando@debian.org>  Mon, 28 May 2001 19:00:36 +0200
+
+dpkg-dev-el (1.30-1) unstable; urgency=low
+
+  * New upstream release.
+  * Default to the same distribution as the previous release, as requested
+    (closes: #96260).
+
+ -- Roland Mas <lolando@debian.org>  Wed,  9 May 2001 21:47:05 +0200
+
+dpkg-dev-el (1.24-1) unstable; urgency=low
+
+  * New upstream release.
+  * The "I'm going to start a strike" release.
+
+ -- Roland Mas <lolando@debian.org>  Thu,  3 May 2001 19:20:17 +0200
+
+dpkg-dev-el (1.23-1) unstable; urgency=low
+
+  * New upstream release.
+  * The "there, see what happens?" release.
+
+ -- Roland Mas <lolando@debian.org>  Thu,  3 May 2001 13:00:06 +0200
+
+dpkg-dev-el (1.22-1) unstable; urgency=low
+
+  * The "would someone please slow him down?" release.
+  * New upstream release.  Yes, *again* :-)
+
+ -- Roland Mas <lolando@debian.org>  Wed,  2 May 2001 19:34:05 +0200
+
+dpkg-dev-el (1.19-1) unstable; urgency=low
+
+  * New upstream releases seem to pop up faster than I can track them.
+    This one is 1.19 (closes: #95831).
+  * Fix the startup script (yes, again) (closes: #95830).
+
+ -- Roland Mas <lolando@debian.org>  Wed,  2 May 2001 14:08:01 +0200
+
+dpkg-dev-el (1.13-1) unstable; urgency=low
+
+  * New upstream release.
+  * Less flashy colouring (closes: #93243).
+  * Less verbosity during byte-compilation (closes: #95347).
+  * Some fixes in the startup script (closes: #95348).
+
+ -- Roland Mas <lolando@debian.org>  Fri, 27 Apr 2001 20:12:57 +0200
+
+dpkg-dev-el (1.10-1) unstable; urgency=low
+
+  * New upstream release.
+  * Fix number suggestion scheme (closes: #88245, #88589).
+  * add-log-mailing-address is now (since 1.06 in fact)
+    debian-changelog-mailing-address (closes: #89208).
+
+ -- Roland Mas <lolando@debian.org>  Sun, 11 Mar 2001 18:33:11 +0100
+
+dpkg-dev-el (1.07-1) unstable; urgency=low
+
+  * New upstream release.
+  * Handle epochs correctly (closes: #87964).
+  * Make lintian happy.
+
+ -- Roland Mas <lolando@debian.org>  Wed, 28 Feb 2001 17:24:38 +0100
+
+dpkg-dev-el (1.05-1) unstable; urgency=low
+
+  * New upstream release.  Closes: #85412.
+
+ -- Roland Mas <lolando@debian.org>  Mon, 26 Feb 2001 09:38:34 +0100
+
+dpkg-dev-el (1.01-4) unstable; urgency=low
+
+  * Changed Description: field again (Closes: #85413).
+
+ -- Roland Mas <lolando@debian.org>  Sat, 10 Feb 2001 14:19:34 +0100
+
+dpkg-dev-el (1.01-3) unstable; urgency=low
+
+  * Changed Description: field and maintainer address.
+
+ -- Roland Mas <lolando@debian.org>  Wed, 24 Jan 2001 12:55:53 +0100
+
+dpkg-dev-el (1.01-2) unstable; urgency=low
+
+  * Changed Depends: to Suggests:
+
+ -- Roland Mas <99.roland.mas@aist.enst.fr>  Tue,  9 Jan 2001 09:54:34 +0100
+
+dpkg-dev-el (1.01-1) unstable; urgency=low
+
+  * Initial Release.
+
+ -- Roland Mas <99.roland.mas@aist.enst.fr>  Fri, 22 Dec 2000 14:09:40 +0100

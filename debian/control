@@ -1,0 +1,143 @@
+Source: emacs-goodies-el
+Section: editors
+Priority: optional
+Maintainer: Roland Mas <lolando@debian.org>
+Build-Depends-Indep: debhelper (>= 4.0.0), dpatch (>=1.5)
+Standards-Version: 3.5.8
+
+Package: emacs-goodies-el
+Architecture: all
+Depends: emacs21 | emacsen, bash (>= 2.05a), emacsen-common (>= 1.4.15)
+Suggests: emacs-goodies-extra-el
+Description: Miscellaneous add-ons for Emacs
+ This package contains a number of Emacs-Lisp files, obtained from
+ various sources, including the gnu.emacs.sources newsgroup and a few
+ websites, that provide various functions to Emacs.
+ .
+ This package contains:
+  align-string.el: align string components over several lines;
+  all.el: edit all lines matching a given regexp;
+  apt-sources.el: major mode for editing Debian sources.list files;
+  auto-fill-inhibit.el: finer grained control over auto-fill-mode;
+  bar-cursor.el: change your cursor to a bar instead of a block;
+  boxquote.el: quote texts in nice boxes;
+  browse-kill-ring.el: browse, search, modify the kill ring;
+  clipper.el: save strings of data for further use;
+  coffee.el: now Emacs can even brew coffee;
+  cyclebuffer.el: select buffer by cycling through;
+  df.el: display in the mode line space left on devices;
+  diminish.el: shorten or erase modeline presence of minor modes;
+  dirvars.el: provides directory-wide local variables;
+  egocentric.el: highlight your name inside emacs buffers;
+  ff-paths.el: $PATH-like searching in C-x C-f;
+  filladapt.el: enhances Emacs's built-in adaptive fill;
+  floatbg.el: slowly modify background color;
+  highlight-beyond-fill-column: highlight lines that are too long;
+  highlight-completion.el: highlight completions in the minibuffer;
+  highlight-current-line.el: highlight line where the cursor is;
+  home-end.el: alternative Home and End commands;
+  htmlize.el: HTML-ize font-lock buffers;
+  ibuffer.el: advanced replacement for the `buffer-menu';
+  initsplit.el: split customizations into different files;
+  keydef.el: a simpler way to define key mappings;
+  keywiz.el: Emacs key sequence quiz;
+  map-lines.el: map a command over lines matching a regexp;
+  mutt-alias.el: lookup and insert the expansion of mutt mail aliases;
+  muttrc-mode.el: major mode for editing Mutt config files;
+  obfusurl.el: obfuscate an URL;
+  perldoc.el: show help for Perl functions, builtins, and modules;
+  projects.el: create project-based meaningful buffer names;
+  prot-buf.el: protect buffers from accidental killing;
+  protocols.el: perform lookups in /etc/protocols;
+  services.el: perform lookups in /etc/services;
+  setnu.el: setnu-mode, a vi-style line number mode;
+  silly-mail.el: generate bozotic mail headers;
+  sys-apropos.el: interface for the *nix apropos command;
+  table.el: create and edit WYSIWYG text based embedded tables;
+  tail.el: "tail -f" a file or a command form within Emacs;
+  tc.el: cite text with proper filling;
+  thinks.el: quote texts in cartoon-like think bubbles;
+  tld.el: explain top-level domain names;
+  todoo.el: major mode for editing TODO files;
+  toggle-buffer.el: fast switching between two buffers;
+  toggle-case.el: a set of functions to toggle the case of characters;
+  toggle-option.el: easily toggle frequently toggled options;
+  twiddle.el: mode line hacks to keep you awake;
+  under.el: underline a region with ^ characters;
+  wdired.el: rename files editing their names in dired buffers;
+  whitespace.el: kill the trailing blanks at end of lines;
+  xrdb-mode.el: mode for editing X resource database files.
+ .
+ Other files are available in the emacs-goodies-extra-el package.
+ They have not been included in emacs-goodies-el because they have
+ extra dependencies.
+
+Package: gnus-bonus-el
+Architecture: all
+Depends: emacs21 | emacsen, gnus | emacs21 | emacs20 | xemacs21, emacsen-common (>= 1.4.15)
+Section: news
+Description: Miscellaneous add-ons for Gnus
+ This package contains a few Emacs-Lisp files, obtained from various
+ sources, including the gnu.emacs.sources newsgroup and a few
+ websites, that provide various functions to Gnus, the Emacs mail and
+ news reader.
+ .
+ This package contains:
+  gnus-junk.el: semi-automatic replies to junk e-mails;
+  message-x.el: customizable completion in message headers;
+  nnir.el: searchable mail backend;
+  nnmaildir.el: maildir mail backend;
+  nnnil.el: empty, read-only backend;
+  nntodo.el: manage to-do items;
+  spam-stat.el: spam-detector based on statistics.
+
+Package: emacs-goodies-extra-el
+Architecture: all
+Depends: emacs21 | emacsen, bash (>= 2.05a), emacsen-common (>= 1.4.15), dict
+Description: Miscellaneous add-ons for Emacs -- extra
+ This package contains a number of Emacs-Lisp files, obtained from
+ various sources, including the gnu.emacs.sources newsgroup and a few
+ websites, that provide various functions to Emacs.  The files in this
+ package depend on external packages.
+ .
+ This package contains:
+  dict.el: wrapper around the 'dict' command.
+
+Package: devscripts-el
+Architecture: all
+Depends: emacs21 | emacsen, bash (>= 2.05a), emacsen-common (>= 1.4.15), devscripts, dpkg-dev-el
+Description: Emacs wrappers for the commands in devscripts
+ This package contains few Emacs-Lisp files, that provide various
+ functions to Emacs.  The files in this package depend on the external
+ "devscripts" package.
+ .
+ This package contains:
+  devscripts.el: wrappers around the debuild, debc and debi commands;
+  readme-debian.el: major mode for editing README.Debian files.
+
+Package: debbugs-el
+Architecture: all
+Depends: emacs21 | emacsen, emacsen-common (>= 1.4.15), reportbug (>= 1.41.1) | bug
+Recommends: wget
+Suggests: gnus
+Section: utils
+Description: Access the Debian BTS from within Emacs
+ This package contains:
+ .
+   * debian-bug.el, an Elisp function to submit a bug from within
+     Emacs.
+   * gnus-BTS.el, an enhancement to Gnus to provide buttons on bug
+     numbers seen in Debian-related messages.
+
+Package: dpkg-dev-el
+Architecture: all
+Depends: emacs21 | emacsen, emacsen-common (>= 1.4.15), debbugs-el (>= 7.10)
+Suggests: dpkg-dev
+Recommends: wget
+Conflicts: dpkg-dev (<< 1.7.2)
+Section: utils
+Description: Emacs-related Debian development helpers
+ This package contains the following Emacs-related stuff:
+ .
+  debian-changelog-mode.el: a helper mode for Debian changelogs;
+  debian-control-mode.el: a helper mode for debian/control files.
