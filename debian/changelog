@@ -3,8 +3,9 @@ emacs-goodies-el (21.6-1) UNRELEASED; urgency=low
   * apt-utils.el: Updated to v1.54 (2003/06/24)
   * debian-bts-control.el: add `debian-bts-control-prompt' to Prompt for
     bug number using sensible default if found (closes: #193326).
+  * Add filladapt-turn-on-mode-hooks customization.
 
- -- Peter S Galbraith <psg@debian.org>  Sun, 10 Aug 2003 03:18:33 -0400
+ -- Peter S Galbraith <psg@debian.org>  Mon, 11 Aug 2003 14:59:08 -0400
 
 emacs-goodies-el (21.5-1) unstable; urgency=low
 
