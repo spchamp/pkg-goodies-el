@@ -33,7 +33,7 @@ Sets up command `font-lock-mode'.
 ;;;***
 
 ;;;### (autoloads (apt-utils-search apt-utils-show-package) "apt-utils"
-;;;;;;  "apt-utils.el" (16118 19946))
+;;;;;;  "apt-utils.el" (16120 61272))
 ;;; Generated autoloads from apt-utils.el
 
 (autoload (quote apt-utils-show-package) "apt-utils" "\
