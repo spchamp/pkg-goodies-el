@@ -27,6 +27,7 @@ in emacs-goodies-el.
 non-nil means aggressive."
   :type '(radio (const :tag "conservative" nil)
                 (const :tag "aggressive" t))
+  :link '(custom-manual "(emacs-goodies-el)Top")
   :group 'emacs-goodies-el)
 
 (defcustom emacs-goodies-el-use-ff-paths emacs-goodies-el-defaults
