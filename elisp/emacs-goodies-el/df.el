@@ -29,7 +29,7 @@
 ;;  Disk space remaining is updated every `df-refresh' seconds.
 
 ;;  If you work with a lot of users sharing the same partition, it
-;;  sometimes happens that there is no place left to save your work, which
+;;  sometimes happens that there is no space left to save your work, which
 ;;  may drive you to serious brain damage when you lose important work.
 ;;  This package allows you to have the available disk space and the buffer
 ;;  size displayed in the mode-line, so you know when you can save your
@@ -51,9 +51,13 @@
 ;;; History:
 ;; 
 
-;; $Id: df.el,v 1.4 2003/06/17 02:05:26 psg Exp $
+;; $Id: df.el,v 1.5 2003/06/17 23:47:31 psg Exp $
 
 ;; $Log: df.el,v $
+;; Revision 1.5  2003/06/17 23:47:31  psg
+;; Peter S Galbraith <psg@debian.org>
+;; - Add autoload for cancel-function-timers (for XEmacs).
+;;
 ;; Revision 1.4  2003/06/17 02:05:26  psg
 ;;   Peter S Galbraith <psg@debian.org>
 ;;   - Add customize support.  Users can now enables `df' by simply
@@ -109,7 +113,7 @@
 ;; Variables that users will want to change
 (defgroup df nil
   "Display space left on partitions in the mode-line."
-  :group 'tools)
+  :group 'convenience)
 
 (defun df-list-partitions ()
   "Return list of mounted partition directories."
@@ -172,7 +176,9 @@
 
 ;; Needed because of the 'when' construct
 (require 'cl)
-
+(autoload 'cancel-function-timers "timer"
+  "Cancel all timers scheduled by `run-at-time' which would run FUNCTION."
+  t)
 
 (defun df-update ()
   "Function to update disk usage.  It is used every `df-refresh' seconds."
