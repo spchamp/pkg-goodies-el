@@ -3,8 +3,10 @@ emacs-goodies-el (21.1-1) UNRELEASED; urgency=low
   * 50emacs-goodies-el.el: Add :link to Info manual in
     `emacs-goodies-el-defaults' defcustom.
   * debian-bug.el: Add `confirmed' tag (for debian-bts-control.el).
+  * debian/control: Added texinfo to Build-Depends-Indep for makeinfo
+    (closes: #193272)
 
- -- Peter S Galbraith <psg@debian.org>  Tue, 13 May 2003 11:02:10 -0400
+ -- Peter S Galbraith <psg@debian.org>  Wed, 14 May 2003 09:31:12 -0400
 
 emacs-goodies-el (21.0-1) unstable; urgency=low
 
