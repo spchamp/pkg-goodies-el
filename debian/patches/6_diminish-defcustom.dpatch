@@ -23,9 +23,23 @@ esac
 exit 0
 
 @DPATCH@
-diff -urNad /home/psg/emacs/emacs-goodies-el/emacs-goodies-el/elisp/emacs-goodies-el/diminish.el emacs-goodies-el/elisp/diminish.el
---- /home/psg/emacs/emacs-goodies-el/emacs-goodies-el/elisp/emacs-goodies-el/diminish.el	2003-06-12 21:36:22.000000000 -0400
-+++ emacs-goodies-el/elisp/emacs-goodies-el/diminish.el	2003-06-11 23:03:41.000000000 -0400
+diff -urNad /home/psg/emacs/emacs-goodies-el/emacs-goodies-el/elisp/emacs-goodies-el/diminish.el emacs-goodies-el/elisp/emacs-goodies-el/diminish.el
+--- /home/psg/emacs/emacs-goodies-el/emacs-goodies-el/elisp/emacs-goodies-el/diminish.el	2003-06-17 21:01:24.000000000 -0400
++++ emacs-goodies-el/elisp/emacs-goodies-el/diminish.el	2003-06-18 19:51:22.000000000 -0400
+@@ -1,11 +1,11 @@
+ ;;; diminish.el --- Diminished modes are minor modes with no modeline display
+ 
+-;; Copyright (C) 1998 Free Software Foundation, Inc.
++;; Copyright (C) 1998, 2003 Free Software Foundation, Inc.
+ 
+ ;; Author: Will Mengarini <seldon@eskimo.com>
+ ;; URL: <http://www.eskimo.com/~seldon>
+ ;; Created: Th 19 Feb 98
+-;; Version: 0.44, Sa 23 Jan 99
++;; Version: 0.45, 18 Jun 2003
+ ;; Keywords: extensions, diminish, minor, codeprose
+ 
+ ;; This file is part of GNU Emacs.
 @@ -95,6 +95,11 @@
  ;; near the end of your .emacs file.  It should be near the end so that any
  ;; minor modes your .emacs loads will already have been loaded by the time
@@ -127,10 +141,14 @@ diff -urNad /home/psg/emacs/emacs-goodies-el/emacs-goodies-el/elisp/emacs-goodie
  
  ;; Plumber Bob was not from Seattle, my grey city, for rainy Seattle is a
  ;; city of interiors, a city of the self-diminished.  When I moved here one
-@@ -288,6 +321,26 @@
+@@ -288,6 +321,31 @@
  ;; in line with the ducks and geese at the espresso counter, gazing placidly
  ;; out on the world through loon-red eyes, thinking secret thoughts.
  
++(defgroup diminish nil
++  "Diminished modes are minor modes with no modeline display."
++  :group 'convenience)
++
 +(defcustom diminished-minor-modes nil
 +  "List of minor modes to diminish and their mode line display strings.
 +The display string can be the empty string if you want the name of the mode
@@ -141,6 +159,7 @@ diff -urNad /home/psg/emacs/emacs-goodies-el/emacs-goodies-el/elisp/emacs-goodie
 +modes will all be scrunched together.
 +
 +The display of undiminished modes will not be affected."
++  :group 'diminish
 +  :type '(alist :key-type (symbol :tag "Minor-mode")
 +		:value-type (string :tag "Title"))
 +  :options (mapcar 'car minor-mode-alist)

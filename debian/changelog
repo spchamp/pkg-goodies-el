@@ -1,3 +1,10 @@
+emacs-goodies-el (21.4-2) UNRELEASED; urgency=low
+
+  * patches/6_diminish-defcustom.dpatch: new defcustom tweaks sent
+    upstream.
+
+ -- Peter S Galbraith <psg@debian.org>  Wed, 18 Jun 2003 19:53:28 -0400
+
 emacs-goodies-el (21.4-1) unstable; urgency=low
 
   * New maintainer.  Thanks for all the work getting it this far Roland!
