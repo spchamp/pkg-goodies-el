@@ -1,8 +1,8 @@
 #!/bin/sh -e
-## 3_bar-cursor-customize.dpatch by Peter S Galbraith <psg@debian.org>
+## 3_bar-cursor-customize.dpatch.dpatch by Peter S Galbraith <psg@debian.org>
 ##
 ## All lines beginning with `## DP:' are a description of the patch.
-## DP:  Make bar-cursor customizable to enable it.
+## DP: No description.
 
 if [ $# -ne 1 ]; then
     echo >&2 "`basename $0`: script expects -patch|-unpatch as argument"
@@ -23,9 +23,9 @@ esac
 exit 0
 
 @DPATCH@
-diff -urNad /home/psg/emacs/emacs-goodies-el/emacs-goodies-el/elisp/emacs-goodies-el/bar-cursor.el emacs-goodies-el/elisp/bar-cursor.el
---- /home/psg/emacs/emacs-goodies-el/emacs-goodies-el/elisp/emacs-goodies-el/bar-cursor.el	2003-05-24 19:36:15.000000000 -0400
-+++ emacs-goodies-el/elisp/emacs-goodies-el/bar-cursor.el	2003-06-12 22:11:09.000000000 -0400
+diff -urNad /home/psg/emacs/emacs-goodies-el/emacs-goodies-el/elisp/emacs-goodies-el/bar-cursor.el emacs-goodies-el/elisp/emacs-goodies-el/bar-cursor.el
+--- /home/psg/emacs/emacs-goodies-el/emacs-goodies-el/elisp/emacs-goodies-el/bar-cursor.el	2003-04-04 15:15:55.000000000 -0500
++++ emacs-goodies-el/elisp/emacs-goodies-el/bar-cursor.el	2003-06-19 20:22:16.000000000 -0400
 @@ -3,7 +3,7 @@
  
  ;; This file is not part of Emacs
@@ -46,9 +46,10 @@ diff -urNad /home/psg/emacs/emacs-goodies-el/emacs-goodies-el/elisp/emacs-goodie
  ;;
  ;;  M-x `bar-cursor-mode'
  ;;      Toggles bar-cursor-mode on & off.  Optional arg turns
- ;;      bar-cursor-mode on iff arg is a positive integer.
+-;;      bar-cursor-mode on iff arg is a positive integer.
++;;      bar-cursor-mode on if arg is a positive integer.
 +;;
-+;;  You may also use the custom interface:
++;;  You may also use the custom interface to enable or disable it:
 +;;
 +;;  M-x customize-variable [RET] bar-cursor-mode [RET]
  
@@ -75,7 +76,7 @@ diff -urNad /home/psg/emacs/emacs-goodies-el/emacs-goodies-el/elisp/emacs-goodie
  
  ;;; **************************************************************************
  ;;; ***** version related routines
-@@ -109,43 +118,42 @@
+@@ -109,43 +118,43 @@
  ;;; **************************************************************************
  ;;; ***** real functions
  ;;; **************************************************************************
@@ -114,6 +115,7 @@ diff -urNad /home/psg/emacs/emacs-goodies-el/emacs-goodies-el/elisp/emacs-goodie
 -	  (if bar-cursor-mode
 -		  (ad-enable-advice 'overwrite-mode 'after 'bar-cursor-overwrite-mode-ad)
 -		(ad-disable-advice 'overwrite-mode 'after 'bar-cursor-overwrite-mode-ad))
++;;;###autoload
 +(defun bar-cursor-change ()
 +  "Enable or disable advice based on value of variable `bar-cursor-mode'."
 +  (if bar-cursor-mode
@@ -140,7 +142,7 @@ diff -urNad /home/psg/emacs/emacs-goodies-el/emacs-goodies-el/elisp/emacs-goodie
  
  ;;;--------------------------------------------------------------------------
  (defadvice overwrite-mode (after bar-cursor-overwrite-mode-ad disable)
-@@ -154,7 +162,7 @@
+@@ -154,7 +163,7 @@
  
  ;;;--------------------------------------------------------------------------
  (defun bar-cursor-set-cursor-type (cursor &optional frame)
@@ -149,7 +151,7 @@ diff -urNad /home/psg/emacs/emacs-goodies-el/emacs-goodies-el/elisp/emacs-goodie
  
  CURSOR is the name of the cursor to use (bar or block -- any others?).
  FRAME is optional frame to set the cursor for; current frame is used
-@@ -169,7 +177,7 @@
+@@ -169,7 +178,7 @@
  
  ;;; --------------------------------------------------------------------------
  (defun bar-cursor-set-cursor (&optional frame)
@@ -158,11 +160,16 @@ diff -urNad /home/psg/emacs/emacs-goodies-el/emacs-goodies-el/elisp/emacs-goodie
  
  FRAME is optional frame to set the cursor for; current frame is used
  if not passed in."
-@@ -177,6 +185,17 @@
+@@ -177,6 +186,22 @@
  	  (bar-cursor-set-cursor-type 'bar frame)
  	(bar-cursor-set-cursor-type 'block frame)))
  
 +;;; --------------------------------------------------------------------------
++(defgroup bar-cursor nil
++  "switch block cursor to a bar."
++  :link '(custom-manual "(emacs-goodies-el)bar-cursor")
++  :group 'convenience)
++
 +(defcustom bar-cursor-mode nil
 +  "*Non-nil means to convert the block cursor into a bar cursor.
 +In overwrite mode, the bar cursor changes back into a block cursor.
