@@ -8,8 +8,9 @@ emacs-goodies-el (21.1-1) UNRELEASED; urgency=low
   * Updated debian-copyright.el from devscripts-el-0.0.20030514.tar.gz
   * Updated services.el to upstream version CVS 1.3
   * Updated protocols.el to upstream version CVS 1.4
+  * debian/control: Rephrase debian-bug.el description (closes: #193322)
 
- -- Peter S Galbraith <psg@debian.org>  Wed, 14 May 2003 13:19:13 -0400
+ -- Peter S Galbraith <psg@debian.org>  Wed, 14 May 2003 13:22:51 -0400
 
 emacs-goodies-el (21.0-1) unstable; urgency=low
 
