@@ -1,4 +1,4 @@
-emacs-goodies-el (21.8-1) UNRELEASED; urgency=low
+emacs-goodies-el (21.8-1) unstable; urgency=low
 
   * Bug fix: "debian-bug should provide help when prompting for package
     name and severity", thanks to Mathieu Roy (Closes: #200058).
@@ -7,7 +7,7 @@ emacs-goodies-el (21.8-1) UNRELEASED; urgency=low
     since it can't display multi-line prompts. (Closes: #208553).
   * debbugs-el: Remove dependence on package `bug' since it no longer exists.
 
- -- Peter S Galbraith <psg@debian.org>  Wed,  3 Sep 2003 14:00:19 -0400
+ -- Peter S Galbraith <psg@debian.org>  Wed,  3 Sep 2003 21:19:44 -0400
 
 emacs-goodies-el (21.7-1) unstable; urgency=low
 
