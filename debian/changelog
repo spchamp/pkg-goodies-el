@@ -4,8 +4,10 @@ emacs-goodies-el (21.3-1) UNRELEASED; urgency=low
   * debian-bug.el: Add `d-i', `ipv6' and `lfs' tags.
   * gnus-bonus-el.emacsen-install.in: Add directory of gnus elisp files to
     load-path during byte-compilation.
+  * dpkg-dev-el.emacsen-startup: Make file named changelog.dch load
+    debian-chnagelog-mode (closes: #196828)
 
- -- Peter S Galbraith <psg@debian.org>  Tue, 10 Jun 2003 10:10:13 -0400
+ -- Peter S Galbraith <psg@debian.org>  Tue, 10 Jun 2003 10:26:03 -0400
 
 emacs-goodies-el (21.2-1) unstable; urgency=low
 

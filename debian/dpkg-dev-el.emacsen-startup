@@ -35,6 +35,8 @@ being constructed."
                '("changelog.Debian" . debian-changelog-mode))
   (add-to-list 'auto-mode-alist
                '("changelog.Debian.gz" . debian-changelog-mode))
+  ;; For debchange
+  (add-to-list 'auto-mode-alist '("changelog.dch" . debian-changelog-mode))
 
   ;; autoloads and automode for debian-control-mode.el
   (autoload 'debian-control-mode "debian-control-mode"
