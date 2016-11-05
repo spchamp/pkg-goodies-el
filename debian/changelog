@@ -3,6 +3,8 @@ emacs-goodies-el (35.14) unstable; urgency=medium
   * debian-el:
   - Bug fix: "Missing ; in debian-bug.el first line header", thanks
     to Antoine R. Dumont (Closes: #842566).
+  - Bug fix: "apt-sources.el duplicate auto-mode-alist sources.list",
+    thanks to Kevin Ryde (Closes: #712835).
 
  --
 
