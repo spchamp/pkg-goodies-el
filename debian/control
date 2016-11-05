@@ -114,6 +114,7 @@ Description: Emacs wrappers for the commands in devscripts
 
 Package: debian-el
 Architecture: all
+Pre-Depends: xz-utils
 Depends: emacs | emacsen, reportbug (>= 4.12), ${misc:Depends}, dpkg (>= 1.15.4) | install-info, bzip2, file
 Recommends: wget, dlocate, groff-base
 Suggests: gnus

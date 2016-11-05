@@ -7,6 +7,8 @@ emacs-goodies-el (35.14) unstable; urgency=medium
     thanks to Kevin Ryde (Closes: #712835).
   * Bug fix: "apt-sources.el: Distribution names are out of date", thanks
     to Memnon Anon (Closes: #705281).
+  * Bug fix: "should depend on xz-utils", thanks to Sven Joachim
+    (Closes: #638202).
 
  --
 
