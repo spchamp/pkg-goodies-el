@@ -5,6 +5,8 @@ emacs-goodies-el (35.14) unstable; urgency=medium
     to Antoine R. Dumont (Closes: #842566).
   - Bug fix: "apt-sources.el duplicate auto-mode-alist sources.list",
     thanks to Kevin Ryde (Closes: #712835).
+  * Bug fix: "apt-sources.el: Distribution names are out of date", thanks
+    to Memnon Anon (Closes: #705281).
 
  --
 
