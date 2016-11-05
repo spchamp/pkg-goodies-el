@@ -3,7 +3,7 @@
 ;;; Copyright (C) 2002-2010 Matthew P. Hodges
 
 ;; Author: Matthew P. Hodges <MPHodges@member.fsf.org>
-;;	$Id: apt-utils.el,v 1.22 2011/06/24 16:34:46 psg Exp $
+;;	$Id: apt-utils.el,v 1.23 2016/11/05 22:18:48 psg Exp $
 
 ;; apt-utils.el is free software; you can redistribute it and/or
 ;; modify it under the terms of the GNU General Public License as
@@ -41,6 +41,7 @@
 
 (require 'browse-url)
 (require 'jka-compr)
+(require 'thingatpt)
 
 (defalias 'apt-utils-puthash 'puthash)
 
@@ -1332,7 +1333,7 @@ indicated in `mode-name'."
                             (text-properties-at (point))))))
         (PC-word-delimiters "-"))
     (when (not (stringp package))
-      (setq package nil))
+      (setq package (word-at-point)))
     (completing-read (if package
                          (format "Choose Debian package (%s): " package)
                        "Choose Debian package: ")

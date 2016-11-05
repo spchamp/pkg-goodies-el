@@ -11,6 +11,8 @@ emacs-goodies-el (35.14) unstable; urgency=medium
     (Closes: #638202).
   * Bug fix: "gnus-BTS.el search for bugs against wrong url", thanks to
     Marco Bardelli (Closes: #756208).
+  * Bug fix: "apt-utils.el should use word-at-point for default value for
+    package", thanks to Remi Vanicat (Closes: #613776).
 
  --
 
