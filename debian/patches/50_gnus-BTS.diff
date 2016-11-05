@@ -109,7 +109,7 @@
  		  "http://bugs.debian.org/cgi-bin/bugreport.cgi?bug="
 -		"http://cgi.debian.org/cgi-bin/search_packages.pl?&searchon=names&version=all&release=all&keywords=")))
 +		(concat
-+		 "http://cgi.debian.org/cgi-bin/search_packages.pl"
++		 "http://bugs.debian.org/cgi-bin/bugreport.cgi"
 +		 "?&searchon=names&version=all&release=all&keywords="))))
      (browse-url (concat url bug-or-feature))))
  

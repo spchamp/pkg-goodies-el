@@ -9,6 +9,8 @@ emacs-goodies-el (35.14) unstable; urgency=medium
     to Memnon Anon (Closes: #705281).
   * Bug fix: "should depend on xz-utils", thanks to Sven Joachim
     (Closes: #638202).
+  * Bug fix: "gnus-BTS.el search for bugs against wrong url", thanks to
+    Marco Bardelli (Closes: #756208).
 
  --
 
