@@ -1,3 +1,11 @@
+emacs-goodies-el (35.14) unstable; urgency=medium
+
+  * debian-el:
+  - Bug fix: "Missing ; in debian-bug.el first line header", thanks
+    to Antoine R. Dumont (Closes: #842566).
+
+ --
+
 emacs-goodies-el (35.13) UNRELEASED; urgency=medium
 
   * emacs-goodies-el:
