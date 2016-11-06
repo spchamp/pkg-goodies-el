@@ -1,5 +1,7 @@
 emacs-goodies-el (35.14) unstable; urgency=medium
 
+  * Bug fix: "site-start files don't work", thanks to Samuel Bronson
+    (Closes: #751201). Added "emacsen-common (>= 2.0.8)" to all packages.
   * dpkg-dev-el:
   - debian-changelog-mode.el bug fix: "don't rely on external date
     (LP#1197870)", thanks to era eriksson and Pierre Carrier
