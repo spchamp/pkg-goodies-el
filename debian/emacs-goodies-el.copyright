@@ -153,10 +153,6 @@ Copyright: 1999 by Association April
 License: GPL-2+
 Comment: Author: Benjamin Drieu <bdrieu@april.org>
 
-Files: elisp/emacs-goodies-el/dict.el
-Copyright: 2002 Max Vasin
-License: GPL-2+
-
 Files: elisp/emacs-goodies-el/diminish.el
 Copyright: 1998 Free Software Foundation, Inc.
 License: GPL-2+
@@ -288,10 +284,6 @@ Comment:
 
 Files: elisp/emacs-goodies-el/map-lines.el
 Copyright: 2002 Andreas Fuchs <asf@void.at>
-License: GPL-2+
-
-Files: elisp/emacs-goodies-el/markdown-mode.el
-Copyright: 2007 Jason Blevins <jrblevin@sdf.lonestar.org>
 License: GPL-2+
 
 Files: elisp/emacs-goodies-el/marker-visit.el

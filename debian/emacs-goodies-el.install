@@ -18,7 +18,6 @@ elisp/emacs-goodies-el/csv-mode.el /usr/share/emacs/site-lisp/emacs-goodies-el/
 elisp/emacs-goodies-el/ctypes.el /usr/share/emacs/site-lisp/emacs-goodies-el/
 elisp/emacs-goodies-el/dedicated.el /usr/share/emacs/site-lisp/emacs-goodies-el/
 elisp/emacs-goodies-el/df.el /usr/share/emacs/site-lisp/emacs-goodies-el/
-elisp/emacs-goodies-el/dict.el /usr/share/emacs/site-lisp/emacs-goodies-el/
 elisp/emacs-goodies-el/diminish.el /usr/share/emacs/site-lisp/emacs-goodies-el/
 elisp/emacs-goodies-el/dir-locals.el /usr/share/emacs/site-lisp/emacs-goodies-el/
 elisp/emacs-goodies-el/edit-env.el /usr/share/emacs/site-lisp/emacs-goodies-el/
@@ -46,7 +45,6 @@ elisp/emacs-goodies-el/keywiz.el /usr/share/emacs/site-lisp/emacs-goodies-el/
 elisp/emacs-goodies-el/lcomp.el /usr/share/emacs/site-lisp/emacs-goodies-el/
 elisp/emacs-goodies-el/maplev.el /usr/share/emacs/site-lisp/emacs-goodies-el/
 elisp/emacs-goodies-el/map-lines.el /usr/share/emacs/site-lisp/emacs-goodies-el/
-elisp/emacs-goodies-el/markdown-mode.el /usr/share/emacs/site-lisp/emacs-goodies-el/
 elisp/emacs-goodies-el/marker-visit.el /usr/share/emacs/site-lisp/emacs-goodies-el/
 elisp/emacs-goodies-el/matlab.el /usr/share/emacs/site-lisp/emacs-goodies-el/
 elisp/emacs-goodies-el/minibuf-electric.el /usr/share/emacs/site-lisp/emacs-goodies-el/

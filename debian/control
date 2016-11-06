@@ -11,7 +11,7 @@ Vcs-Browser: http://alioth.debian.org/scm/viewvc.php/?root=pkg-goodies-el
 Package: emacs-goodies-el
 Architecture: all
 Depends: emacs | emacsen, emacsen-common (>= 2.0.8), bash (>= 2.05a) | bash-static, ${misc:Depends}, dpkg (>= 1.15.4) | install-info
-Recommends: dict, wget, perl-doc
+Recommends: wget, perl-doc
 Replaces: emacs-goodies-extra-el
 Provides: emacs-goodies-extra-el
 Description: Miscellaneous add-ons for Emacs

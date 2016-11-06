@@ -77,12 +77,6 @@ When a window is "dedicated", Emacs will not select files into that window.
 df.el provides M-x df, to display in the mode line space left on
 devices.
 
-dict.el is an Emacs wrapper around `dict' command to provide access to
-a dictd server from within Emacs.  The package provides several
-(customisable) key bindings, here are two of the default ones: `C-c d
-d' runs dict on the word at point.  `C-c d r' runs dict on region as a
-single word.
-
 diminish.el provides M-x diminish, M-x diminish-undo and M-x
 diminished-modes.  Diminished modes are minor modes with a shorter or
 no modeline display.
@@ -178,9 +172,6 @@ maplev.el is a major mode for Maple.
 
 map-lines.el provides M-x map-lines, a command to iterate a given
 command over lines matching a regexp.
-
-markdown-mode.el provides support for editing Markdown files. It
-provides syntax highlighting and basic element insertion commands.
 
 marker-visit.el provides a simple way to navigate among marks in a buffer.
 All the marks you've left while editing a buffer serve as bread crumb
@@ -316,4 +307,4 @@ resource database files.  To use it, simple open a file named .Xdefaults,
 .Xenvironment, .Xresources or *.ad after having enabled it by customising
 `xrdb-mode-setup-auto-mode-alist'.
 
- -- Peter S Galbraith <psg@debian.org>, Tue,  8 Jul 2014 14:47:42 -0400
+ -- Peter S Galbraith <psg@debian.org>, Sun,  6 Nov 2016 14:50:31 -0500
