@@ -1,7 +1,7 @@
 @c -*- mode: texinfo -*-
 \input texinfo
 
-@c $Id: emacs-goodies-el.texi,v 1.103 2016/11/06 19:42:39 psg Exp $
+@c $Id: emacs-goodies-el.texi,v 1.104 2016/11/06 20:08:20 psg Exp $
 @c %**start of header
 @setfilename info/emacs-goodies-el
 @settitle Emacs-Goodies-el
@@ -982,7 +982,7 @@ variable @code{df-run-on-startup}.
 @node dict, diminish, df, Top
 @chapter dict - Emacs interface to dict client
 
-Removed in emacs-goodies-el V35.0; Use dictionary-el instead.
+Removed in emacs-goodies-el V36.0; Use dictionary-el instead.
 
 @node diminish, dir-locals, dict, Top
 @chapter diminish - Diminish minor-mode's display
@@ -2830,7 +2830,7 @@ Invoke it with @command{M-x map-lines}.
 @node markdown-mode, marker-visit, map-lines, Top
 @chapter markdown-mode - Major mode for editing Markdown files
 
-This was removed from emacs-goodies-el V36.0 because it is pacakaged
+This was removed from emacs-goodies-el V36.0 because it is packaged
 separately as elpa-markdown-mode.
 
 @node marker-visit, matlab, markdown-mode, Top
