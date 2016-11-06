@@ -1,18 +1,20 @@
-emacs-goodies-el (35.14) unstable; urgency=medium
+emacs-goodies-el (36.0) unstable; urgency=medium  
 
   * Bug fix: "site-start files don't work", thanks to Samuel Bronson
     (Closes: #751201). Added "emacsen-common (>= 2.0.8)" to all packages.
+  * emacs-goodies-el:
+  - markdown.el removed; use elpa-markdown-mode instead.
+    (Closes: #644903, #656868, #810035)
+  - minibuf-electric.el bug fix: "[patch] fix minibuf-electric.el for
+    emacs24", thanks to Karl Hegbloom (Closes: #803728).
+  - rfcview.el bug fix: "rfcview.el does not obey fill-column", thanks to
+    frozencemetery (Closes: #761139).
   * dpkg-dev-el:
   - debian-changelog-mode.el bug fix: "don't rely on external date
     (LP#1197870)", thanks to era eriksson and Pierre Carrier
     (Closes: #803767).
   - debian-changelog-mode.el bug fix: "highlight backports", thanks to
     Kumar Appaiah (Closes: #708317).
-  * emacs-goodies-el:
-  - minibuf-electric.el bug fix: "[patch] fix minibuf-electric.el for
-    emacs24", thanks to Karl Hegbloom (Closes: #803728).
-  - rfcview.el bug fix: "rfcview.el does not obey fill-column", thanks to
-    frozencemetery (Closes: #761139).
 
  --
 

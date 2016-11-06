@@ -310,15 +310,6 @@ and face definitions."
   :load 'matlab
   :group 'emacs-goodies-el)
 
-;; markdown
-(defgroup markdown nil
-  "Markdown mode."
-  :prefix "markdown-"
-  :group 'languages
-  :link '(custom-manual "(emacs-goodies-el)markdown-mode")
-  :load 'markdown-mode
-  :group 'emacs-goodies-el)
-
 ;; minibuffer-complete-cycle
 (defgroup minibuffer-complete-cycle nil
   "Cycle through the *Completions* buffer."

@@ -1,7 +1,7 @@
 @c -*- mode: texinfo -*-
 \input texinfo
 
-@c $Id: emacs-goodies-el.texi,v 1.101 2011/08/16 16:15:05 psg Exp $
+@c $Id: emacs-goodies-el.texi,v 1.102 2016/11/06 19:11:17 psg Exp $
 @c %**start of header
 @setfilename info/emacs-goodies-el
 @settitle Emacs-Goodies-el
@@ -2867,25 +2867,8 @@ Invoke it with @command{M-x map-lines}.
 @node markdown-mode, marker-visit, map-lines, Top
 @chapter markdown-mode - Major mode for editing Markdown files
 
-@noindent Author: Jason Blevins <jrblevin@@sdf.lonestar.org>
-
-This major mode provides syntax highlighting and basic element insertion
-commands for Markdown files.
-
-No extension gets associated with this mode by default since there is no
-official extension: .mdml, .text, .md, .mdt, etc.
-
-To use this mode, either invoke it each time with:
-
-@example
- M-X markdown-mode
-@end example
-
-or insert the following snippet of code in your @file{.emacs} file.
-
-@example
- (add-to-list 'auto-mode-alist '("\\.mdwn$" . markdown-mode))
-@end example
+This was removed from emacs-goodies-el V36.0 because it is pacakaged
+separately as elpa-markdown-mode.
 
 @node marker-visit, matlab, markdown-mode, Top
 @chapter marker-visit - navigate through a buffer's marks in order
