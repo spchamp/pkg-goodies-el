@@ -13,6 +13,8 @@ emacs-goodies-el (35.14) unstable; urgency=medium
     Marco Bardelli (Closes: #756208).
   * Bug fix: "apt-utils.el should use word-at-point for default value for
     package", thanks to Remi Vanicat (Closes: #613776).
+  * Bug fix: "please add all BTS commands (e.g. affects and usertags)",
+    thanks to Luca Capello (Closes: #643888).
 
  --
 
