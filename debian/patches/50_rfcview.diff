@@ -1,0 +1,11 @@
+--- a/elisp/emacs-goodies-el/rfcview.el
++++ b/elisp/emacs-goodies-el/rfcview.el
+@@ -376,7 +376,7 @@
+                              (if (= n 0) "?" (1+ n))))))
+             (overlay-put overlay
+                          'before-string
+-                         (concat (make-string (max (- 79
++                         (concat (make-string (max (- fill-column
+                                                       (- (match-beginning 1)
+                                                          (match-beginning 0))
+                                                       (length page-str))

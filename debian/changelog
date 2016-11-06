@@ -11,6 +11,8 @@ emacs-goodies-el (35.14) unstable; urgency=medium
   * emacs-goodies-el:
   - minibuf-electric.el bug fix: "[patch] fix minibuf-electric.el for
     emacs24", thanks to Karl Hegbloom (Closes: #803728).
+  - rfcview.el bug fix: "rfcview.el does not obey fill-column", thanks to
+    frozencemetery (Closes: #761139).
 
  --
 
