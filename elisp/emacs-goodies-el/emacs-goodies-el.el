@@ -58,14 +58,6 @@ Setting to aggressive will enable features that supercede Emacs defaults."
 (autoload 'csv-mode "csv-mode"
   "Major mode for editing comma-separated value files." t)
 
-;; cyclebuffer.el
-(autoload 'cyclebuffer-forward "cyclebuffer"
-  "Cycle buffer forward."
-  t)
-(autoload 'cyclebuffer-backward "cyclebuffer"
-  "Cycle buffer backward."
-  t)
-
 ;; dict.el
 (autoload 'dict "dict" "Lookup a word in the dictionary" t)
 (autoload 'dict-region "dict" "Lookup a region in the dictionary" t)

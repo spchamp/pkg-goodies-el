@@ -9,6 +9,8 @@ emacs-goodies-el (36.0) unstable; urgency=medium
     emacs24", thanks to Karl Hegbloom (Closes: #803728).
   - rfcview.el bug fix: "rfcview.el does not obey fill-column", thanks to
     frozencemetery (Closes: #761139).
+  * Bug fix: "cyclebuffer busted", thanks to jidanni@jidanni.org;
+    (Closes: #613063).
   * dpkg-dev-el:
   - debian-changelog-mode.el bug fix: "don't rely on external date
     (LP#1197870)", thanks to era eriksson and Pierre Carrier
