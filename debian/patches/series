@@ -33,3 +33,4 @@
 50_setnu.diff
 50_quack_autoload.diff
 56_make_local_hook.diff
+50_minibuf-electric.diff

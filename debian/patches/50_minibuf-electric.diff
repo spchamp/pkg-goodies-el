@@ -1,0 +1,23 @@
+Index: emacs-goodies-el-35.12ubuntu1/elisp/emacs-goodies-el/minibuf-electric.el
+===================================================================
+--- emacs-goodies-el-35.12ubuntu1.orig/elisp/emacs-goodies-el/minibuf-electric.el
++++ emacs-goodies-el-35.12ubuntu1/elisp/emacs-goodies-el/minibuf-electric.el
+@@ -46,12 +46,17 @@ in `substitute-in-file-name'."
+   :require 'minibuf-electric
+   :group 'minibuffer)
+ 
++;;; HACK
++(defvar directory-sep-char ?/)
++
+ ;;; originally by Stig@hackvan.com, taken from XEmacs 21.4
+ ;;;
+ (defun minibuffer-electric-separator ()
+   "Insert / separator, but clear line first if typed twice in a row."
+   (interactive)
+-  (let ((c last-command-char))
++  (let ((c (if (not (>= emacs-major-version 24))
++               last-command-char
++             last-command-event)))
+     (and minibuffer-completing-file-name ; added for GNU Emacs
+ 	 minibuffer-electric-file-name-behavior
+ 	 (eq c directory-sep-char)

@@ -4,6 +4,9 @@ emacs-goodies-el (35.14) unstable; urgency=medium
   - debian-changelog-mode.el bug fix: "don't rely on external date
     (LP#1197870)", thanks to era eriksson and Pierre Carrier
     (Closes: #803767).
+  * emacs-goodies-el:
+  - minibuf-electric.el bug fix: "[patch] fix minibuf-electric.el for
+    emacs24", thanks to Karl Hegbloom (Closes: #803728).
 
  --
 
