@@ -34,7 +34,6 @@ Description: Miscellaneous add-ons for Emacs
   ctypes - enhanced Font lock support for custom defined types;
   dedicated - make a window dedicated to a single buffer;
   df - display in the mode line space left on devices;
-  dict - wrapper around the 'dict' command. (Depends on bash and dict)
   diminish - shorten or erase modeline presence of minor modes;
   dir-locals - provides directory-wide local variables;
   edit-env - display, edit, delete and add environment variables;
@@ -58,7 +57,6 @@ Description: Miscellaneous add-ons for Emacs
   lcomp - list-completion hacks;
   maplev - major mode for Maple;
   map-lines - map a command over lines matching a regexp;
-  markdown-mode - major mode for editing Markdown files;
   marker-visit - navigate through a buffer's marks in order;
   matlab - major mode for MatLab dot-m files;
   minibuf-electric -  electric minibuffer behavior from XEmacs;
