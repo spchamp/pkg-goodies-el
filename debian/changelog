@@ -15,6 +15,8 @@ emacs-goodies-el (35.14) unstable; urgency=medium
     package", thanks to Remi Vanicat (Closes: #613776).
   * Bug fix: "please add all BTS commands (e.g. affects and usertags)",
     thanks to Luca Capello (Closes: #643888).
+  * Bug fix: "improve handling of {old-, }stable-proposed-updates", thanks
+    to Guido Gunther (Closes: #818010).
 
  --
 
