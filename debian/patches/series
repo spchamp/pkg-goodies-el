@@ -7,7 +7,6 @@
 50_coffee_no-autoload.diff
 50_color-theme_custom.diff
 50_dedicated.diff
-50_dict_bug301293.diff
 50_diminish-defcustom.diff
 51_diminishSamuelBronson.diff
 50_edit-env_autoload.diff

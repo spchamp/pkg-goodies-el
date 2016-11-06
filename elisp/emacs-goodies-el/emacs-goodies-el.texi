@@ -1,7 +1,7 @@
 @c -*- mode: texinfo -*-
 \input texinfo
 
-@c $Id: emacs-goodies-el.texi,v 1.102 2016/11/06 19:11:17 psg Exp $
+@c $Id: emacs-goodies-el.texi,v 1.103 2016/11/06 19:42:39 psg Exp $
 @c %**start of header
 @setfilename info/emacs-goodies-el
 @settitle Emacs-Goodies-el
@@ -982,44 +982,7 @@ variable @code{df-run-on-startup}.
 @node dict, diminish, df, Top
 @chapter dict - Emacs interface to dict client
 
-This package is an Emacs wrapper around the shell @file{dict} command
-and provides an easy and comfortable (from my point of view) access to
-the dictd server from Emacs.
-
-The package provides several key bindings, which are customisation variables,
-so you can change them easily:
-
-@itemize @bullet
-@item
-@key{C-c d d} for running dict with options defined by
-customisation variables described below.
-
-@item
-@key{C-c d r} for running dict on region as a single word.
-
-@item
-@key{C-c d m} for running dict on every word in the region.
-
-@item
-@key{C-c d s} for running dict to perform search on the given server.
-
-@item
-@key{C-c d w} for running wordinspect GUI dict client.
-@end itemize
-
-The Debian emacs-goodies-el package doesn't setup these keys by
-default.  The first time you use @code{dict} in a session you must do
-so manually with @code{M-x dict}.  Thereafter the keybindings will
-work.  If someone requests it, a customization variable could be added
-to enable them automatically.
-
-Descriptions of all customisation variables are given below in their
-definitions, and of cause you can find them in the customization of
-the grou @code{Dict}.
-
-The author hopes you find the program useful and would like to know
-your opinion about the program, improvement suggestions and of course
-bug reports.  Mail them to max-appolo@@mail.ru
+Removed in emacs-goodies-el V35.0; Use dictionary-el instead.
 
 @node diminish, dir-locals, dict, Top
 @chapter diminish - Diminish minor-mode's display

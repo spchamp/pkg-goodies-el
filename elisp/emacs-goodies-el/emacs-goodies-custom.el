@@ -104,16 +104,6 @@ and face definitions."
 ;;:require 'df
   :group 'emacs-goodies-el)
 
-;; dict
-(defgroup Dict nil
-  "Browse DICT dictionaries."
-  :prefix "dict-"
-  :group 'external
-  :link '(custom-manual "(emacs-goodies-el)dict")
-  :load 'dict
-;;:require 'dict
-  :group 'emacs-goodies-el)
-
 ;; diminish
 (defgroup diminish nil
   "Diminished modes are minor modes with no modeline display."

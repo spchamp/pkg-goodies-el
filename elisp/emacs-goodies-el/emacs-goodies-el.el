@@ -58,10 +58,6 @@ Setting to aggressive will enable features that supercede Emacs defaults."
 (autoload 'csv-mode "csv-mode"
   "Major mode for editing comma-separated value files." t)
 
-;; dict.el
-(autoload 'dict "dict" "Lookup a word in the dictionary" t)
-(autoload 'dict-region "dict" "Lookup a region in the dictionary" t)
-
 ;; ff-paths.el
 (defcustom ff-paths-install emacs-goodies-el-defaults
   "Whether to setup ff-paths for use.
