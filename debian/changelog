@@ -5,6 +5,7 @@ emacs-goodies-el (36.0) unstable; urgency=medium
   * emacs-goodies-el:
   - markdown.el removed; use elpa-markdown-mode instead.
     (Closes: #644903, #656868, #810035)
+  - apache.el updated to 2015-08-23 version 2.0.
   - minibuf-electric.el bug fix: "[patch] fix minibuf-electric.el for
     emacs24", thanks to Karl Hegbloom (Closes: #803728).
   - rfcview.el bug fix: "rfcview.el does not obey fill-column", thanks to
