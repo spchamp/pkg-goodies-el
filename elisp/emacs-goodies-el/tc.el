@@ -79,12 +79,6 @@
 ;; start and (mark t) at end.
 
 ;;; Code:
-;; https://bugs.debian.org/cgi-bin/bugreport.cgi?bug=841059
-;; Fix by Gijs Hillenius <gijs@hillenius.net>
-(eval-when-compile
-  (when (< emacs-major-version 25)
-    (defmacro save-mark-and-excursion (&rest body)
-      `(save-excursion ,@body))))
 
 ;;; ************************************************************
 ;;; External requirements here
@@ -400,7 +394,7 @@ The resulting string is inserted into `tc-strings-list'."
 (defun tc-do-remove-sig ()
   "Attempt to remove the signature from already quoted text.
 Warns if it is longer than 4 lines (5 including signature mark '-- ')."
-  (save-mark-and-excursion
+  (save-excursion
     (setq tc-removed-sig nil)
     (setq tc-removed-sig-marker nil)
     (exchange-point-and-mark)
@@ -419,7 +413,7 @@ Warns if it is longer than 4 lines (5 including signature mark '-- ')."
   "Make the signature be after filling in undo list, and quoted."
   (if tc-removed-sig
       (progn
-	(save-mark-and-excursion
+	(save-excursion
 	  (goto-char (marker-position tc-removed-sig-marker))
 	  (insert tc-removed-sig)
 	  (let ((sig-end (point-marker)))
@@ -453,7 +447,7 @@ They remain valid for one citing only."
 Replaces any sequence of cite-marks such as \"> |: }\" with a uniform string
 of the citemarks of your choice, e.g. \">>>> \"."
   (interactive "r")
-  (save-mark-and-excursion
+  (save-excursion
     (goto-char start)
     (let ((end-marker (set-marker (make-marker) end)))
       (while (< (point) (marker-position end-marker))
@@ -485,7 +479,7 @@ It inserts an extra space before text that is not already cited (with
 (defun tc-remove-trailing-whitespace ()
   "Remove trailing whitespace."
   ;; First remove trailing empty lines
-  (save-mark-and-excursion
+  (save-excursion
     (if (< (point) (mark t))
 	(exchange-point-and-mark))
     (let ((end-cite (point)))
@@ -549,7 +543,7 @@ citations).")
   "*Cite the region like `trivial-cite', but without parsing headers.
 Doesn't cut the signature either.  Region is between START and END."
   (interactive "r")
-  (save-mark-and-excursion
+  (save-excursion
     (if (> start end)
 	(let ((tmp start)) (setq start end) (setq end tmp)))
     (goto-char start)
@@ -578,7 +572,7 @@ Doesn't cut the signature either.  Region is between START and END."
 
 (defun tc-fix-final-newline ()
   "Add a newline if there is not one at the end of the cited text."
-  (save-mark-and-excursion
+  (save-excursion
     (exchange-point-and-mark)
     (if (not (bolp))
 	(insert "\n"))))
@@ -600,7 +594,7 @@ Bugs:  Not very intelligent about old citation marks other than '>'.
 Customization:  See variables tc-fill-column, tc-remove-signature,
 tc-citation-string, tc-make-attribution and tc-header-funs."
   (run-hooks 'tc-pre-hook)
-  (save-mark-and-excursion
+  (save-excursion
     (if (< (mark t) (point)) (exchange-point-and-mark))
     (let ((start (point)))
       ;; Initialize some fields
@@ -623,7 +617,7 @@ tc-citation-string, tc-make-attribution and tc-header-funs."
 	  (tc-do-remove-sig))
       (tc-remove-trailing-whitespace)
       (if tc-max-lines
-	  (save-mark-and-excursion
+	  (save-excursion
 	    (message (concat "Only citing "
 			     (int-to-string tc-max-lines) " lines"))
 	    (goto-char start)
@@ -669,7 +663,7 @@ Used internally in tc-fill-cited-text.  Returns the end of the last filled
 paragraph."
   (interactive "nLength of citation marks: ")
   (let (fill-end)
-    (save-mark-and-excursion
+    (save-excursion
       (save-restriction
 	(beginning-of-line)
 	(let ((cite-marks (buffer-substring (point) (+ (point) cite-len)))
@@ -746,7 +740,7 @@ specially."
   "Find the length of the citation marking at point P.
 This is so we can fix it when filling.
 Used internally in `tc-fill-cited-text'."
-  (save-mark-and-excursion
+  (save-excursion
     (goto-char p)
     (forward-line 1)
     (let ((forward-prefix-length (tc-line-common-prefix-length p (point))))
@@ -779,7 +773,7 @@ Used internally in `tc-fill-cited-text'."
 Done on region between START and END.
 Uses a seperate undo-mechanism (with overlays) to allow partial undo."
   (interactive "r")
-  (save-mark-and-excursion
+  (save-excursion
     (goto-char start)
     (while (< (point) end)
       (beginning-of-line)
@@ -803,7 +797,7 @@ Uses a seperate undo-mechanism (with overlays) to allow partial undo."
 (defun tc-line-common-prefix-length (p1 p2)
   "Return the number of characters the two lines have as common prefix.
 The two lines are at point P1 and P2."
-  (save-mark-and-excursion
+  (save-excursion
     (let ((line1 (progn (goto-char p1) (beginning-of-line)
 			(let ((line-start (point)))
 			  (end-of-line)
@@ -830,7 +824,7 @@ This function assumes that all lines in the region have the same citation
 marks, as it regards the shortest common prefix of the lines as citation
 marks."
   (interactive "r")
-;;(save-mark-and-excursion
+;;(save-excursion
   (goto-char start)
   (beginning-of-line)
   (let ((line-start (point)))
@@ -857,7 +851,7 @@ The region is between START and END.
 This function finds the longest possible citemark and wraps all lines as
 if they had that amount of citemarks."
   (interactive "r")
-;;(save-mark-and-excursion
+;;(save-excursion
   (goto-char end)
   (let ((end-mark (point-marker))
 	(cite-marks ""))
@@ -903,7 +897,7 @@ to fill the paragraph better."
   (interactive "d")
   (let ((reformatted (get-char-property at 'tc-reformat)))
     (if reformatted
-	(save-mark-and-excursion
+	(save-excursion
 	  (let ((removed-region (buffer-substring
 				 (overlay-start (cdr reformatted))
 				 (overlay-end (cdr reformatted)))))
@@ -929,7 +923,7 @@ to fill the paragraph better."
     (substring known-marks (length (concat "\n " tc-normal-citemarks)))))
 
 (defun tc-guess-cite-marks ()
-  (save-mark-and-excursion
+  (save-excursion
     (let ((best-prefix "\n")
 	  guessed-marks
 	  marks-begin marks-end)
@@ -954,7 +948,7 @@ to fill the paragraph better."
       guessed-marks)))
 
 (defun tc-citemarks-need-guessing ()
-  (save-mark-and-excursion
+  (save-excursion
     (let ((max-line-len (- (tc-fill-column) (length tc-citation-string) 1))
 	  needed)
       (beginning-of-line)
@@ -973,7 +967,7 @@ to fill the paragraph better."
 ;; Doesn't work yet.  *sniff*
 (defun tc-reply-to-citee-p (email)
   "Whether the mail being composed is for the person being cited."
-  (save-mark-and-excursion
+  (save-excursion
     (beginning-of-buffer)
     (if (re-search-forward "^To:[ \t]+\\(.*\\)\n" nil t)
 	(if (equal email (buffer-substring (match-beginning 1) (match-end 1)))
